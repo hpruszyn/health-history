@@ -1,0 +1,37 @@
+---
+import journey from "../../public/data/journey-2025-2026.json";
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const entries = journey.stageTwo.benchPress;
+const bodyWeight = journey.stageTwo.weightKg;
+const sessions = entries.map((entry) => {
+  const estimatedOneRepMax = entry.loadKg * (1 + entry.reps / 30);
+  return {
+    ...entry,
+    estimatedOneRepMax,
+    goalProgress: Math.min(estimatedOneRepMax / bodyWeight, 1),
+  };
+});
+---
+
+<figure class="strength-chart">
+  <figcaption>
+    <span>{lang === "pl" ? "Wrzesień 2026" : "September 2026"}</span>
+    <strong>{lang === "pl" ? "Szacowany 1RM względem celu 92 kg" : "Estimated 1RM toward the 92 kg goal"}</strong>
+  </figcaption>
+  <div class="strength-bars" aria-label={lang === "pl" ? "Postęp w wyciskaniu leżąc" : "Bench press progress"}>
+    {sessions.map((entry) => (
+      <div class="strength-entry">
+        <div class="strength-entry-label">
+          <span>{entry.loadKg.toFixed(1)} kg × {entry.reps}</span>
+          <small>e1RM {entry.estimatedOneRepMax.toFixed(1)} kg</small>
+        </div>
+        <div class="strength-track" aria-hidden="true">
+          <div class="strength-bar" style={`--bar-scale:${entry.goalProgress}`}></div>
+        </div>
+        <strong>{Math.round(entry.goalProgress * 100)}%</strong>
+      </div>
+    ))}
+  </div>
+  <p>{lang === "pl" ? "e1RM to przybliżenie na podstawie ciężaru i liczby powtórzeń, nie zmierzony rekord. To jeszcze nie wniosek — tylko początek następnego eksperymentu." : "e1RM is an estimate based on load and repetitions, not a measured max. This is not a conclusion yet — only the beginning of the next experiment."}</p>
+</figure>

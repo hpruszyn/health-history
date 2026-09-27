@@ -1,0 +1,170 @@
+---
+import journey from "../../public/data/journey-2025-2026.json";
+
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const labels = lang === "pl" ? {
+  title: "Masa ciała, grudzień 2025 — wrzesień 2026",
+  desc: "Potwierdzone punkty pomiarowe. Linia pokazuje kierunek, czerwony fragment — wakacyjny wzrost.",
+  weight: "Masa",
+  bmi: "BMI",
+  date: "Data",
+  summer: "wakacyjny wzrost",
+  approximate: "lato 2026",
+  note: "Snapshot potwierdzonych punktów. Pełny eksport dziennych pomiarów zastąpi ten plik przed finalną publikacją.",
+  goal: "granica BMI 25"
+} : {
+  title: "Body weight, December 2025 — September 2026",
+  desc: "Confirmed measurement points. The line shows direction; the red segment marks the summer rebound.",
+  weight: "Weight",
+  bmi: "BMI",
+  date: "Date",
+  summer: "summer rebound",
+  approximate: "summer 2026",
+  note: "Snapshot of confirmed points. A full daily export can replace this file before final publication.",
+  goal: "BMI 25 threshold"
+};
+const points = journey.weights;
+---
+
+<figure class="chart-shell" data-weight-chart data-height="192" data-lang={lang}>
+  <figcaption class="chart-heading">
+    <div>
+      <h3>{labels.title}</h3>
+      <p>{labels.desc}</p>
+    </div>
+    <div class="chart-key" aria-hidden="true">
+      <span><i class="key-dot key-dot--raw"></i>{lang === "pl" ? "pomiar" : "measurement"}</span>
+      <span><i class="key-line"></i>{lang === "pl" ? "trend" : "trend"}</span>
+      <span><i class="key-line key-line--rebound"></i>{lang === "pl" ? "regres" : "rebound"}</span>
+    </div>
+  </figcaption>
+  <div class="chart-stage">
+    <svg viewBox="0 0 1000 520" role="img" aria-labelledby="weight-chart-title weight-chart-desc">
+      <title id="weight-chart-title">{labels.title}</title>
+      <desc id="weight-chart-desc">{labels.desc}</desc>
+      <g class="chart-grid"></g>
+      <g class="chart-goal"></g>
+      <g class="chart-paths"></g>
+      <g class="chart-points"></g>
+      <g class="chart-axis"></g>
+    </svg>
+    <div class="chart-tooltip" role="status" aria-live="polite"></div>
+  </div>
+  <p class="chart-note">{labels.note}</p>
+  <script type="application/json" class="chart-data" set:html={JSON.stringify({ points, labels })}></script>
+</figure>
+
+<script>
+  const NS = "http://www.w3.org/2000/svg";
+
+  type WeightPoint = {
+    date: string;
+    weight: number;
+    kind: string;
+    datePrecision?: string;
+    t: number;
+  };
+
+  type ChartLabels = {
+    weight: string;
+    bmi: string;
+    summer: string;
+    approximate: string;
+    goal: string;
+  };
+
+  function svgEl(name: string, attrs: Record<string, string | number> = {}) {
+    const el = document.createElementNS(NS, name);
+    Object.entries(attrs).forEach(([key, value]) => el.setAttribute(key, String(value)));
+    return el;
+  }
+
+  document.querySelectorAll<HTMLElement>("[data-weight-chart]").forEach((root) => {
+    const svg = root.querySelector<SVGSVGElement>("svg");
+    const tooltip = root.querySelector<HTMLElement>(".chart-tooltip");
+    const dataNode = root.querySelector<HTMLScriptElement>(".chart-data");
+    if (!svg || !tooltip || !dataNode?.textContent) return;
+
+    const raw = JSON.parse(dataNode.textContent) as { points: Omit<WeightPoint, "t">[]; labels: ChartLabels };
+    const data: WeightPoint[] = raw.points.map((p) => ({ ...p, t: new Date(`${p.date}T12:00:00`).getTime() }));
+    const { labels } = raw;
+    const heightCm = Number(root.dataset.height);
+    const margin = { top: 32, right: 34, bottom: 68, left: 68 };
+    const width = 1000 - margin.left - margin.right;
+    const height = 520 - margin.top - margin.bottom;
+    const minT = Math.min(...data.map((d) => d.t));
+    const maxT = Math.max(...data.map((d) => d.t));
+    const minW = 90;
+    const maxW = 110;
+    const x = (t: number) => margin.left + ((t - minT) / (maxT - minT)) * width;
+    const y = (w: number) => margin.top + ((maxW - w) / (maxW - minW)) * height;
+    const line = data.map((d, index) => `${index ? "L" : "M"}${x(d.t)},${y(d.weight)}`).join(" ");
+    const grid = svg.querySelector<SVGGElement>(".chart-grid");
+    const paths = svg.querySelector<SVGGElement>(".chart-paths");
+    const pointsGroup = svg.querySelector<SVGGElement>(".chart-points");
+    const axis = svg.querySelector<SVGGElement>(".chart-axis");
+    const goal = svg.querySelector<SVGGElement>(".chart-goal");
+    if (!grid || !paths || !pointsGroup || !axis || !goal || data.length === 0) return;
+
+    [90, 95, 100, 105, 110].forEach((value) => {
+      grid.append(svgEl("line", { x1: margin.left, x2: 1000 - margin.right, y1: y(value), y2: y(value) }));
+      const label = svgEl("text", { x: margin.left - 18, y: y(value) + 5, "text-anchor": "end" });
+      label.textContent = `${value}`;
+      axis.append(label);
+    });
+
+    const bmi25Weight = 25 * Math.pow(heightCm / 100, 2);
+    goal.append(svgEl("line", { x1: margin.left, x2: 1000 - margin.right, y1: y(bmi25Weight), y2: y(bmi25Weight), class: "goal-line" }));
+    const goalLabel = svgEl("text", { x: 1000 - margin.right, y: y(bmi25Weight) - 12, "text-anchor": "end", class: "goal-label" });
+    goalLabel.textContent = `${labels.goal} · ${bmi25Weight.toFixed(1)} kg`;
+    goal.append(goalLabel);
+
+    paths.append(svgEl("path", { d: line, class: "weight-line" }));
+    const summer = data.filter((d) => d.kind === "summer-low" || d.kind === "summer-high");
+    if (summer.length === 2) {
+      paths.append(svgEl("path", { d: `M${x(summer[0].t)},${y(summer[0].weight)} L${x(summer[1].t)},${y(summer[1].weight)}`, class: "rebound-line" }));
+      const callout = svgEl("text", { x: (x(summer[0].t) + x(summer[1].t)) / 2, y: y(101), "text-anchor": "middle", class: "rebound-label" });
+      callout.textContent = `+4.2 kg · ${labels.summer}`;
+      axis.append(callout);
+    }
+
+    const formatDate = (point: WeightPoint) => point.datePrecision === "season"
+      ? labels.approximate
+      : new Intl.DateTimeFormat(root.dataset.lang === "pl" ? "pl-PL" : "en-GB", { day: "numeric", month: "short", year: "numeric" }).format(new Date(`${point.date}T12:00:00`));
+
+    data.forEach((point) => {
+      const g = svgEl("g", { class: `data-point data-point--${point.kind}`, tabindex: "0", role: "button", "aria-label": `${formatDate(point)}, ${point.weight} kg` });
+      const hit = svgEl("circle", { cx: x(point.t), cy: y(point.weight), r: 22, class: "point-hit" });
+      const dot = svgEl("circle", { cx: x(point.t), cy: y(point.weight), r: point.kind === "start" || point.kind === "current" ? 8 : 6, class: "point-dot" });
+      g.append(hit, dot);
+      pointsGroup.append(g);
+
+      const show = () => {
+        const bmi = point.weight / Math.pow(heightCm / 100, 2);
+        tooltip.innerHTML = `<strong>${formatDate(point)}</strong><span>${labels.weight}: ${point.weight.toFixed(1)} kg</span><span>${labels.bmi}: ${bmi.toFixed(1)}</span>`;
+        tooltip.style.left = `${Math.min(82, Math.max(18, (x(point.t) / 1000) * 100))}%`;
+        tooltip.style.top = `${Math.max(8, (y(point.weight) / 520) * 100 - 4)}%`;
+        tooltip.classList.add("is-visible");
+      };
+      const hide = () => tooltip.classList.remove("is-visible");
+      g.addEventListener("mouseenter", show);
+      g.addEventListener("focus", show);
+      g.addEventListener("mouseleave", hide);
+      g.addEventListener("blur", hide);
+      g.addEventListener("click", show);
+    });
+
+    [data[0], data[2], data[3], data[data.length - 1]].forEach((point, index) => {
+      const label = svgEl("text", { x: x(point.t), y: y(point.weight) + (index % 2 ? 30 : -18), "text-anchor": index === 0 ? "start" : index === 3 ? "end" : "middle", class: "point-label" });
+      label.textContent = `${point.weight.toFixed(1)} kg`;
+      axis.append(label);
+    });
+
+    [data[0], data[2], data[3], data[data.length - 1]].forEach((point) => {
+      const label = svgEl("text", { x: x(point.t), y: 505, "text-anchor": point === data[0] ? "start" : point === data[data.length - 1] ? "end" : "middle", class: "date-label" });
+      label.textContent = new Intl.DateTimeFormat(root.dataset.lang === "pl" ? "pl-PL" : "en-GB", { month: "short", year: "2-digit" }).format(new Date(`${point.date}T12:00:00`));
+      axis.append(label);
+    });
+  });
+</script>

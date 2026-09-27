@@ -1,0 +1,8 @@
+{
+  "version": 1,
+  "stack": "astro",
+  "buildPath": "code-first",
+  "deployment": "github-pages",
+  "languages": ["pl", "en"],
+  "visualDirection": "editorial-data-journal"
+}

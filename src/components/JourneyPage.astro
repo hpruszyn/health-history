@@ -1,0 +1,451 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import WeightChart from "./WeightChart.astro";
+import StrengthChart from "./StrengthChart.astro";
+
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const isPL = lang === "pl";
+const base = import.meta.env.BASE_URL;
+const coffeeUrl = import.meta.env.PUBLIC_BUY_ME_A_COFFEE_URL;
+const otherHref = `${base}${isPL ? "en" : "pl"}/`;
+
+const meta = isPL ? {
+  title: "Jak zmieniłem swoje nawyki i zrzuciłem ponad 15 kg — osobista historia",
+  description: "Po dwóch nowotworach i narodzinach syna postanowiłem wrócić do formy. Bez restrykcyjnej diety i liczenia kalorii — za to z danymi, małymi zmianami i dużą dawką uporu."
+} : {
+  title: "How I changed my habits and lost more than 15 kg — a personal story",
+  description: "After two cancer diagnoses and becoming a father, I decided to rebuild my health and fitness through small, measurable changes."
+};
+
+const rules = isPL ? [
+  ["01", "Mniej cukru", "Czekolada mogła być czymś normalnym co drugi dzień. Nadal ją jem — tylko raczej raz w tygodniu."],
+  ["02", "Mniejsze porcje", "Nie zmieniłem całkowicie tego, co jem. Często po prostu jem mniej: jedna kanapka zamiast dwóch, pół pizzy zamiast całej."],
+  ["03", "Więcej warzyw", "Warzywa zaczęły regularnie pojawiać się także przy śniadaniu. Od 2026 roku część z nich pochodzi z mojej szklarni."],
+  ["04", "Patrzenie na skład", "Częściej czytam etykiety: mniej cukru, mniej przetworzenia, prostszy skład i lokalne produkty, kiedy mam wybór."],
+  ["05", "Wieczorem nie jem", "U mnie najwięcej niepotrzebnego jedzenia pojawiało się wieczorem. Zakończenie jedzenia około 17–18 okazało się najskuteczniejszą regułą — nie magiczną godziną dla każdego."]
+] : [
+  ["01", "Less sugar", "Chocolate used to be normal every other day. I still eat it — just closer to once a week."],
+  ["02", "Smaller portions", "I didn’t completely change what I eat. Often I simply eat less: one sandwich instead of two, half a pizza instead of a whole one."],
+  ["03", "More vegetables", "Vegetables became a regular part of breakfast too. Since 2026, some of them have come from my own greenhouse."],
+  ["04", "Reading the label", "I check ingredients more often: less sugar, less processing, simpler recipes and local products when I have the choice."],
+  ["05", "No evening eating", "Most of my unnecessary eating happened at night. Finishing around 5–6 p.m. became my most effective rule — not a magic hour for everyone."]
+];
+
+const checkpoints = [
+  ["105", isPL ? "Pierwszy mały próg" : "The first small threshold", "16.12.2025"],
+  ["100", isPL ? "Pierwsze zejście poniżej" : "The first time below", "29.01.2026"],
+  ["95", isPL ? "Kolejna granica" : "The next boundary", "09.05.2026"],
+  ["BMI", isPL ? "Prawidłowy zakres" : "The normal range", isPL ? "cel etapu 1" : "stage 1 goal"]
+];
+---
+
+<BaseLayout lang={lang} title={meta.title} description={meta.description}>
+  <header class="site-header" data-header>
+    <a class="wordmark" href={`#top`} aria-label={isPL ? "Początek strony" : "Top of page"}>
+      <span class="wordmark-mark">H</span>
+      <span>Hubert <i>/</i> {isPL ? "droga do formy" : "a road back to fitness"}</span>
+    </a>
+    <nav aria-label={isPL ? "Główna nawigacja" : "Main navigation"}>
+      <a href="#story">{isPL ? "Historia" : "Story"}</a>
+      <a href="#data">{isPL ? "Dane" : "Data"}</a>
+      <a href="#stage-two">{isPL ? "Etap 2" : "Stage 2"}</a>
+      <a href="#about">{isPL ? "O mnie" : "About"}</a>
+    </nav>
+    <a class="language-switch" href={otherHref} lang={isPL ? "en" : "pl"} hreflang={isPL ? "en" : "pl"}>
+      <span class={isPL ? "active" : ""}>PL</span><i>/</i><span class={!isPL ? "active" : ""}>EN</span>
+    </a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-index" aria-hidden="true">01 — 12 — 2025</div>
+      <div class="hero-copy">
+        <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
+        <div class="hero-intro">
+          {isPL ? (
+            <>
+              <p>1 grudnia 2025 ważyłem 108 kg.</p>
+              <p>Po dwóch chorobach nowotworowych, latach leczenia i kilku nieudanych próbach powrotu do dawnej formy trochę się zapuściłem.</p>
+              <p>Pół roku po narodzinach mojego syna uznałem, że czas coś z tym zrobić.</p>
+            </>
+          ) : (
+            <>
+              <p>On December 1st, 2025, I weighed 108 kg.</p>
+              <p>After going through cancer twice, years of treatment and several frustrating attempts to return to my old shape, I had let myself go.</p>
+              <p>About six months after my son was born, I decided it was time to change that.</p>
+            </>
+          )}
+        </div>
+      </div>
+      <div class="hero-constraints">
+        <p>{isPL ? "Nie chciałem liczyć kalorii." : "I didn’t want to count calories."}</p>
+        <p>{isPL ? "Nie chciałem restrykcyjnej diety." : "I didn’t want a restrictive diet."}</p>
+        <p>{isPL ? "Nie chciałem zaczynać od ciężkich treningów." : "I didn’t want to start with hard workouts."}</p>
+      </div>
+      <div class="hero-result" aria-label={isPL ? "Aktualny wynik" : "Current result"}>
+        <div>
+          <strong>−16</strong>
+          <span>{isPL ? "kilogramów" : "kilograms"}</span>
+        </div>
+        <div>
+          <strong>299</strong>
+          <span>{isPL ? "dni" : "days"}</span>
+        </div>
+        <p>{isPL ? "Stan na 26 września 2026. Finalne liczby zostaną zamknięte przy publikacji." : "As of September 26th, 2026. Final numbers will be locked at publication."}</p>
+      </div>
+      <p class="hero-closing">{isPL ? "To historia tego, co zadziałało u mnie — i czego nauczyłem się po drodze." : "This is the story of what worked for me — and what I learned along the way."}</p>
+      <a class="scroll-cue" href="#story">
+        <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13m-5-5 5 5 5-5" /></svg>
+      </a>
+    </section>
+
+    <section class="chapter chapter--history" id="story">
+      <div class="chapter-number">01</div>
+      <div class="chapter-title">
+        <h2>{isPL ? "Zanim zacząłem" : "Before I started"}</h2>
+        <p>{isPL ? "Pamięć dawnej formy nie pomagała. Była miarą wszystkiego, czego już nie potrafiłem." : "The memory of my old fitness didn’t help. It measured everything I could no longer do."}</p>
+      </div>
+      <div class="prose prose--wide">
+        {isPL ? (
+          <>
+            <p class="lead">Kiedyś sport był dużą częścią mojego życia. Wspinałem się, trenowałem karate, dużo jeździłem na rowerze. Byłem szczupły, silny i miałem naprawdę dobrą formę.</p>
+            <p>Około trzydziestki zachorowałem na chłoniaka limfoblastycznego T-komórkowego. Przeszedłem około ośmiu cykli chemioterapii i przez mniej więcej rok większość czasu spędziłem w szpitalu, z krótkimi przepustkami do domu.</p>
+            <p>Kilka lat później, około 37. roku życia, pojawił się rak tarczycy. Przeszedłem operację usunięcia tarczycy i dwie serie leczenia radioaktywnym jodem. Dziś nie mam tarczycy i przyjmuję wysoką dawkę Euthyroxu.</p>
+            <p>Po wszystkim kilka razy próbowałem wrócić do ćwiczeń. I właśnie to było frustrujące.</p>
+            <p>Pamiętałem, jak silny i sprawny byłem kiedyś, a teraz rzeczy, które wcześniej były łatwe, nagle były trudne. Zamiast motywacji dostawałem kolejne przypomnienie, jak daleko jestem od dawnego siebie.</p>
+            <p class="short-stop">Więc przestawałem.</p>
+          </>
+        ) : (
+          <>
+            <p class="lead">Sport used to be a big part of my life. I climbed, trained karate and spent a lot of time cycling. I was lean, strong and in very good shape.</p>
+            <p>Around the age of 30 I was diagnosed with T-cell lymphoblastic lymphoma. I went through roughly eight chemotherapy cycles and spent most of the following year in hospital, with short periods at home.</p>
+            <p>Several years later, at around 37, I was diagnosed with thyroid cancer. My thyroid was removed and I went through two rounds of radioactive iodine treatment. Today I live without a thyroid and take a high dose of levothyroxine.</p>
+            <p>After all of that, I tried several times to start exercising again. That was where the frustration came in.</p>
+            <p>I remembered how strong and fit I used to be. Things that had once been easy suddenly weren’t. Instead of motivating me, every workout reminded me how far I was from my old self.</p>
+            <p class="short-stop">So I stopped.</p>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="turning-story">
+      <div class="portrait-placeholder" role="img" aria-label={isPL ? "Miejsce na osobiste zdjęcie Huberta ze Stasiem" : "Reserved space for a personal photo of Hubert and Staś"}>
+        <div class="orbit orbit--one"></div><div class="orbit orbit--two"></div>
+        <span>{isPL ? "osobisty kadr\nHubert + Staś" : "a personal frame\nHubert + Staś"}</span>
+      </div>
+      <div class="turning-copy">
+        <h2>{isPL ? "Potem pojawił się Staś." : "Then Staś came along."}</h2>
+        {isPL ? (
+          <>
+            <p>Miałem 38 lat. Po kilku miesiącach ojcostwo zaczęło do mnie naprawdę docierać.</p>
+            <blockquote>„Kiedy Staś będzie miał 10 lat, ja będę zbliżał się do pięćdziesiątki.”</blockquote>
+            <p>Chcę wtedy móc z nim jeździć na rowerze, pływać, chodzić po górach, biegać i robić wszystkie rzeczy, które będziemy chcieli robić razem.</p>
+            <p>Nie chcę jedynie być obok. <strong>Chcę mieć formę, żeby za nim nadążyć.</strong></p>
+            <p>I chyba właśnie wtedy zdrowie przestało być dla mnie abstrakcyjnym tematem.</p>
+          </>
+        ) : (
+          <>
+            <p>I was 38. A few months later, fatherhood really started to sink in.</p>
+            <blockquote>“When Staś is ten, I’ll be approaching fifty.”</blockquote>
+            <p>I want to be able to cycle with him, swim, hike, run and do whatever active things we decide to do together.</p>
+            <p>I don’t just want to be there. <strong>I want to be fit enough to keep up with him.</strong></p>
+            <p>That was probably the moment when health stopped being an abstract idea for me.</p>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="start-marker">
+      <div class="start-date">01.12.2025</div>
+      <div class="start-metrics">
+        <div><strong>108</strong><span>kg</span></div>
+        <div><strong>29.3</strong><span>BMI</span></div>
+        <div><strong>192</strong><span>cm</span></div>
+      </div>
+      <div class="start-text">
+        <h2>{isPL ? "Wystarczy." : "Enough."}</h2>
+        <p>{isPL ? "108 kg przy moim wzroście oznaczało BMI około 29,3 — jeszcze formalnie nadwagę, ale już bardzo blisko granicy otyłości. Postawiłem sobie cel, który wtedy wydawał mi się ambitny: BMI w normie w maksymalnie rok." : "At my height, 108 kg meant a BMI of about 29.3 — still formally overweight, but very close to the obesity threshold. I set myself a goal that felt ambitious at the time: a normal BMI within one year."}</p>
+      </div>
+    </section>
+
+    <section class="game-section">
+      <div class="game-copy prose">
+        <h2>{isPL ? "Potrzebowałem gry" : "I needed a game"}</h2>
+        {isPL ? (
+          <>
+            <p>Wiedziałem jeszcze jedną rzecz o sobie. Sama deklaracja „od teraz będę chudł” nie wystarczy.</p>
+            <p>Za to bardzo dobrze działa na mnie rywalizacja. Lubię wygrywać.</p>
+            <p>Dlatego od samego początku stworzyłem sobie aplikację i wciągnąłem do zabawy kolegę. Powstała „Bitwa o wagę”.</p>
+            <p class="aside-line">Nie Excel. Excel byłby zdecydowanie zbyt nudny.</p>
+            <p>Zasada była prosta: sprawdzamy, kto osiągnie lepszy spadek masy w kwartale. Przeciwnik okazał się mało wymagający. Ale możliwość przypomnienia mu od czasu do czasu, że znowu jestem lepszy, dawała mi wystarczająco dużo satysfakcji, żeby rywalizacja działała.</p>
+          </>
+        ) : (
+          <>
+            <p>I knew one more thing about myself. Simply declaring “I’m going to lose weight now” wasn’t going to be enough.</p>
+            <p>Competition, on the other hand, works extremely well on me. I like winning.</p>
+            <p>So from the very beginning I built an app and convinced a friend to compete with me. “Bitwa o wagę” — roughly “Battle of the Weight” — was born.</p>
+            <p class="aside-line">Not a spreadsheet. A spreadsheet would have been far too boring.</p>
+            <p>The rule was simple: every quarter, whoever lost more weight won. My opponent turned out not to be particularly challenging. But being able to remind him occasionally that I was winning was apparently enough motivation to keep the system working.</p>
+          </>
+        )}
+      </div>
+      <div class="game-score" aria-label={isPL ? "Przykładowa tablica wyników" : "Example scoreboard"}>
+        <div class="score-top"><span>{isPL ? "kwartał 03" : "quarter 03"}</span><span>2026</span></div>
+        <div class="score-row score-row--winner"><span>01</span><strong>Hubert</strong><b>−6.9%</b></div>
+        <div class="score-row"><span>02</span><strong>{isPL ? "kolega" : "friend"}</strong><b>−1.8%</b></div>
+        <div class="score-foot">{isPL ? "przewaga wystarczająco satysfakcjonująca" : "a sufficiently satisfying lead"}</div>
+      </div>
+    </section>
+
+    <section class="rules-section">
+      <div class="section-heading">
+        <h2>{isPL ? "Pierwsze zasady" : "The first rules"}</h2>
+        <p>{isPL ? "Nie uniwersalna dieta. Pięć prostych ograniczeń, które pasowały do mojego życia." : "Not a universal diet. Five simple constraints that happened to fit my life."}</p>
+      </div>
+      <div class="rule-list">
+        {rules.map(([number, title, body]) => (
+          <article class="rule-item">
+            <span>{number}</span>
+            <h3>{title}</h3>
+            <p>{body}</p>
+          </article>
+        ))}
+      </div>
+      <p class="quality-note">{isPL ? "Ciekawy efekt uboczny: jem mniej, ale na jedzenie wydaję mniej więcej tyle samo. Większa część pieniędzy idzie w jakość zamiast w ilość." : "An interesting side effect: I eat less, but spend roughly the same on food. More of the money goes into quality instead of quantity."}</p>
+    </section>
+
+    <section class="feedback-section">
+      <div class="feedback-number">365</div>
+      <div class="feedback-copy">
+        <h2>{isPL ? "Codzienny feedback" : "Daily feedback"}</h2>
+        {isPL ? (
+          <>
+            <p>Ważę się codziennie. Dla części osób tak częsty pomiar może być niepotrzebny. Ja go potrzebuję.</p>
+            <p>Lubię szybki feedback. Jeśli przez kilka dni widzę wzrost, nie czekam miesiąca, żeby sprawdzić, co się dzieje. Dostaję od siebie wewnętrzny ochrzan i wracam do swoich zasad.</p>
+            <blockquote>Dzisiaj jemy mniej.</blockquote>
+            <p>W perspektywie pojedynczego dnia masa potrafi mocno falować. Dlatego liczy się zarówno surowy pomiar, jak i kierunek.</p>
+          </>
+        ) : (
+          <>
+            <p>I weigh myself every day. For some people, measuring that often may be unnecessary. I need it.</p>
+            <p>I like fast feedback. If I see a rise for several days, I don’t wait a month to find out what is happening. I give myself an internal telling-off and return to my rules.</p>
+            <blockquote>We eat less today.</blockquote>
+            <p>Weight can move dramatically within a single day. That is why both the raw measurement and the direction matter.</p>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="data-section" id="data">
+      <div class="section-heading section-heading--data">
+        <h2>{isPL ? "Droga nie była linią prostą." : "The road was not a straight line."}</h2>
+        <p>{isPL ? "I właśnie dlatego warto ją pokazać." : "That is exactly why it is worth showing."}</p>
+      </div>
+      <WeightChart lang={lang} />
+    </section>
+
+    <section class="summer-section">
+      <div class="summer-stat"><strong>+4.2</strong><span>kg</span></div>
+      <div class="summer-copy">
+        <h2>{isPL ? "I nic się nie stało." : "And nothing terrible happened."}</h2>
+        {isPL ? (
+          <>
+            <p>Jedną z rzeczy, których nauczył mnie ten rok, jest to, że droga nie musi być idealna.</p>
+            <p>Przed wakacjami zobaczyłem na wadze 94,7 kg. Podczas wakacji masa doszła chwilowo do 98,9 kg. Ponad cztery kilogramy więcej.</p>
+            <p>Kiedyś taki wynik mógłby być dobrym pretekstem, żeby uznać cały projekt za porażkę. Tym razem nim nie był.</p>
+            <p class="summer-ending">Wakacje się skończyły. Wróciły moje zasady. Waga ponownie zaczęła spadać.</p>
+          </>
+        ) : (
+          <>
+            <p>One of the things this year taught me is that progress doesn’t have to be perfect.</p>
+            <p>Before the summer I saw 94.7 kg on the scale. During the holidays my weight climbed back to 98.9 kg. More than four kilograms up.</p>
+            <p>In the past, that could easily have become an excuse to consider the whole project a failure. This time it didn’t.</p>
+            <p class="summer-ending">The holidays ended. My normal rules came back. And the weight started moving down again.</p>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="checkpoints-section">
+      <div class="section-heading">
+        <h2>{isPL ? "Małe wygrane" : "Small wins"}</h2>
+        <p>{isPL ? "Nie czekałem wyłącznie na finał. Każda przekroczona granica była osobnym zwycięstwem." : "I didn’t wait only for the finish. Every crossed threshold was a win of its own."}</p>
+      </div>
+      <div class="checkpoint-track">
+        {checkpoints.map(([value, label, date], index) => (
+          <article class={index < 3 ? "checkpoint is-complete" : "checkpoint"}>
+            <span class="checkpoint-dot">{index < 3 ? "✓" : "○"}</span>
+            <strong>{value}<small>{value !== "BMI" ? " kg" : ""}</small></strong>
+            <p>{label}</p>
+            <time>{date}</time>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="life-details">
+      <article class="detail detail--trousers">
+        <div class="detail-visual trousers-visual" aria-hidden="true"><span>800 zł</span><i></i></div>
+        <div>
+          <h2>{isPL ? "Spodnie, które miały poczekać" : "The trousers that had to wait"}</h2>
+          <p>{isPL ? "Kilka miesięcy wcześniej kupiłem spodnie Fjällräven za około 800 zł. Były za małe. Kupiłem je świadomie z założeniem: schudnę i kiedyś się w nie zmieszczę." : "A few months earlier I bought a pair of Fjällräven trousers for about 800 PLN. They were too small. I bought them deliberately, assuming that one day I would lose enough weight to fit."}</p>
+          <p>{isPL ? "Kiedy w końcu udało mi się je normalnie założyć i dopiąć, była to jedna z bardziej namacalnych nagród całego projektu. Liczby na wykresie są fajne. Ale spodnie działają trochę bardziej bezpośrednio." : "When I could finally put them on and button them normally, it became one of the most tangible rewards of the whole project. Numbers on a chart are nice. Trousers are a little more direct."}</p>
+        </div>
+      </article>
+      <article class="detail detail--pizza">
+        <div class="detail-visual pizza-visual" aria-hidden="true"><span>½</span><i></i></div>
+        <div>
+          <h2>{isPL ? "Nie zrezygnowałem z pizzy" : "I didn’t give up pizza"}</h2>
+          <p>{isPL ? "Nadal jem czekoladę, ciasto, pizzę i jedzenie z restauracji. Zmieniła się głównie częstotliwość i ilość. Czekolada nie co drugi dzień, tylko na przykład raz w tygodniu. Nie cała pizza, tylko pół." : "I still eat chocolate, cake, pizza and restaurant food. What changed was mostly frequency and quantity. Chocolate not every other day, but perhaps once a week. Half a pizza, not the whole thing."}</p>
+          <p>{isPL ? "Nie chciałem przez trzy miesiące żyć idealnie. Chciałem znaleźć sposób jedzenia, który będzie do utrzymania również później." : "I wasn’t trying to live perfectly for three months. I wanted a way of eating that would still be sustainable afterwards."}</p>
+        </div>
+      </article>
+    </section>
+
+    <section class="movement-section">
+      <div class="movement-line" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div>
+        <h2>{isPL ? "Ruch, ale bez heroizmu" : "Movement, without heroics"}</h2>
+        <p>{isPL ? "Etap pierwszy nie był oparty na intensywnym treningu. Był wieczorny spacer z psem, chodzenie ze Stasiem na basen i codzienne poruszanie się przy małym dziecku." : "Stage one wasn’t built around intense training. There was an evening walk with the dog, swimming with Staś and the everyday movement that comes with a small child."}</p>
+        <p class="aside-line">{isPL ? "Małe dziecko, które właśnie nauczyło się chodzić, zapewnia zaskakująco dużo ruchu. I ból pleców." : "A small child who has just learned to walk provides a surprising amount of movement. And back pain."}</p>
+      </div>
+    </section>
+
+    <section class="stage-one-result">
+      <div class="result-label">{isPL ? "Etap 1" : "Stage 1"}</div>
+      <h2>{isPL ? "Wykonany." : "Complete."}</h2>
+      <div class="result-grid">
+        <div><span>{isPL ? "Start" : "Start"}</span><strong>108 kg</strong></div>
+        <div><span>{isPL ? "Stan 26.09" : "Sep 26 snapshot"}</span><strong>92 kg</strong></div>
+        <div><span>{isPL ? "Zmiana" : "Change"}</span><strong>−16 kg</strong></div>
+        <div><span>{isPL ? "Czas" : "Time"}</span><strong>{isPL ? "299 dni" : "299 days"}</strong></div>
+      </div>
+      <div class="result-cadence">
+        <p>{isPL ? "Bez restrykcyjnej diety." : "No restrictive diet."}</p>
+        <p>{isPL ? "Bez liczenia kalorii." : "No calorie counting."}</p>
+        <p>{isPL ? "Bez farmakologicznego leczenia otyłości." : "No weight-loss medication."}</p>
+        <p>{isPL ? "Nie bez wysiłku. Nie bez gorszych tygodni. Nie bez cofania się." : "Not without effort. Not without bad weeks. Not without moving backwards occasionally."}</p>
+        <p class="result-final">{isPL ? "Ale konsekwentnie do przodu." : "But forward over time."}</p>
+      </div>
+      <p class="result-context">{isPL ? "To opis mojego przebiegu, nie ocena innych sposobów leczenia ani decyzji medycznych." : "This describes my own route; it is not a judgement of other treatments or medical decisions."}</p>
+    </section>
+
+    <section class="stage-two" id="stage-two">
+      <div class="chapter-number">02</div>
+      <div class="stage-two-intro">
+        <h2>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h2>
+        <div class="prose">
+          <p>{isPL ? "Mógłbym na tym skończyć. Waga i BMI są w normie. Tylko że od początku moja waga pokazywała jeszcze jedną liczbę: procent tkanki tłuszczowej. I ona nadal mówi mi, że mam nad czym pracować." : "I could stop here. My weight and BMI are in the normal range. Except my scale has shown one more number from the beginning: body fat percentage. And it still tells me there is work to do."}</p>
+          <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Dlatego etap drugi nie będzie już przede wszystkim walką o kilogramy." : "I used to be not only lighter, but strong. So stage two will no longer be mainly a fight over kilograms."}</p>
+        </div>
+      </div>
+      <div class="stage-two-snapshot">
+        <div><span>{isPL ? "waga" : "weight"}</span><strong>92.0<small> kg</small></strong></div>
+        <div><span>{isPL ? "pas" : "waist"}</span><strong>99<small> cm</small></strong></div>
+        <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>25.6<small>%</small></strong></div>
+        <div><span>bench press</span><strong>54.5<small> kg × 8</small></strong></div>
+        <p>{isPL ? "Snapshot z 26.09.2026. Nie są to jeszcze wnioski — tylko punkt startowy." : "Snapshot from September 26th, 2026. These are not conclusions yet — only a starting point."}</p>
+      </div>
+      <div class="new-goals">
+        <article><span>01</span><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
+        <article><span>02</span><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
+        <article><span>03</span><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
+      </div>
+      <div class="training-approach">
+        <div>
+          <h2>{isPL ? "Jedno ćwiczenie na początek" : "One exercise to begin"}</h2>
+          <p>{isPL ? "Nie zaczynam od ambitnego planu sześciu ćwiczeń i czterech treningów tygodniowo. Zaczynam od wyciskania leżąc. Chcę zobaczyć progres. Dopiero potem będę dodawał kolejne rzeczy." : "I’m not starting with an ambitious plan of six exercises and four workouts a week. I’m starting with the bench press. I want to see progress. Only then will I add more."}</p>
+          <p class="training-motto">{isPL ? "Mniej, ale lepiej." : "Less, but better."}</p>
+          <p>{isPL ? "To właściwie ta sama metoda, która zadziałała przy wadze." : "It is essentially the same method that worked with weight."}</p>
+        </div>
+        <StrengthChart lang={lang} />
+      </div>
+      <div class="next-report">
+        <h2>{isPL ? "Następny raport" : "The next report"}</h2>
+        {isPL ? (
+          <p>Nie wiem jeszcze, czy ten etap pójdzie zgodnie z planem. Tak samo nie wiedziałem tego 1 grudnia 2025. Mam nowe KPI. Mam cele. I znowu daję sobie maksymalnie rok. Jeśli osiągnę je wcześniej — napiszę wcześniej. Jeśli nie — za rok opiszę, co się udało, co nie i dlaczego.</p>
+        ) : (
+          <p>I don’t yet know whether this stage will go according to plan. I didn’t know that on December 1st, 2025 either. I have new metrics. I have new goals. And once again, I’m giving myself up to a year. If I reach them earlier, I’ll write sooner. If I don’t, I’ll come back in a year and describe what worked, what didn’t and why.</p>
+        )}
+        <time>2027 <span>→</span></time>
+      </div>
+    </section>
+
+    <section class="compound-section" id="about">
+      <div class="compound-steps" aria-hidden="true">
+        {Array.from({ length: 14 }, (_, i) => <i style={`--i:${i}`}></i>)}
+      </div>
+      <div class="compound-copy">
+        <h2>{isPL ? <>Małe zmiany mają<br/><em>procent składany.</em></> : <>Small changes<br/><em>compound.</em></>}</h2>
+        {isPL ? (
+          <>
+            <p>Jednego dnia prawie nie widać różnicy. Po tygodniu również niewielką. Ale potem mijają miesiące.</p>
+            <p>Jedna tabliczka czekolady mniej. Jedna mniejsza porcja. Jeden wieczór bez podjadania. Jeden spacer. Jedno wejście na wagę i szybka korekta, kiedy trend idzie w złą stronę.</p>
+            <p>Żadna z tych rzeczy sama nie zmieniła mojego życia. Ale po kilkuset dniach ważyłem ponad 15 kilogramów mniej.</p>
+            <blockquote>Nie potrzebowałem idealnego planu. Potrzebowałem wystarczająco dobrych decyzji wykonywanych wystarczająco długo.</blockquote>
+          </>
+        ) : (
+          <>
+            <p>You barely notice the difference after one day. Not much after a week either. But then months pass.</p>
+            <p>One less chocolate bar. One smaller portion. One evening without snacking. One walk. One weigh-in that makes you correct course before a bad week turns into a bad month.</p>
+            <p>None of those things changed my life on their own. But after hundreds of days, I was more than 15 kilograms lighter.</p>
+            <blockquote>I didn’t need a perfect plan. I needed good enough decisions repeated for long enough.</blockquote>
+          </>
+        )}
+      </div>
+    </section>
+
+    <section class="disclaimer">
+      <span>i</span>
+      <div>
+        <h2>{isPL ? "Ważny kontekst" : "Important context"}</h2>
+        <p>{isPL ? "To jest opis mojego własnego doświadczenia, a nie plan odchudzania ani porada medyczna. Mam własną historię zdrowotną, charakter, motywacje i sposób reagowania na różne reguły. To, co działało u mnie, nie musi działać u Ciebie." : "This is a description of my own experience, not a weight-loss programme or medical advice. I have my own medical history, personality, motivations and way of responding to different rules. What worked for me may not work for you."}</p>
+        <p>{isPL ? "Jeżeli chcesz znacząco zmienić masę ciała, sposób żywienia albo aktywność fizyczną — szczególnie jeśli masz choroby przewlekłe lub jesteś w trakcie leczenia — warto skonsultować to z lekarzem lub odpowiednim specjalistą." : "If you’re planning a significant change in body weight, diet or physical activity — particularly if you have a chronic condition or are undergoing treatment — consider discussing it with an appropriate healthcare professional."}</p>
+      </div>
+    </section>
+
+    {coffeeUrl && <section class="coffee-section">
+      <div>
+        <h2>{isPL ? "Przydała Ci się moja historia?" : "Did something in my story help you?"}</h2>
+        <p>{isPL ? "Piszę to przede wszystkim dla siebie — żeby za kilka lat móc zobaczyć nie tylko wynik, ale również drogę, która do niego doprowadziła." : "I’m writing this mainly for myself — so that a few years from now I can remember not only the result, but also the road that led to it."}</p>
+        <p>{isPL ? "Jeśli jednak coś z moich doświadczeń pomogło również Tobie zrobić własny pierwszy krok, możesz postawić mi kawę." : "But if something here helped you take your own first step, you can buy me a coffee."}</p>
+      </div>
+      <a href={coffeeUrl} rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12v8a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V6Zm12 2h2a3 3 0 0 1 0 6h-2M7 2v2m4-2v2" /></svg>
+        <span>{isPL ? "Postaw mi kawę" : "Buy me a coffee"}</span>
+      </a>
+    </section>}
+  </main>
+
+  <footer>
+    <span>© 2026 Hubert</span>
+    <span>{isPL ? "Osobista historia. Prawdziwe dane." : "A personal story. Real data."}</span>
+    <a href="#top">{isPL ? "Do góry ↑" : "Back to top ↑"}</a>
+  </footer>
+
+  <script>
+    const header = document.querySelector("[data-header]");
+    let lastY = 0;
+    window.addEventListener("scroll", () => {
+      const y = window.scrollY;
+      header?.classList.toggle("is-compact", y > 60);
+      header?.classList.toggle("is-hidden", y > lastY && y > 480);
+      lastY = y;
+    }, { passive: true });
+
+    const reveal = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          reveal.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll("main > section").forEach((section) => {
+      section.classList.add("reveal-section");
+      reveal.observe(section);
+    });
+  </script>
+</BaseLayout>

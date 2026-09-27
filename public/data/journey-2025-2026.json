@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "author": "Hubert",
+    "heightCm": 192,
+    "snapshotDate": "2026-09-26",
+    "source": "Publiczny snapshot wybranych, potwierdzonych punktów z prywatnej aplikacji",
+    "note": "Przed publikacją można zastąpić tablicę weights pełnym eksportem dziennych pomiarów. Daty dwóch punktów letnich służą wyłącznie pozycjonowaniu na osi i są oznaczone jako przybliżone."
+  },
+  "weights": [
+    { "date": "2025-12-01", "weight": 108.0, "kind": "start" },
+    { "date": "2025-12-16", "weight": 105.0, "kind": "milestone" },
+    { "date": "2026-01-29", "weight": 99.4, "kind": "milestone" },
+    { "date": "2026-05-09", "weight": 94.9, "kind": "milestone" },
+    { "date": "2026-06-20", "weight": 94.7, "kind": "summer-low", "datePrecision": "season" },
+    { "date": "2026-08-10", "weight": 98.9, "kind": "summer-high", "datePrecision": "season" },
+    { "date": "2026-09-26", "weight": 92.0, "kind": "current" }
+  ],
+  "stageTwo": {
+    "date": "2026-09-26",
+    "weightKg": 92.0,
+    "waistCm": 99,
+    "bodyFatPct": 25.6,
+    "benchPress": [
+      { "date": "2026-09-05", "loadKg": 52.0, "reps": 6 },
+      { "date": "2026-09-12", "loadKg": 52.0, "reps": 8 },
+      { "date": "2026-09-19", "loadKg": 54.5, "reps": 6 },
+      { "date": "2026-09-26", "loadKg": 54.5, "reps": 8 }
+    ]
+  }
+}
