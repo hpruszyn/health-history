@@ -32,7 +32,7 @@ rounded:
 spacing:
   page: "min(1180px, calc(100vw - 48px))"
   prose: "68ch"
-  section: "clamp(90px, 13vw, 180px)"
+  section: "desktop: clamp(72px, 5vw, 104px); mobile: clamp(90px, 13vw, 180px)"
 components:
   coffee-action:
     backgroundColor: "{colors.ink}"
@@ -57,7 +57,7 @@ Editorial rather than promotional, the interface gives the first-person story an
 - Newsreader’s editorial voice for narrative and numbers; Instrument Sans for labels and interface.
 - Thin rules, modular grids, and full-bleed data chapters rather than decorative cards.
 - Regressions remain visible and brick red; data is evidence, not a success funnel.
-- Authentic personal imagery is optional and never replaced with fitness-stock shorthand.
+- The story uses typography, charts and restrained geometric motifs; it deliberately contains no photography.
 
 ## Colors
 
@@ -85,7 +85,7 @@ The document is mostly flat. Borders, tonal paper shifts, and full-bleed color b
 
 ## Shapes
 
-Rectangles remain square and ruled. Circles identify the wordmark, checkpoint markers, chart dots, and a few orbital motifs; the only pill is the quiet scrollbar. Avoid soft card radii, badges, and progress-lozenge language.
+Rectangles remain square and ruled. Circles identify the wordmark, checkpoint markers and chart dots; the only pill is the quiet scrollbar. Avoid soft card radii, badges, and progress-lozenge language.
 
 ## Components
 
@@ -125,6 +125,6 @@ The coffee link arrives only after the report, disclaimer, and next-step narrati
 ### Don't
 
 - Do not turn the page into a fitness landing page or before-and-after gallery.
-- Do not add gradients, rounded card grids, neon green, or generic stock photography.
+- Do not add gradients, rounded card grids, neon green or photography.
 - Do not smooth away difficult periods in the data.
 - Do not use the coffee link as a sticky or primary call to action.

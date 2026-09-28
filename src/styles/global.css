@@ -361,6 +361,23 @@ main {
   font-style: italic;
 }
 
+.chapter-number--stage-two {
+  display: flex;
+  align-items: baseline;
+  gap: .8rem;
+  width: max-content;
+}
+
+.chapter-number--stage-two strong {
+  color: var(--ink-soft);
+  font-family: var(--sans);
+  font-size: .68rem;
+  font-style: normal;
+  font-weight: 750;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
 .chapter-title,
 .section-heading h2,
 .stage-one-result h2,
@@ -409,7 +426,6 @@ main {
   align-items: end;
 }
 
-.portrait-placeholder,
 .detail-visual {
   position: relative;
   overflow: hidden;
@@ -417,12 +433,6 @@ main {
   background: var(--ink);
 }
 
-.portrait-placeholder {
-  min-height: 420px;
-  padding: 24px;
-}
-
-.portrait-placeholder::before,
 .detail-visual::before {
   position: absolute;
   border: 1px solid rgba(255, 253, 248, .32);
@@ -430,14 +440,6 @@ main {
   content: "";
 }
 
-.portrait-placeholder::before {
-  right: -38%;
-  bottom: -15%;
-  width: 125%;
-  aspect-ratio: 1;
-}
-
-.portrait-placeholder span,
 .detail-visual span {
   position: relative;
   z-index: 1;
@@ -526,8 +528,7 @@ main {
 }
 
 .game-section,
-.feedback-section,
-.turning-story {
+.feedback-section {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: clamp(42px, 8vw, 130px);
@@ -535,6 +536,19 @@ main {
   margin: 0 auto;
   padding: clamp(90px, 13vw, 180px) 0;
   border-top: 1px solid var(--line);
+}
+
+.turning-story {
+  display: flex;
+  justify-content: flex-end;
+  width: var(--page);
+  margin: 0 auto;
+  padding: clamp(90px, 13vw, 180px) 0;
+  border-top: 1px solid var(--line);
+}
+
+.turning-copy {
+  width: min(100%, 62rem);
 }
 
 .game-copy h2,
@@ -702,8 +716,8 @@ main {
 .data-section {
   width: 100%;
   max-width: none;
-  padding-right: max(24px, calc((100vw - 1180px) / 2));
-  padding-left: max(24px, calc((100vw - 1180px) / 2));
+  padding-right: max(24px, calc((100vw - var(--page)) / 2));
+  padding-left: max(24px, calc((100vw - var(--page)) / 2));
   color: var(--white);
   background: var(--ink);
   border: 0;
@@ -1010,6 +1024,16 @@ main {
   grid-template-columns: 1fr 1fr;
 }
 
+.detail--trousers {
+  min-height: auto;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.detail--trousers > .prose {
+  width: min(100%, 58rem);
+  padding: clamp(4rem, 8vw, 8rem) 0;
+}
+
 .detail:nth-of-type(even) .detail-visual {
   order: 2;
 }
@@ -1046,21 +1070,6 @@ main {
   aspect-ratio: 1;
 }
 
-.trousers-visual {
-  background: var(--blue);
-}
-
-.trousers-visual::after {
-  position: absolute;
-  top: -8%;
-  right: 34%;
-  width: 25%;
-  height: 116%;
-  border: 1px solid rgba(255,255,255,.24);
-  content: "";
-  transform: rotate(10deg);
-}
-
 .pizza-visual {
   background: #d8bf91;
 }
@@ -1074,22 +1083,7 @@ main {
 }
 
 .movement-section {
-  display: grid;
-  grid-template-columns: .85fr 1.15fr;
-  gap: clamp(50px, 10vw, 150px);
-}
-
-.movement-line {
-  display: grid;
-  gap: 20px;
-  border-top: 1px solid var(--ink);
-}
-
-.movement-line span {
-  padding: 18px 0;
-  border-bottom: 1px solid var(--line);
-  font-family: var(--display);
-  font-size: 1.5rem;
+  display: block;
 }
 
 .aside-line {
@@ -1102,7 +1096,7 @@ main {
 .stage-one-result {
   position: relative;
   overflow: hidden;
-  padding: clamp(90px, 14vw, 190px) max(24px, calc((100vw - 1180px) / 2));
+  padding: clamp(90px, 14vw, 190px) max(24px, calc((100vw - var(--page)) / 2));
   color: var(--white);
   background: var(--ink);
 }
@@ -1175,59 +1169,6 @@ main {
 
 .result-final {
   color: #ffc3b5;
-}
-
-.turning-story {
-  align-items: center;
-}
-
-.orbit {
-  position: relative;
-  min-height: 500px;
-}
-
-.orbit::before,
-.orbit::after,
-.orbit--one,
-.orbit--two {
-  position: absolute;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-}
-
-.orbit::before {
-  inset: 4%;
-  content: "";
-}
-
-.orbit::after {
-  inset: 22%;
-  border-color: var(--red);
-  content: "";
-}
-
-.orbit--one,
-.orbit--two {
-  display: grid;
-  width: 120px;
-  height: 120px;
-  place-items: center;
-  border: 0;
-  color: var(--white);
-  background: var(--ink);
-  font-family: var(--display);
-  font-size: 1.15rem;
-}
-
-.orbit--one {
-  top: 2%;
-  left: 8%;
-}
-
-.orbit--two {
-  right: 8%;
-  bottom: 2%;
-  background: var(--red);
 }
 
 .stage-two {
@@ -1408,7 +1349,7 @@ main {
   display: grid;
   grid-template-columns: .75fr 1.25fr;
   gap: clamp(60px, 10vw, 150px);
-  padding: clamp(100px, 15vw, 210px) max(24px, calc((100vw - 1180px) / 2));
+  padding: clamp(100px, 15vw, 210px) max(24px, calc((100vw - var(--page)) / 2));
   color: var(--white);
   background: var(--blue);
 }
@@ -1417,6 +1358,13 @@ main {
   max-width: 56ch;
   color: #d9e7ed;
   line-height: 1.75;
+}
+
+@media (min-width: 921px) {
+  :root {
+    --page: min(1280px, calc(100vw - 7rem));
+    --prose: 72ch;
+  }
 }
 
 .compound-steps {
@@ -1545,14 +1493,9 @@ footer {
     grid-template-columns: 1fr;
   }
 
-  .portrait-placeholder {
-    min-height: 300px;
-  }
-
   .start-marker,
   .game-section,
   .feedback-section,
-  .turning-story,
   .movement-section,
   .training-approach,
   .next-report,
@@ -1799,17 +1742,6 @@ footer {
     font-size: 1.9rem;
   }
 
-  .orbit {
-    min-height: 350px;
-  }
-
-  .orbit--one,
-  .orbit--two {
-    width: 92px;
-    height: 92px;
-    font-size: .95rem;
-  }
-
   .new-goals > div {
     min-height: auto;
   }
@@ -1856,5 +1788,308 @@ footer {
   [data-reveal] {
     opacity: 1;
     transform: none;
+  }
+}
+
+/* Opening composition and data blocks — aligned with the component structure. */
+.language-switch span { color: var(--muted); transition: color var(--ease); }
+.language-switch .active { color: var(--ink); }
+
+.hero {
+  grid-template-areas:
+    "story result"
+    "deck result"
+    "scroll scroll";
+  grid-template-columns: minmax(0, 1fr) minmax(26rem, .72fr);
+  align-items: start;
+  column-gap: clamp(3rem, 6vw, 7rem);
+  row-gap: clamp(2.8rem, 5vw, 5rem);
+  padding-top: clamp(8.5rem, 15vh, 12rem);
+  padding-bottom: clamp(6.5rem, 13vh, 10rem);
+}
+.hero-story { grid-area: story; min-width: 0; }
+.hero-copy { max-width: 49rem; }
+.hero h1 { max-width: 13ch; text-wrap: balance; }
+.hero-deck {
+  display: grid;
+  grid-area: deck;
+  grid-template-columns: minmax(0, 1.25fr) minmax(13rem, .75fr);
+  column-gap: clamp(2rem, 4vw, 4.5rem);
+  row-gap: 1.6rem;
+  align-items: start;
+  max-width: 55rem;
+}
+.hero-intro { max-width: 42ch; margin: 0; }
+.hero-constraints { display: grid; gap: .38rem; margin: 0; padding-left: 1rem; }
+.hero-constraints p { margin: 0; }
+.hero-closing { grid-column: 1 / -1; max-width: 56ch; margin: .6rem 0 0; }
+
+.hero-result {
+  grid-area: result;
+  position: relative;
+  width: 100%;
+  max-width: 31rem;
+  margin: clamp(2.6rem, 5.3vw, 5.8rem) 0 0 auto;
+  padding: clamp(1.8rem, 3vw, 2.8rem);
+  align-self: start;
+  color: var(--paper);
+  background: var(--ink);
+  border: 0;
+}
+.hero-result::before { content: ''; position: absolute; top: 0; right: 0; left: 0; height: .35rem; background: var(--red); }
+.hero-result-route { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: .4rem; align-items: end; }
+.hero-result-route div:last-child { text-align: right; }
+.hero-result-route div > span { display: block; margin-bottom: .2rem; color: #b8c8d2; font-size: .72rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.hero-result-route strong { display: block; color: var(--paper); font-family: var(--display); font-size: clamp(3.5rem, 5.2vw, 5.5rem); font-weight: 500; line-height: .82; letter-spacing: -.055em; }
+.hero-result-route small { margin-left: .12em; color: #b8c8d2; font-family: var(--sans); font-size: .24em; font-weight: 700; letter-spacing: 0; }
+.hero-result-arrow { padding-bottom: .08em; color: var(--red); font-family: var(--display); font-size: clamp(1.8rem, 2.8vw, 2.8rem); line-height: 1; }
+.hero-result-details { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2rem; padding-top: .9rem; border-top: 1px solid rgba(243, 239, 230, .3); color: #d2dce1; font-size: .8rem; font-weight: 700; letter-spacing: .04em; }
+.hero-result > p { margin: 1.4rem 0 0; color: #b8c8d2; font-size: .83rem; line-height: 1.55; }
+
+.start-marker { grid-template-columns: minmax(8rem, .5fr) minmax(16rem, .85fr) minmax(18rem, 1.15fr); align-items: stretch; }
+.start-date { margin: 0; padding: 1.5rem 1.75rem; border-bottom: 0; border-right: 1px solid rgba(255, 255, 255, .22); align-self: stretch; }
+.start-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; padding: 1.5rem 0; }
+.start-metrics > div { padding: 0 1.35rem; border-right: 1px solid rgba(255, 255, 255, .22); }
+.start-metrics strong { display: block; color: var(--white); font-family: var(--display); font-size: clamp(2.2rem, 4vw, 3.5rem); font-weight: 500; line-height: .9; letter-spacing: -.04em; }
+.start-metrics span { display: block; margin-top: .5rem; color: #c3d3dc; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+.start-text { padding: 1.4rem 0 1.4rem 2rem; }
+.stage-two-snapshot .snapshot-note { grid-column: 1 / -1; max-width: 62ch; margin: 1.2rem 0 0; }
+.life-details { display: block; width: 100%; }
+.life-details .detail { width: min(var(--page), calc(100% - 3rem)); margin: 0 auto; }
+
+@media (max-width: 920px) {
+  .hero { grid-template-areas: "story" "result" "deck" "scroll"; grid-template-columns: 1fr; gap: 3rem; padding-top: 8.5rem; }
+  .hero-result { width: min(100%, 35rem); margin: 0; }
+  .hero-deck { max-width: 43rem; }
+  .start-marker { grid-template-columns: 1fr; }
+  .start-date, .start-metrics > div { border-right: 0; }
+  .start-date, .start-metrics { border-bottom: 1px solid var(--line); }
+  .start-text { padding: 1.75rem 0 0; }
+}
+@media (max-width: 620px) {
+  .hero-story { display: contents; }
+  .hero-deck { display: contents; }
+  .hero-index { order: 1; }
+  .hero-copy { order: 2; }
+  .hero-result { order: 3; }
+  .hero-intro { order: 4; }
+  .hero-constraints { order: 5; }
+  .hero-closing { order: 6; }
+  .scroll-cue { order: 7; }
+
+  .hero { min-height: auto; padding-top: 7.5rem; padding-bottom: 6rem; }
+  .hero h1 { max-width: 11ch; }
+  .hero-result { padding: 1.5rem; }
+  .hero-result-details { margin-top: 1.5rem; }
+  .start-metrics > div { padding: 0 .7rem; }
+  .life-details .detail { width: calc(100% - 2rem); }
+}
+
+/* Desktop reading spreads: editorial scale without turning every section into a poster. */
+@media (min-width: 921px) {
+  :root {
+    --page: min(1680px, calc(100% - 8rem));
+    --prose: 68ch;
+  }
+
+  .site-header { padding-top: 1.5rem; }
+
+  .hero {
+    grid-template-columns: minmax(0, 1.12fr) minmax(31rem, .88fr);
+    column-gap: clamp(4rem, 6vw, 7.5rem);
+    row-gap: clamp(3rem, 4vw, 5rem);
+    min-height: min(62rem, 100svh);
+    padding-top: clamp(8rem, 9vw, 11rem);
+    padding-bottom: clamp(6rem, 7vw, 8.5rem);
+  }
+
+  .hero h1 { font-size: clamp(4.6rem, 5.7vw, 7.25rem); }
+  .hero-deck { gap: 1.15rem clamp(2.5rem, 4vw, 5rem); }
+  .hero-intro { font-size: clamp(1.25rem, 1.45vw, 1.58rem); }
+  .hero-result { padding: clamp(2.25rem, 3vw, 3.5rem); }
+
+  .chapter {
+    grid-template-columns: minmax(5rem, .16fr) minmax(20rem, .66fr) minmax(30rem, 1.18fr);
+    gap: clamp(3rem, 4.5vw, 6.5rem);
+    padding: clamp(6.5rem, 8vw, 10rem) 0;
+  }
+
+  .chapter-number { grid-column: 1; }
+  .chapter-title { grid-column: 2; margin-bottom: 0; }
+  .chapter > .prose { grid-column: 3; grid-row: 1; align-self: start; }
+
+  .prose { font-size: clamp(1.08rem, 1.15vw, 1.28rem); line-height: 1.72; }
+  .prose p:first-child { font-size: clamp(1.6rem, 1.8vw, 2.05rem); line-height: 1.3; }
+  .chapter--history .prose { max-width: 62ch; }
+
+  .game-section,
+  .feedback-section {
+    grid-template-columns: minmax(0, 1fr) minmax(31rem, 1fr);
+    gap: clamp(3rem, 6vw, 7.5rem);
+    padding: clamp(6.5rem, 8vw, 10rem) 0;
+  }
+
+  .turning-story { padding: clamp(6.5rem, 8vw, 10rem) 0; }
+  .turning-copy { width: min(100%, 56rem); }
+  .game-score { width: min(100%, 38rem); justify-self: end; }
+  .feedback-number { min-height: 27rem; }
+
+  .rules-section,
+  .checkpoints-section,
+  .movement-section,
+  .data-section,
+  .training-approach,
+  .next-report,
+  .stage-two {
+    padding: clamp(6.5rem, 8vw, 10rem) 0;
+  }
+
+  .rule-item { grid-template-columns: 6rem minmax(17rem, .6fr) minmax(0, 1fr); padding: 1.75rem 0; }
+  .life-details .detail { min-height: 34rem; }
+  .detail > .prose { padding: clamp(3rem, 4.5vw, 5.5rem); }
+
+  .stage-one-result { padding-block: clamp(8rem, 9vw, 11rem); }
+  .stage-two-intro { grid-template-columns: minmax(0, .9fr) minmax(31rem, 1.1fr); gap: clamp(3rem, 6vw, 7.5rem); margin-bottom: 4rem; }
+  .stage-two-snapshot > div { min-height: 11rem; padding: 1.75rem; }
+  .training-approach { grid-template-columns: minmax(0, 1fr) minmax(32rem, 1fr); gap: clamp(4rem, 7vw, 8rem); }
+  .next-report {
+    grid-template-columns: minmax(20rem, .8fr) minmax(0, 1.2fr);
+    align-items: start;
+    gap: clamp(4rem, 7vw, 8rem);
+    min-height: 0;
+    padding-bottom: clamp(7rem, 8vw, 9rem);
+  }
+
+  .compound-section {
+    grid-template-columns: minmax(18rem, .9fr) minmax(34rem, 1.1fr);
+    gap: clamp(4rem, 7vw, 8.5rem);
+    min-height: 0;
+    padding-block: clamp(7rem, 9vw, 10.5rem);
+  }
+
+  .compound-steps { align-self: center; max-width: 23rem; }
+  .compound-copy { max-width: 48rem; }
+  .compound-section h2 { font-size: clamp(3.4rem, 4.4vw, 5.5rem); }
+  .compound-section blockquote { max-width: 21ch; }
+
+  .disclaimer { padding-block: 3.5rem 2.75rem; font-size: .92rem; }
+  footer { padding-block: 1.8rem 2.6rem; font-size: .82rem; }
+}
+
+/* Desktop density pass: keep the editorial pacing, without turning short
+   sections into empty posters. The largest pauses are reserved for the two
+   narrative conclusions. Kept last so it intentionally refines the spreads. */
+@media (min-width: 921px) {
+  .hero { min-height: min(54rem, 92svh); padding-top: clamp(7rem, 7vw, 8.75rem); padding-bottom: clamp(4.5rem, 5vw, 6.5rem); }
+  .chapter, .game-section, .feedback-section, .turning-story, .rules-section,
+  .checkpoints-section, .movement-section, .data-section, .training-approach,
+  .next-report, .stage-two { padding-block: clamp(4.5rem, 5vw, 6.5rem); }
+  .section-heading { margin-bottom: clamp(2.5rem, 3vw, 3.5rem); }
+  .feedback-number { min-height: 21rem; }
+  .summer-section { min-height: 35rem; }
+  .summer-stat { padding: clamp(3rem, 5vw, 5rem); }
+  .summer-copy { padding: clamp(4rem, 5.5vw, 6.5rem); }
+  .life-details .detail { min-height: 27rem; }
+  .life-details .detail-visual { min-height: 25rem; }
+  .detail > .prose { padding: clamp(2.75rem, 3.5vw, 4.25rem); }
+  .stage-one-result { padding-block: clamp(5.5rem, 6vw, 7.5rem); }
+  .stage-one-result h2 { margin-bottom: clamp(3rem, 3.5vw, 4rem); }
+  .stage-two { padding-top: clamp(5.5rem, 6vw, 7.5rem); }
+  .stage-two-intro { margin-bottom: clamp(2.5rem, 3vw, 3.75rem); }
+  .new-goals { margin-top: clamp(3rem, 4vw, 4.5rem); }
+  .new-goals > div { min-height: 13.75rem; }
+  .next-report { padding-bottom: clamp(5rem, 5.5vw, 6.5rem); }
+  .compound-section { padding-block: clamp(5.5rem, 6vw, 7.5rem); }
+  .compound-steps { margin-block: 2.75rem; }
+  .compound-copy blockquote { margin-top: 3rem; }
+}
+
+/* One desktop rail for every full-bleed chapter.
+   Editorial compositions may vary inside the rail; their outer edge may not. */
+@media (min-width: 921px) {
+  :root {
+    --desktop-gutter: max(4rem, calc((100% - var(--page)) / 2));
+  }
+
+  .data-section,
+  .stage-one-result,
+  .compound-section {
+    padding-inline: var(--desktop-gutter);
+  }
+
+  .summer-stat {
+    padding-block: clamp(3rem, 5vw, 5rem);
+    padding-left: var(--desktop-gutter);
+    padding-right: clamp(3rem, 5vw, 5rem);
+  }
+
+  .summer-copy {
+    padding-block: clamp(4rem, 5.5vw, 6.5rem);
+    padding-left: clamp(4rem, 5.5vw, 6.5rem);
+    padding-right: var(--desktop-gutter);
+  }
+
+  .life-details .detail {
+    width: var(--page);
+  }
+
+  /* These live inside the already-railed stage two.  Reapplying --page here
+     would create a second pair of gutters. */
+  .stage-two .training-approach,
+  .stage-two .next-report {
+    width: 100%;
+  }
+}
+
+/* The three closing lessons are editorial content, not a staggered collage. */
+@media (min-width: 921px) {
+  .life-details {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: clamp(1.5rem, 2.5vw, 3.25rem);
+    width: var(--page);
+    margin: clamp(4.5rem, 6vw, 7rem) auto;
+    padding-block: clamp(2.75rem, 4vw, 4.5rem);
+    border-block: 1px solid var(--line);
+  }
+
+  .life-details .detail {
+    width: auto;
+    min-height: 0;
+  }
+
+  .life-details .detail > .prose {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .life-details .detail > .prose h2 {
+    max-width: 13ch;
+    margin: 0 0 1rem;
+    font-size: clamp(1.85rem, 2.25vw, 2.9rem);
+    line-height: 0.96;
+  }
+
+  .life-details .detail > .prose p {
+    max-width: 32ch;
+    margin: 0;
+    font-size: clamp(0.98rem, 1.08vw, 1.1rem);
+    line-height: 1.55;
+  }
+
+  .life-details .detail > .prose p + p {
+    margin-top: 1.15rem;
+  }
+
+  .compound-section {
+    display: block;
+  }
+
+  .compound-copy {
+    width: min(100%, 62rem);
+    max-width: none;
+    margin-left: auto;
   }
 }

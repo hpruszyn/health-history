@@ -16,11 +16,11 @@ pnpm check
 pnpm build
 ```
 
-## Aktualizacja danych
+## Dane raportu
 
-Publiczny snapshot znajduje się w `public/data/journey-2025-2026.json`. Można go zastąpić pełnym eksportem zatwierdzonych pomiarów bez łączenia strony z prywatną bazą danych.
+Publiczny zestaw danych znajduje się w `public/data/journey-2025-2026.json`. To ostateczny, statyczny zapis zatwierdzonych pomiarów; strona nie łączy się z prywatną bazą danych.
 
-Przed finalną publikacją należy zaktualizować wynik etapu pierwszego, bieżące KPI etapu drugiego, fotografie oraz adres Buy Me a Coffee. Lista tych elementów znajduje się również w `PRODUCT.md`.
+Treść i dane raportu są zamknięte na 26 września 2026. Strona celowo nie używa fotografii.
 
 ## Publikacja
 

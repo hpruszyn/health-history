@@ -19,7 +19,7 @@ const meta = isPL ? {
 };
 
 const rules = isPL ? [
-  ["01", "Mniej cukru", "Czekolada mogła być czymś normalnym co drugi dzień. Nadal ją jem — tylko raczej raz w tygodniu."],
+  ["01", "Mniej cukru", "Czekolada mogła być czymś normalnym co drugi dzień. Nadal ją jem — tylko raczej raz w tygodniu. Częściej wybieram też wodę zamiast soków i napojów w plastikowych butelkach."],
   ["02", "Mniejsze porcje", "Nie zmieniłem całkowicie tego, co jem. Często po prostu jem mniej: jedna kanapka zamiast dwóch, pół pizzy zamiast całej."],
   ["03", "Więcej warzyw", "Warzywa zaczęły regularnie pojawiać się także przy śniadaniu. Od 2026 roku część z nich pochodzi z mojej szklarni."],
   ["04", "Patrzenie na skład", "Częściej czytam etykiety: mniej cukru, mniej przetworzenia, prostszy skład i lokalne produkty, kiedy mam wybór."],
@@ -59,9 +59,22 @@ const checkpoints = [
 
   <main id="main">
     <section class="hero" id="top">
-      <div class="hero-index" aria-hidden="true">01 — 12 — 2025</div>
-      <div class="hero-copy">
-        <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
+      <div class="hero-story">
+        <div class="hero-index" aria-hidden="true">01 — 12 — 2025</div>
+        <div class="hero-copy">
+          <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
+        </div>
+      </div>
+      <aside class="hero-result" aria-label={isPL ? "Wynik: 108 kilogramów do 92 kilogramów w 299 dni" : "Result: 108 kilograms to 92 kilograms in 299 days"}>
+        <div class="hero-result-route">
+          <div><span>{isPL ? "start" : "start"}</span><strong>108<small>kg</small></strong></div>
+          <span class="hero-result-arrow" aria-hidden="true">→</span>
+          <div><span>{isPL ? "teraz" : "now"}</span><strong>92<small>kg</small></strong></div>
+        </div>
+        <div class="hero-result-details"><span>−16 {isPL ? "kilogramów" : "kilograms"}</span><span>299 {isPL ? "dni" : "days"}</span></div>
+        <p>{isPL ? "Dane końcowe raportu: 26 września 2026." : "Final report data: September 26th, 2026."}</p>
+      </aside>
+      <div class="hero-deck">
         <div class="hero-intro">
           {isPL ? (
             <>
@@ -77,24 +90,13 @@ const checkpoints = [
             </>
           )}
         </div>
-      </div>
-      <div class="hero-constraints">
-        <p>{isPL ? "Nie chciałem liczyć kalorii." : "I didn’t want to count calories."}</p>
-        <p>{isPL ? "Nie chciałem restrykcyjnej diety." : "I didn’t want a restrictive diet."}</p>
-        <p>{isPL ? "Nie chciałem zaczynać od ciężkich treningów." : "I didn’t want to start with hard workouts."}</p>
-      </div>
-      <div class="hero-result" aria-label={isPL ? "Aktualny wynik" : "Current result"}>
-        <div>
-          <strong>−16</strong>
-          <span>{isPL ? "kilogramów" : "kilograms"}</span>
+        <div class="hero-constraints">
+          <p>{isPL ? "Nie chciałem liczyć kalorii." : "I didn’t want to count calories."}</p>
+          <p>{isPL ? "Nie chciałem restrykcyjnej diety." : "I didn’t want a restrictive diet."}</p>
+          <p>{isPL ? "Nie chciałem zaczynać od ciężkich treningów." : "I didn’t want to start with hard workouts."}</p>
         </div>
-        <div>
-          <strong>299</strong>
-          <span>{isPL ? "dni" : "days"}</span>
-        </div>
-        <p>{isPL ? "Stan na 26 września 2026. Finalne liczby zostaną zamknięte przy publikacji." : "As of September 26th, 2026. Final numbers will be locked at publication."}</p>
+        <p class="hero-closing">{isPL ? "To historia tego, co zadziałało u mnie — i czego nauczyłem się po drodze." : "This is the story of what worked for me — and what I learned along the way."}</p>
       </div>
-      <p class="hero-closing">{isPL ? "To historia tego, co zadziałało u mnie — i czego nauczyłem się po drodze." : "This is the story of what worked for me — and what I learned along the way."}</p>
       <a class="scroll-cue" href="#story">
         <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
         <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13m-5-5 5 5 5-5" /></svg>
@@ -131,10 +133,6 @@ const checkpoints = [
     </section>
 
     <section class="turning-story">
-      <div class="portrait-placeholder" role="img" aria-label={isPL ? "Miejsce na osobiste zdjęcie Huberta ze Stasiem" : "Reserved space for a personal photo of Hubert and Staś"}>
-        <div class="orbit orbit--one"></div><div class="orbit orbit--two"></div>
-        <span>{isPL ? "osobisty kadr\nHubert + Staś" : "a personal frame\nHubert + Staś"}</span>
-      </div>
       <div class="turning-copy">
         <h2>{isPL ? "Potem pojawił się Staś." : "Then Staś came along."}</h2>
         {isPL ? (
@@ -217,7 +215,7 @@ const checkpoints = [
     </section>
 
     <section class="feedback-section">
-      <div class="feedback-number">365</div>
+      <div class="feedback-number"><strong>365</strong><span>{isPL ? "pomiarów" : "measurements"}</span></div>
       <div class="feedback-copy">
         <h2>{isPL ? "Codzienny feedback" : "Daily feedback"}</h2>
         {isPL ? (
@@ -287,30 +285,26 @@ const checkpoints = [
 
     <section class="life-details">
       <article class="detail detail--trousers">
-        <div class="detail-visual trousers-visual" aria-hidden="true"><span>800 zł</span><i></i></div>
-        <div>
+        <div class="prose">
           <h2>{isPL ? "Spodnie, które miały poczekać" : "The trousers that had to wait"}</h2>
           <p>{isPL ? "Kilka miesięcy wcześniej kupiłem spodnie Fjällräven za około 800 zł. Były za małe. Kupiłem je świadomie z założeniem: schudnę i kiedyś się w nie zmieszczę." : "A few months earlier I bought a pair of Fjällräven trousers for about 800 PLN. They were too small. I bought them deliberately, assuming that one day I would lose enough weight to fit."}</p>
           <p>{isPL ? "Kiedy w końcu udało mi się je normalnie założyć i dopiąć, była to jedna z bardziej namacalnych nagród całego projektu. Liczby na wykresie są fajne. Ale spodnie działają trochę bardziej bezpośrednio." : "When I could finally put them on and button them normally, it became one of the most tangible rewards of the whole project. Numbers on a chart are nice. Trousers are a little more direct."}</p>
         </div>
       </article>
       <article class="detail detail--pizza">
-        <div class="detail-visual pizza-visual" aria-hidden="true"><span>½</span><i></i></div>
-        <div>
+        <div class="prose">
           <h2>{isPL ? "Nie zrezygnowałem z pizzy" : "I didn’t give up pizza"}</h2>
-          <p>{isPL ? "Nadal jem czekoladę, ciasto, pizzę i jedzenie z restauracji. Zmieniła się głównie częstotliwość i ilość. Czekolada nie co drugi dzień, tylko na przykład raz w tygodniu. Nie cała pizza, tylko pół." : "I still eat chocolate, cake, pizza and restaurant food. What changed was mostly frequency and quantity. Chocolate not every other day, but perhaps once a week. Half a pizza, not the whole thing."}</p>
+          <p>{isPL ? "Nadal jem czekoladę, ciasto, pizzę i jedzenie z restauracji. Zmieniła się głównie częstotliwość i ilość. Czekolada nie co drugi dzień, tylko na przykład raz w tygodniu. Nie cała pizza, tylko pół. Woda zastąpiła soki i napoje z plastikowych butelek." : "I still eat chocolate, cake, pizza and restaurant food. What changed was mostly frequency and quantity. Chocolate not every other day, but perhaps once a week. Half a pizza, not the whole thing. Water replaced juices and drinks in plastic bottles."}</p>
           <p>{isPL ? "Nie chciałem przez trzy miesiące żyć idealnie. Chciałem znaleźć sposób jedzenia, który będzie do utrzymania również później." : "I wasn’t trying to live perfectly for three months. I wanted a way of eating that would still be sustainable afterwards."}</p>
         </div>
       </article>
-    </section>
-
-    <section class="movement-section">
-      <div class="movement-line" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div>
+      <article class="detail detail--movement">
+        <div class="prose">
         <h2>{isPL ? "Ruch, ale bez heroizmu" : "Movement, without heroics"}</h2>
         <p>{isPL ? "Etap pierwszy nie był oparty na intensywnym treningu. Był wieczorny spacer z psem, chodzenie ze Stasiem na basen i codzienne poruszanie się przy małym dziecku." : "Stage one wasn’t built around intense training. There was an evening walk with the dog, swimming with Staś and the everyday movement that comes with a small child."}</p>
-        <p class="aside-line">{isPL ? "Małe dziecko, które właśnie nauczyło się chodzić, zapewnia zaskakująco dużo ruchu. I ból pleców." : "A small child who has just learned to walk provides a surprising amount of movement. And back pain."}</p>
-      </div>
+        <p>{isPL ? "Małe dziecko, które właśnie nauczyło się chodzić, zapewnia zaskakująco dużo ruchu. I ból pleców." : "A small child who has just learned to walk provides a surprising amount of movement. And back pain."}</p>
+        </div>
+      </article>
     </section>
 
     <section class="stage-one-result">
@@ -333,12 +327,15 @@ const checkpoints = [
     </section>
 
     <section class="stage-two" id="stage-two">
-      <div class="chapter-number">02</div>
+      <div class="chapter-number chapter-number--stage-two">
+        <span>02</span>
+        <strong>{isPL ? "Etap drugi · plan" : "Stage two · plan"}</strong>
+      </div>
       <div class="stage-two-intro">
         <h2>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h2>
         <div class="prose">
-          <p>{isPL ? "Mógłbym na tym skończyć. Waga i BMI są w normie. Tylko że od początku moja waga pokazywała jeszcze jedną liczbę: procent tkanki tłuszczowej. I ona nadal mówi mi, że mam nad czym pracować." : "I could stop here. My weight and BMI are in the normal range. Except my scale has shown one more number from the beginning: body fat percentage. And it still tells me there is work to do."}</p>
-          <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Dlatego etap drugi nie będzie już przede wszystkim walką o kilogramy." : "I used to be not only lighter, but strong. So stage two will no longer be mainly a fight over kilograms."}</p>
+          <p>{isPL ? "Ten raport zamyka etap pierwszy. Waga i BMI są w normie, ale od początku moja waga pokazuje jeszcze jedną liczbę: procent tkanki tłuszczowej. To on wyznacza kierunek na dalej." : "This report closes stage one. My weight and BMI are in the normal range, but my scale has shown one more number from the beginning: body-fat percentage. That is what sets the direction ahead."}</p>
+          <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Etap drugi jest planem, nie kolejnym podsumowaniem: zejść z poziomem tkanki tłuszczowej do normy i odbudować siłę." : "I used to be not only lighter, but strong. Stage two is a plan, not another summary: bring body fat into the normal range and rebuild strength."}</p>
         </div>
       </div>
       <div class="stage-two-snapshot">
@@ -346,7 +343,7 @@ const checkpoints = [
         <div><span>{isPL ? "pas" : "waist"}</span><strong>99<small> cm</small></strong></div>
         <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>25.6<small>%</small></strong></div>
         <div><span>bench press</span><strong>54.5<small> kg × 8</small></strong></div>
-        <p>{isPL ? "Snapshot z 26.09.2026. Nie są to jeszcze wnioski — tylko punkt startowy." : "Snapshot from September 26th, 2026. These are not conclusions yet — only a starting point."}</p>
+        <p class="snapshot-note">{isPL ? "Punkt startowy planu: dane końcowe etapu 1 z 26.09.2026." : "Starting point for the plan: stage-one final data as of September 26th, 2026."}</p>
       </div>
       <div class="new-goals">
         <article><span>01</span><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
@@ -363,20 +360,17 @@ const checkpoints = [
         <StrengthChart lang={lang} />
       </div>
       <div class="next-report">
-        <h2>{isPL ? "Następny raport" : "The next report"}</h2>
+        <h2>{isPL ? "Plan, nie obietnica" : "A plan, not a promise"}</h2>
         {isPL ? (
-          <p>Nie wiem jeszcze, czy ten etap pójdzie zgodnie z planem. Tak samo nie wiedziałem tego 1 grudnia 2025. Mam nowe KPI. Mam cele. I znowu daję sobie maksymalnie rok. Jeśli osiągnę je wcześniej — napiszę wcześniej. Jeśli nie — za rok opiszę, co się udało, co nie i dlaczego.</p>
+          <p>To zamknięty zapis etapu pierwszego — od 1 grudnia 2025 do 26 września 2026. Podane wyniki są dla niego ostateczne. Etap drugi zaczyna się od powyższego punktu startowego; cele są planem, a nie wynikiem, który już osiągnąłem.</p>
         ) : (
-          <p>I don’t yet know whether this stage will go according to plan. I didn’t know that on December 1st, 2025 either. I have new metrics. I have new goals. And once again, I’m giving myself up to a year. If I reach them earlier, I’ll write sooner. If I don’t, I’ll come back in a year and describe what worked, what didn’t and why.</p>
+          <p>This is a closed record of stage one — from December 1st, 2025 to September 26th, 2026. The results shown here are final for it. Stage two begins from the starting point above; its goals are a plan, not a result I have already achieved.</p>
         )}
-        <time>2027 <span>→</span></time>
+        <time>01.12.2025 — 26.09.2026</time>
       </div>
     </section>
 
     <section class="compound-section" id="about">
-      <div class="compound-steps" aria-hidden="true">
-        {Array.from({ length: 14 }, (_, i) => <i style={`--i:${i}`}></i>)}
-      </div>
       <div class="compound-copy">
         <h2>{isPL ? <>Małe zmiany mają<br/><em>procent składany.</em></> : <>Small changes<br/><em>compound.</em></>}</h2>
         {isPL ? (
