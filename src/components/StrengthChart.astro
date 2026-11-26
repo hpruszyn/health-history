@@ -3,9 +3,11 @@ import journey from "../../public/data/journey-2025-2026.json";
 interface Props { lang: "pl" | "en"; }
 const { lang } = Astro.props;
 const entries = journey.stageTwo.benchPress;
-const bodyWeight = journey.stageTwo.weightKg;
+const bodyWeight = journey.summary.currentWeightKg;
+const locale = lang === "pl" ? "pl-PL" : "en-GB";
+const formatDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(new Date(`${date}T12:00:00`));
 const sessions = entries.map((entry) => {
-  const estimatedOneRepMax = entry.loadKg * (1 + entry.reps / 30);
+  const estimatedOneRepMax = entry.kg * (1 + entry.reps / 30);
   return {
     ...entry,
     estimatedOneRepMax,
@@ -16,15 +18,15 @@ const sessions = entries.map((entry) => {
 
 <figure class="strength-chart">
   <figcaption>
-    <span>{lang === "pl" ? "Wrzesień 2026" : "September 2026"}</span>
-    <strong>{lang === "pl" ? "Szacowany 1RM względem celu 92 kg" : "Estimated 1RM toward the 92 kg goal"}</strong>
+    <span>{lang === "pl" ? "Wrzesień — październik 2026" : "September — October 2026"}</span>
+    <strong>{lang === "pl" ? `Wszystkie ${entries.length} sesji · szacowany 1RM względem celu ${bodyWeight.toFixed(1)} kg` : `All ${entries.length} sessions · estimated 1RM toward the ${bodyWeight.toFixed(1)} kg goal`}</strong>
   </figcaption>
   <div class="strength-bars" aria-label={lang === "pl" ? "Postęp w wyciskaniu leżąc" : "Bench press progress"}>
     {sessions.map((entry) => (
       <div class="strength-entry">
         <div class="strength-entry-label">
-          <span>{entry.loadKg.toFixed(1)} kg × {entry.reps}</span>
-          <small>e1RM {entry.estimatedOneRepMax.toFixed(1)} kg</small>
+          <span>{entry.kg.toFixed(1)} kg × {entry.reps}</span>
+          <small>{formatDate(entry.date)} · e1RM {entry.estimatedOneRepMax.toFixed(1)} kg</small>
         </div>
         <div class="strength-track" aria-hidden="true">
           <div class="strength-bar" style={`--bar-scale:${entry.goalProgress}`}></div>
@@ -33,5 +35,5 @@ const sessions = entries.map((entry) => {
       </div>
     ))}
   </div>
-  <p>{lang === "pl" ? "e1RM to przybliżenie na podstawie ciężaru i liczby powtórzeń, nie zmierzony rekord. To jeszcze nie wniosek — tylko początek następnego eksperymentu." : "e1RM is an estimate based on load and repetitions, not a measured max. This is not a conclusion yet — only the beginning of the next experiment."}</p>
+  <p>{lang === "pl" ? "e1RM to przybliżenie na podstawie ciężaru i liczby powtórzeń, nie zmierzony rekord. Eksperyment trwa — na razie zapisuję kierunek, nie ogłaszam wniosków." : "e1RM is an estimate based on load and repetitions, not a measured max. The experiment is ongoing — for now, I am recording the direction, not declaring conclusions."}</p>
 </figure>

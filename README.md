@@ -18,9 +18,11 @@ pnpm build
 
 ## Dane raportu
 
-Publiczny zestaw danych znajduje się w `public/data/journey-2025-2026.json`. To ostateczny, statyczny zapis zatwierdzonych pomiarów; strona nie łączy się z prywatną bazą danych.
+Publiczny zestaw danych znajduje się w `public/data/journey-2025-2026.json`. To wersjonowany, statyczny snapshot zatwierdzonych pomiarów; strona nie łączy się z prywatną bazą danych.
 
-Treść i dane raportu są zamknięte na 26 września 2026. Strona celowo nie używa fotografii.
+Aktualny snapshot zawiera 318 pomiarów masy od 1 grudnia 2025 do 26 listopada 2026 oraz najnowsze publiczne dane pasa, tkanki tłuszczowej i siły. Najnowszy wynik to 89,5 kg (−18,5 kg), pas 97 cm, 24,5% tkanki tłuszczowej oraz 61 kg × 8 w wyciskaniu. Próg prawidłowego BMI został po raz pierwszy osiągnięty 26 września, ale historia pozostaje otwarta: utrzymanie wyniku i etap siłowy nadal trwają. Strona celowo nie używa fotografii.
+
+Kolejne aktualizacje powinny polegać na wygenerowaniu nowego snapshotu z prywatnej bazy i świadomej aktualizacji narracji, bez wystawiania Supabase publicznie.
 
 ## Publikacja
 

@@ -1,0 +1,90 @@
+---
+import journey from "../../public/data/journey-2025-2026.json";
+
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const locale = lang === "pl" ? "pl-PL" : "en-GB";
+const waist = journey.stageTwo.waist;
+const bodyFat = journey.stageTwo.bodyFat;
+const allDates = [...waist, ...bodyFat].map(({ date }) => new Date(`${date}T12:00:00`).getTime());
+const start = Math.min(...allDates);
+const end = Math.max(...allDates);
+const width = 1000;
+const plotLeft = 94;
+const plotRight = 962;
+const plotWidth = plotRight - plotLeft;
+const x = (date: string) => plotLeft + ((new Date(`${date}T12:00:00`).getTime() - start) / (end - start)) * plotWidth;
+const scaleY = (value: number, min: number, max: number, top: number, bottom: number) => top + ((max - value) / (max - min)) * (bottom - top);
+const path = <T,>(entries: T[], getDate: (entry: T) => string, getValue: (entry: T) => number, min: number, max: number, top: number, bottom: number) =>
+  entries.map((entry, index) => `${index ? "L" : "M"}${x(getDate(entry)).toFixed(1)},${scaleY(getValue(entry), min, max, top, bottom).toFixed(1)}`).join(" ");
+const fatPath = path(bodyFat, (entry) => entry.date, (entry) => entry.pct, 24, 26.5, 72, 206);
+const waistPath = path(waist, (entry) => entry.date, (entry) => entry.cm, 96, 102, 284, 418);
+const formatDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(new Date(`${date}T12:00:00`));
+const ticks = [
+  { date: "2026-09-19", anchor: "start" },
+  { date: "2026-10-01", anchor: "middle" },
+  { date: "2026-11-01", anchor: "middle" },
+  { date: "2026-11-26", anchor: "end" },
+] as const;
+const copy = lang === "pl" ? {
+  eyebrow: "Etap 2 · każdy zapis",
+  title: "Skład ciała, pomiar po pomiarze",
+  desc: "Wszystkie zapisane pomiary na rzeczywistej osi czasu. Bez dopisywania brakujących dni i bez wygładzania wahań.",
+  fat: "Tkanka tłuszczowa",
+  waist: "Obwód pasa",
+  fatChange: "26,1 → 24,5%",
+  waistChange: "100 → 97 cm",
+  note: `${bodyFat.length} zapisów tłuszczu i ${waist.length} pomiarów pasa. Pomiary nie zawsze wypadały tego samego dnia; przerwy na osi są prawdziwe.`,
+} : {
+  eyebrow: "Stage 2 · every entry",
+  title: "Body composition, reading by reading",
+  desc: "Every recorded measurement on its true date. Missing days are not invented and short-term fluctuations remain visible.",
+  fat: "Body fat",
+  waist: "Waist",
+  fatChange: "26.1 → 24.5%",
+  waistChange: "100 → 97 cm",
+  note: `${bodyFat.length} body-fat readings and ${waist.length} waist measurements. They were not always taken on the same day; the gaps on the axis are real.`,
+};
+---
+
+<figure class="composition-chart">
+  <figcaption class="composition-heading">
+    <div>
+      <span>{copy.eyebrow}</span>
+      <h3>{copy.title}</h3>
+      <p>{copy.desc}</p>
+    </div>
+    <div class="composition-summary" aria-hidden="true">
+      <div><span>{copy.fat}</span><strong>{copy.fatChange}</strong></div>
+      <div><span>{copy.waist}</span><strong>{copy.waistChange}</strong></div>
+    </div>
+  </figcaption>
+  <div class="composition-stage">
+    <svg viewBox={`0 0 ${width} 475`} role="img" aria-labelledby="composition-title composition-desc">
+      <title id="composition-title">{copy.title}</title>
+      <desc id="composition-desc">{copy.desc}</desc>
+      <g class="composition-grid" aria-hidden="true">
+        {[24, 25, 26].map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, 24, 26.5, 72, 206)} y2={scaleY(value, 24, 26.5, 72, 206)} /><text x={plotLeft - 18} y={scaleY(value, 24, 26.5, 72, 206) + 5} text-anchor="end">{value}%</text></>)}
+        {[96, 98, 100, 102].map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, 96, 102, 284, 418)} y2={scaleY(value, 96, 102, 284, 418)} /><text x={plotLeft - 18} y={scaleY(value, 96, 102, 284, 418) + 5} text-anchor="end">{value}</text></>)}
+      </g>
+      <text class="composition-panel-label" x={plotLeft} y="45">{copy.fat}</text>
+      <text class="composition-panel-label" x={plotLeft} y="257">{copy.waist}</text>
+      <path class="composition-path composition-path--fat" d={fatPath} />
+      <path class="composition-path composition-path--waist" d={waistPath} />
+      <g class="composition-dots composition-dots--fat">
+        {bodyFat.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.pct, 24, 26.5, 72, 206)} r="3.2"><title>{formatDate(entry.date)} · {entry.pct.toFixed(1)}%</title></circle>)}
+      </g>
+      <g class="composition-dots composition-dots--waist">
+        {waist.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.cm, 96, 102, 284, 418)} r="4.6"><title>{formatDate(entry.date)} · {entry.cm.toFixed(1)} cm</title></circle>)}
+      </g>
+      <g class="composition-end-labels" aria-hidden="true">
+        <text x={plotRight} y={scaleY(bodyFat.at(-1)!.pct, 24, 26.5, 72, 206) - 13} text-anchor="end">{bodyFat.at(-1)!.pct.toFixed(1)}%</text>
+        <text x={plotRight} y={scaleY(waist.at(-1)!.cm, 96, 102, 284, 418) - 13} text-anchor="end">{waist.at(-1)!.cm.toFixed(0)} cm</text>
+      </g>
+      <g class="composition-dates" aria-hidden="true">
+        {ticks.map((tick) => <text x={x(tick.date)} y="462" text-anchor={tick.anchor}>{formatDate(tick.date)}</text>)}
+      </g>
+    </svg>
+  </div>
+  <p class="composition-note">{copy.note}</p>
+</figure>

@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Dwujęzyczna, osobista i oparta na danych opowieść Huberta o odzyskiwaniu zdrowia i formy. To trwały roczny raport oraz zapis procesu, nie blog fitnessowy, poradnik medyczny ani promocja prywatnej aplikacji.
+Dwujęzyczna, osobista i oparta na danych opowieść Huberta o odzyskiwaniu zdrowia i formy. To trwały, okresowo aktualizowany zapis procesu, nie blog fitnessowy, poradnik medyczny ani promocja prywatnej aplikacji.
 
 ## Audience
 
@@ -17,9 +17,10 @@ Pokazać prawdziwą, nieliniową drogę: setki wystarczająco dobrych decyzji z�
 ## Content model
 
 - Jedna długa historia w dwóch równorzędnych wersjach: `/pl/` i `/en/`.
-- Raport obejmuje zamknięty okres: 1.12.2025–26.09.2026.
-- Etap 1 zamyka masę i BMI; etap 2 zapisuje końcowe metryki pasa, tkanki tłuszczowej i siły, a nie zapowiedź aktualizacji.
-- Dane publiczne są ostatecznym, statycznym zapisem w repozytorium.
+- Aktualny snapshot obejmuje okres 1.12.2025–26.11.2026; późniejsze pomiary mogą wejść do kolejnych świadomych aktualizacji.
+- Próg prawidłowego BMI został po raz pierwszy osiągnięty 26.09.2026, ale utrzymanie wyniku pozostaje częścią etapu 1.
+- Etap 2 jest trwającym eksperymentem dotyczącym pasa, tkanki tłuszczowej i siły — bez przedwczesnych wniosków.
+- Dane publiczne są wersjonowanymi, statycznymi snapshotami w repozytorium.
 - Prywatna aplikacja „Bitwa o wagę” pozostaje tylko elementem historii.
 
 ## Visual direction
@@ -30,8 +31,8 @@ Editorial data journal: ciepłe tło papieru, ciemny atrament, stonowany błęki
 
 - **THESIS:** małe decyzje, powtarzane wystarczająco długo, składają się na dużą zmianę; prawdziwa droga zawiera również regresy.
 - **OWN-WORLD:** papierowy rocznik i osobisty raport danych — ciepły papier, atrament, granat/kobalt danych, ceglasty czerwony regresów, cienkie reguły i oszczędne motywy geometryczne.
-- **STORY:** wynik i obietnica → zdrowotny kontekst i narodziny Stasia → punkt startowy i własna gra → reguły oraz codzienny feedback → pełny wykres z wakacyjnym odbiciem → małe wygrane i codzienne dowody → zamknięcie etapu 1 → końcowe metryki etapu 2 → puenta o procencie składanym, disclaimer i dyskretna kawa.
-- **FIRST VIEWPORT:** minimalna nawigacja, datowany kicker, osobisty headline, krótki kontekst oraz widoczny od razu wynik 108 → 92 kg; celem jest jasne zakomunikowanie historii, skali zmiany i braku marketingowego tonu.
+- **STORY:** aktualny wynik i obietnica → zdrowotny kontekst i narodziny Stasia → punkt startowy i własna gra → reguły oraz codzienny feedback → pełny wykres z wakacyjnym odbiciem → małe wygrane i codzienne dowody → osiągnięcie progu BMI oraz dalsza stabilizacja → trwające metryki etapu 2 → puenta o procencie składanym, disclaimer i dyskretna kawa.
+- **FIRST VIEWPORT:** minimalna nawigacja, datowany kicker, osobisty headline, krótki kontekst oraz widoczny od razu aktualny wynik 108 → 92,5 kg; celem jest jasne zakomunikowanie historii, skali zmiany i braku marketingowego tonu.
 - **FORM:** seed key „roczny raport terenowy złożony z notatnika laboratoryjnego i magazynu literackiego” — jedna redakcyjna kolumna z marginaliami, kontrastujące plansze danych i wykresy traktowane jako dowody, nie dekoracyjne karty.
 
 ## Non-goals
@@ -46,8 +47,8 @@ Editorial data journal: ciepłe tło papieru, ciemny atrament, stonowany błęki
 - Astro, statyczny output, mobile first.
 - GitHub Pages jako hosting.
 - Dostępne bez JavaScriptu podstawowe treści; JavaScript wzbogaca wykres i nawigację.
-- Dane raportu są wersjonowane jako zamknięty, statyczny zapis w repozytorium.
+- Dane raportu są wersjonowane jako statyczne snapshoty w repozytorium.
 
-## Zamykanie raportu
+## Aktualizowanie raportu
 
-Data, metryki oraz oprawa raportu są już ustalone. Ewentualna przyszła publikacja będzie osobnym raportem, bez aktualizowania tego dokumentu.
+Publiczna strona nie pobiera danych na żywo. Przy większej aktualizacji wybrane pomiary są eksportowane z prywatnego Supabase do pliku JSON, a narracja otrzymuje nową datę odniesienia. Dzięki temu każdy opublikowany stan jest trwały, ale historia może uczciwie rozwijać się dalej.

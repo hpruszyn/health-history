@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import WeightChart from "./WeightChart.astro";
 import StrengthChart from "./StrengthChart.astro";
+import BodyCompositionChart from "./BodyCompositionChart.astro";
+import journey from "../../public/data/journey-2025-2026.json";
 
 interface Props { lang: "pl" | "en"; }
 const { lang } = Astro.props;
@@ -9,12 +11,28 @@ const isPL = lang === "pl";
 const base = import.meta.env.BASE_URL;
 const coffeeUrl = import.meta.env.PUBLIC_BUY_ME_A_COFFEE_URL;
 const otherHref = `${base}${isPL ? "en" : "pl"}/`;
+const locale = isPL ? "pl-PL" : "en-GB";
+const metric = (value: number) => value.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const currentWeight = metric(journey.summary.currentWeightKg);
+const currentChange = metric(Math.abs(journey.summary.changeKg));
+const currentWaist = metric(journey.stageTwo.waistCm);
+const currentBodyFat = metric(journey.stageTwo.bodyFatPct);
+const currentBench = metric(journey.stageTwo.latestBenchPress.loadKg);
+const durationDays = journey.summary.durationDays;
+const formatLongDate = (date: string) => new Intl.DateTimeFormat(locale, {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+}).format(new Date(`${date}T12:00:00`));
+const snapshotDate = formatLongDate(journey.summary.currentDate);
+const waistDate = formatLongDate(journey.stageTwo.waistDate);
+const benchDate = formatLongDate(journey.stageTwo.latestBenchPress.date);
 
 const meta = isPL ? {
-  title: "Jak zmieniłem swoje nawyki i zrzuciłem ponad 15 kg — osobista historia",
+  title: "Jak zmieniłem swoje nawyki i zrzuciłem ponad 18 kg — osobista historia",
   description: "Po dwóch nowotworach i narodzinach syna postanowiłem wrócić do formy. Bez restrykcyjnej diety i liczenia kalorii — za to z danymi, małymi zmianami i dużą dawką uporu."
 } : {
-  title: "How I changed my habits and lost more than 15 kg — a personal story",
+  title: "How I changed my habits and lost more than 18 kg — a personal story",
   description: "After two cancer diagnoses and becoming a father, I decided to rebuild my health and fitness through small, measurable changes."
 };
 
@@ -36,7 +54,7 @@ const checkpoints = [
   ["105", isPL ? "Pierwszy mały próg" : "The first small threshold", "16.12.2025"],
   ["100", isPL ? "Pierwsze zejście poniżej" : "The first time below", "29.01.2026"],
   ["95", isPL ? "Kolejna granica" : "The next boundary", "09.05.2026"],
-  ["BMI", isPL ? "Prawidłowy zakres" : "The normal range", isPL ? "cel etapu 1" : "stage 1 goal"]
+  ["BMI", isPL ? "Pierwszy pomiar w normie" : "First reading in range", "26.09.2026"]
 ];
 ---
 
@@ -65,14 +83,14 @@ const checkpoints = [
           <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
         </div>
       </div>
-      <aside class="hero-result" aria-label={isPL ? "Wynik: 108 kilogramów do 92 kilogramów w 299 dni" : "Result: 108 kilograms to 92 kilograms in 299 days"}>
+      <aside class="hero-result" aria-label={isPL ? `Aktualny wynik: 108 kilogramów do ${currentWeight} kilograma w ${durationDays} dni` : `Current result: 108 kilograms to ${currentWeight} kilograms in ${durationDays} days`}>
         <div class="hero-result-route">
           <div><span>{isPL ? "start" : "start"}</span><strong>108<small>kg</small></strong></div>
           <span class="hero-result-arrow" aria-hidden="true">→</span>
-          <div><span>{isPL ? "teraz" : "now"}</span><strong>92<small>kg</small></strong></div>
+          <div><span>{isPL ? "teraz" : "now"}</span><strong>{currentWeight}<small>kg</small></strong></div>
         </div>
-        <div class="hero-result-details"><span>−16 {isPL ? "kilogramów" : "kilograms"}</span><span>299 {isPL ? "dni" : "days"}</span></div>
-        <p>{isPL ? "Dane końcowe raportu: 26 września 2026." : "Final report data: September 26th, 2026."}</p>
+        <div class="hero-result-details"><span>−{currentChange} {isPL ? "kilograma" : "kilograms"}</span><span>{durationDays} {isPL ? "dni" : "days"}</span></div>
+        <p>{isPL ? `Stan na ${snapshotDate}. Walka nadal trwa.` : `Snapshot as of ${snapshotDate}. The work continues.`}</p>
       </aside>
       <div class="hero-deck">
         <div class="hero-intro">
@@ -95,7 +113,7 @@ const checkpoints = [
           <p>{isPL ? "Nie chciałem restrykcyjnej diety." : "I didn’t want a restrictive diet."}</p>
           <p>{isPL ? "Nie chciałem zaczynać od ciężkich treningów." : "I didn’t want to start with hard workouts."}</p>
         </div>
-        <p class="hero-closing">{isPL ? "To historia tego, co zadziałało u mnie — i czego nauczyłem się po drodze." : "This is the story of what worked for me — and what I learned along the way."}</p>
+      <p class="hero-closing">{isPL ? "26 września po raz pierwszy zobaczyłem BMI w normie. To historia tego, co zadziałało u mnie — i dlaczego przekroczenie progu nie kończy pracy." : "On September 26th, I saw a normal-range BMI for the first time. This is the story of what worked for me — and why crossing a threshold does not end the work."}</p>
       </div>
       <a class="scroll-cue" href="#story">
         <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
@@ -215,7 +233,7 @@ const checkpoints = [
     </section>
 
     <section class="feedback-section">
-      <div class="feedback-number"><strong>365</strong><span>{isPL ? "pomiarów" : "measurements"}</span></div>
+      <div class="feedback-number"><strong>{journey.meta.measurementCount}</strong><span>{isPL ? "pomiarów" : "measurements"}</span></div>
       <div class="feedback-copy">
         <h2>{isPL ? "Codzienny feedback" : "Daily feedback"}</h2>
         {isPL ? (
@@ -272,9 +290,9 @@ const checkpoints = [
         <p>{isPL ? "Nie czekałem wyłącznie na finał. Każda przekroczona granica była osobnym zwycięstwem." : "I didn’t wait only for the finish. Every crossed threshold was a win of its own."}</p>
       </div>
       <div class="checkpoint-track">
-        {checkpoints.map(([value, label, date], index) => (
-          <article class={index < 3 ? "checkpoint is-complete" : "checkpoint"}>
-            <span class="checkpoint-dot">{index < 3 ? "✓" : "○"}</span>
+        {checkpoints.map(([value, label, date]) => (
+          <article class="checkpoint is-complete">
+            <span class="checkpoint-dot">✓</span>
             <strong>{value}<small>{value !== "BMI" ? " kg" : ""}</small></strong>
             <p>{label}</p>
             <time>{date}</time>
@@ -309,12 +327,12 @@ const checkpoints = [
 
     <section class="stage-one-result">
       <div class="result-label">{isPL ? "Etap 1" : "Stage 1"}</div>
-      <h2>{isPL ? "Wykonany." : "Complete."}</h2>
+      <h2>{isPL ? "Próg osiągnięty. Praca trwa." : "Threshold reached. Work ongoing."}</h2>
       <div class="result-grid">
         <div><span>{isPL ? "Start" : "Start"}</span><strong>108 kg</strong></div>
-        <div><span>{isPL ? "Stan 26.09" : "Sep 26 snapshot"}</span><strong>92 kg</strong></div>
-        <div><span>{isPL ? "Zmiana" : "Change"}</span><strong>−16 kg</strong></div>
-        <div><span>{isPL ? "Czas" : "Time"}</span><strong>{isPL ? "299 dni" : "299 days"}</strong></div>
+        <div><span>{isPL ? "Stan 26.11" : "Nov 26 snapshot"}</span><strong>{currentWeight} kg</strong></div>
+        <div><span>{isPL ? "Zmiana" : "Change"}</span><strong>−{currentChange} kg</strong></div>
+        <div><span>{isPL ? "Czas" : "Time"}</span><strong>{durationDays} {isPL ? "dni" : "days"}</strong></div>
       </div>
       <div class="result-cadence">
         <p>{isPL ? "Bez restrykcyjnej diety." : "No restrictive diet."}</p>
@@ -323,7 +341,7 @@ const checkpoints = [
         <p>{isPL ? "Nie bez wysiłku. Nie bez gorszych tygodni. Nie bez cofania się." : "Not without effort. Not without bad weeks. Not without moving backwards occasionally."}</p>
         <p class="result-final">{isPL ? "Ale konsekwentnie do przodu." : "But forward over time."}</p>
       </div>
-      <p class="result-context">{isPL ? "To opis mojego przebiegu, nie ocena innych sposobów leczenia ani decyzji medycznych." : "This describes my own route; it is not a judgement of other treatments or medical decisions."}</p>
+      <p class="result-context">{isPL ? `26 września po raz pierwszy zobaczyłem 92,0 kg — BMI poniżej 25. Dwa miesiące później ważę ${currentWeight} kg, a BMI wynosi ${metric(journey.summary.currentBmi)}. Próg został utrzymany, ale projekt się nie skończył: zmieniły się wskaźniki, które śledzę. To opis mojego przebiegu, nie ocena innych sposobów leczenia ani decyzji medycznych.` : `On September 26th I first saw 92.0 kg — a BMI below 25. Two months later I weigh ${currentWeight} kg and my BMI is ${metric(journey.summary.currentBmi)}. The threshold has held, but the project is not over: the metrics I follow have changed. This describes my own route; it is not a judgement of other treatments or medical decisions.`}</p>
     </section>
 
     <section class="stage-two" id="stage-two">
@@ -334,17 +352,18 @@ const checkpoints = [
       <div class="stage-two-intro">
         <h2>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h2>
         <div class="prose">
-          <p>{isPL ? "Ten raport zamyka etap pierwszy. Waga i BMI są w normie, ale od początku moja waga pokazuje jeszcze jedną liczbę: procent tkanki tłuszczowej. To on wyznacza kierunek na dalej." : "This report closes stage one. My weight and BMI are in the normal range, but my scale has shown one more number from the beginning: body-fat percentage. That is what sets the direction ahead."}</p>
+          <p>{isPL ? "Próg prawidłowego BMI został osiągnięty, ale jego utrzymanie nadal jest częścią pracy. Równolegle moja waga od początku pokazuje jeszcze jedną liczbę: procent tkanki tłuszczowej. To on wyznacza kierunek na dalej." : "I reached the normal-BMI threshold, but maintaining it is still part of the work. At the same time, my scale has shown one more number from the beginning: body-fat percentage. That is what sets the direction ahead."}</p>
           <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Etap drugi jest planem, nie kolejnym podsumowaniem: zejść z poziomem tkanki tłuszczowej do normy i odbudować siłę." : "I used to be not only lighter, but strong. Stage two is a plan, not another summary: bring body fat into the normal range and rebuild strength."}</p>
         </div>
       </div>
       <div class="stage-two-snapshot">
-        <div><span>{isPL ? "waga" : "weight"}</span><strong>92.0<small> kg</small></strong></div>
-        <div><span>{isPL ? "pas" : "waist"}</span><strong>99<small> cm</small></strong></div>
-        <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>25.6<small>%</small></strong></div>
-        <div><span>bench press</span><strong>54.5<small> kg × 8</small></strong></div>
-        <p class="snapshot-note">{isPL ? "Punkt startowy planu: dane końcowe etapu 1 z 26.09.2026." : "Starting point for the plan: stage-one final data as of September 26th, 2026."}</p>
+        <div><span>{isPL ? "waga" : "weight"}</span><strong>{currentWeight}<small> kg</small></strong></div>
+        <div><span>{isPL ? "pas" : "waist"}</span><strong>{currentWaist}<small> cm</small></strong></div>
+        <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>{currentBodyFat}<small>%</small></strong></div>
+        <div><span>bench press</span><strong>{currentBench}<small> kg × {journey.stageTwo.latestBenchPress.reps}</small></strong></div>
+        <p class="snapshot-note">{isPL ? `Aktualny snapshot: masa i tłuszcz z ${snapshotDate}; pas z ${waistDate}; siła z ${benchDate}.` : `Current snapshot: weight and body fat from ${snapshotDate}; waist from ${waistDate}; strength from ${benchDate}.`}</p>
       </div>
+      <BodyCompositionChart lang={lang} />
       <div class="new-goals">
         <article><span>01</span><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
         <article><span>02</span><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
@@ -362,11 +381,11 @@ const checkpoints = [
       <div class="next-report">
         <h2>{isPL ? "Plan, nie obietnica" : "A plan, not a promise"}</h2>
         {isPL ? (
-          <p>To zamknięty zapis etapu pierwszego — od 1 grudnia 2025 do 26 września 2026. Podane wyniki są dla niego ostateczne. Etap drugi zaczyna się od powyższego punktu startowego; cele są planem, a nie wynikiem, który już osiągnąłem.</p>
+          <p>To nadal otwarty zapis. Pierwszy próg został osiągnięty 26 września, ale utrzymanie masy trwa, a równolegle zbieram już dane o pasie, tkance tłuszczowej i sile. Cele etapu drugiego są planem, nie wynikiem, który już osiągnąłem.</p>
         ) : (
-          <p>This is a closed record of stage one — from December 1st, 2025 to September 26th, 2026. The results shown here are final for it. Stage two begins from the starting point above; its goals are a plan, not a result I have already achieved.</p>
+          <p>This remains an open record. The first threshold was reached on September 26th, but maintaining the weight continues, while I am already collecting waist, body-fat and strength data. Stage-two goals are a plan, not a result I have already achieved.</p>
         )}
-        <time>01.12.2025 — 26.09.2026</time>
+        <time>{isPL ? "01.12.2025 — nadal" : "Dec 1, 2025 — ongoing"}</time>
       </div>
     </section>
 
@@ -377,14 +396,14 @@ const checkpoints = [
           <>
             <p>Jednego dnia prawie nie widać różnicy. Po tygodniu również niewielką. Ale potem mijają miesiące.</p>
             <p>Jedna tabliczka czekolady mniej. Jedna mniejsza porcja. Jeden wieczór bez podjadania. Jeden spacer. Jedno wejście na wagę i szybka korekta, kiedy trend idzie w złą stronę.</p>
-            <p>Żadna z tych rzeczy sama nie zmieniła mojego życia. Ale po kilkuset dniach ważyłem ponad 15 kilogramów mniej.</p>
+            <p>Żadna z tych rzeczy sama nie zmieniła mojego życia. Ale po kilkuset dniach ważyłem ponad 18 kilogramów mniej.</p>
             <blockquote>Nie potrzebowałem idealnego planu. Potrzebowałem wystarczająco dobrych decyzji wykonywanych wystarczająco długo.</blockquote>
           </>
         ) : (
           <>
             <p>You barely notice the difference after one day. Not much after a week either. But then months pass.</p>
             <p>One less chocolate bar. One smaller portion. One evening without snacking. One walk. One weigh-in that makes you correct course before a bad week turns into a bad month.</p>
-            <p>None of those things changed my life on their own. But after hundreds of days, I was more than 15 kilograms lighter.</p>
+            <p>None of those things changed my life on their own. But after hundreds of days, I was more than 18 kilograms lighter.</p>
             <blockquote>I didn’t need a perfect plan. I needed good enough decisions repeated for long enough.</blockquote>
           </>
         )}

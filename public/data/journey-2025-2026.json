@@ -1,30 +1,1552 @@
 {
   "meta": {
-    "author": "Hubert",
-    "heightCm": 192,
-    "snapshotDate": "2026-09-26",
-    "source": "Publiczny snapshot wybranych, potwierdzonych punktów z prywatnej aplikacji",
-    "note": "Przed publikacją można zastąpić tablicę weights pełnym eksportem dziennych pomiarów. Daty dwóch punktów letnich służą wyłącznie pozycjonowaniu na osi i są oznaczone jako przybliżone."
+    "snapshotDate": "2026-11-26",
+    "source": "Static public snapshot exported from private Supabase data.",
+    "measurementCount": 318,
+    "status": "ongoing"
+  },
+  "person": {
+    "heightCm": 192
+  },
+  "summary": {
+    "startDate": "2025-12-01",
+    "startWeightKg": 108,
+    "currentDate": "2026-11-26",
+    "currentWeightKg": 89.5,
+    "currentBmi": 24.3,
+    "changeKg": -18.5,
+    "durationDays": 360,
+    "bmi25WeightKg": 92.16,
+    "firstNormalBmiDate": "2026-09-26",
+    "minimumWeightKg": 89.5,
+    "minimumDate": "2026-11-24"
   },
   "weights": [
-    { "date": "2025-12-01", "weight": 108.0, "kind": "start" },
-    { "date": "2025-12-16", "weight": 105.0, "kind": "milestone" },
-    { "date": "2026-01-29", "weight": 99.4, "kind": "milestone" },
-    { "date": "2026-05-09", "weight": 94.9, "kind": "milestone" },
-    { "date": "2026-06-20", "weight": 94.7, "kind": "summer-low", "datePrecision": "season" },
-    { "date": "2026-08-10", "weight": 98.9, "kind": "summer-high", "datePrecision": "season" },
-    { "date": "2026-09-26", "weight": 92.0, "kind": "current" }
+    {
+      "date": "2025-12-01",
+      "kg": 108,
+      "kind": "start"
+    },
+    {
+      "date": "2025-12-02",
+      "kg": 107.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-03",
+      "kg": 106.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-04",
+      "kg": 106.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-05",
+      "kg": 106.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-06",
+      "kg": 106.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-07",
+      "kg": 106.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-08",
+      "kg": 105.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-09",
+      "kg": 106.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-10",
+      "kg": 105.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-11",
+      "kg": 105.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-12",
+      "kg": 106.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-13",
+      "kg": 105.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-14",
+      "kg": 105.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-15",
+      "kg": 105.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-16",
+      "kg": 105,
+      "kind": "milestone-105"
+    },
+    {
+      "date": "2025-12-17",
+      "kg": 104.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-18",
+      "kg": 104.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-19",
+      "kg": 105.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-20",
+      "kg": 105.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-21",
+      "kg": 105.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-22",
+      "kg": 104.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-23",
+      "kg": 104.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-24",
+      "kg": 104.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-25",
+      "kg": 104.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-26",
+      "kg": 104.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-27",
+      "kg": 104.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-28",
+      "kg": 105,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-29",
+      "kg": 104.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-30",
+      "kg": 104.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2025-12-31",
+      "kg": 104.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-01",
+      "kg": 103.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-02",
+      "kg": 104,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-03",
+      "kg": 103.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-04",
+      "kg": 103.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-05",
+      "kg": 103.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-06",
+      "kg": 102.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-07",
+      "kg": 103.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-08",
+      "kg": 102.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-09",
+      "kg": 102.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-10",
+      "kg": 102.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-11",
+      "kg": 103.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-12",
+      "kg": 102.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-13",
+      "kg": 101.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-14",
+      "kg": 101.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-15",
+      "kg": 101.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-16",
+      "kg": 102.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-17",
+      "kg": 102.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-18",
+      "kg": 102.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-19",
+      "kg": 101.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-20",
+      "kg": 101.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-21",
+      "kg": 102,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-22",
+      "kg": 101.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-23",
+      "kg": 101.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-24",
+      "kg": 100.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-25",
+      "kg": 101.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-26",
+      "kg": 101.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-27",
+      "kg": 101.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-28",
+      "kg": 100.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-29",
+      "kg": 99.4,
+      "kind": "milestone-100"
+    },
+    {
+      "date": "2026-01-30",
+      "kg": 100,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-01-31",
+      "kg": 100.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-01",
+      "kg": 101,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-02",
+      "kg": 100.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-03",
+      "kg": 99.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-04",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-05",
+      "kg": 99.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-06",
+      "kg": 99.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-07",
+      "kg": 99.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-08",
+      "kg": 100.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-09",
+      "kg": 99.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-10",
+      "kg": 99,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-11",
+      "kg": 99.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-12",
+      "kg": 99,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-13",
+      "kg": 98.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-14",
+      "kg": 99.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-15",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-16",
+      "kg": 99.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-17",
+      "kg": 100.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-18",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-19",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-20",
+      "kg": 100.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-21",
+      "kg": 100.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-22",
+      "kg": 100.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-23",
+      "kg": 100.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-24",
+      "kg": 101.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-25",
+      "kg": 100.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-26",
+      "kg": 100.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-02-27",
+      "kg": 100.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-02",
+      "kg": 100.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-06",
+      "kg": 101.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-07",
+      "kg": 100.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-08",
+      "kg": 100.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-09",
+      "kg": 100.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-10",
+      "kg": 100,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-11",
+      "kg": 100.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-12",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-13",
+      "kg": 99.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-14",
+      "kg": 100,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-15",
+      "kg": 100.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-16",
+      "kg": 100.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-17",
+      "kg": 100,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-18",
+      "kg": 99.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-19",
+      "kg": 99.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-20",
+      "kg": 98.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-21",
+      "kg": 99.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-22",
+      "kg": 98.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-23",
+      "kg": 98.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-24",
+      "kg": 98.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-25",
+      "kg": 98.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-26",
+      "kg": 97.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-27",
+      "kg": 98.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-28",
+      "kg": 98.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-29",
+      "kg": 98.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-30",
+      "kg": 98.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-03-31",
+      "kg": 98.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-01",
+      "kg": 97.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-02",
+      "kg": 97.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-03",
+      "kg": 97.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-04",
+      "kg": 97.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-05",
+      "kg": 98.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-06",
+      "kg": 98.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-07",
+      "kg": 97.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-08",
+      "kg": 97.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-09",
+      "kg": 97.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-10",
+      "kg": 99.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-13",
+      "kg": 97.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-14",
+      "kg": 96.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-15",
+      "kg": 97.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-16",
+      "kg": 96.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-17",
+      "kg": 97.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-18",
+      "kg": 97,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-19",
+      "kg": 97.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-20",
+      "kg": 97.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-21",
+      "kg": 96.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-22",
+      "kg": 96.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-23",
+      "kg": 96.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-24",
+      "kg": 97.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-25",
+      "kg": 96.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-27",
+      "kg": 97.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-28",
+      "kg": 96.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-29",
+      "kg": 96.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-04-30",
+      "kg": 96,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-01",
+      "kg": 96.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-03",
+      "kg": 97.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-04",
+      "kg": 96.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-05",
+      "kg": 97.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-09",
+      "kg": 94.9,
+      "kind": "milestone-95"
+    },
+    {
+      "date": "2026-05-11",
+      "kg": 96.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-12",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-13",
+      "kg": 95.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-14",
+      "kg": 96.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-15",
+      "kg": 96.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-16",
+      "kg": 96.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-17",
+      "kg": 96.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-18",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-19",
+      "kg": 96.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-20",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-21",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-22",
+      "kg": 95.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-23",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-25",
+      "kg": 95.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-26",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-27",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-28",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-29",
+      "kg": 96.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-30",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-05-31",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-01",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-02",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-03",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-05",
+      "kg": 94.7,
+      "kind": "summer-low"
+    },
+    {
+      "date": "2026-06-06",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-07",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-08",
+      "kg": 95.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-09",
+      "kg": 96,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-10",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-11",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-12",
+      "kg": 96.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-13",
+      "kg": 95.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-14",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-15",
+      "kg": 95.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-27",
+      "kg": 98.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-28",
+      "kg": 98.9,
+      "kind": "summer-high"
+    },
+    {
+      "date": "2026-06-29",
+      "kg": 97.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-06-30",
+      "kg": 96.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-01",
+      "kg": 96.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-02",
+      "kg": 96.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-03",
+      "kg": 96.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-04",
+      "kg": 96.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-05",
+      "kg": 96.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-06",
+      "kg": 96.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-07",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-08",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-09",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-10",
+      "kg": 95.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-11",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-12",
+      "kg": 95.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-13",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-14",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-15",
+      "kg": 95.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-16",
+      "kg": 95.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-17",
+      "kg": 94.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-18",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-19",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-20",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-21",
+      "kg": 94.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-22",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-23",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-24",
+      "kg": 95.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-25",
+      "kg": 94.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-26",
+      "kg": 94.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-27",
+      "kg": 94.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-28",
+      "kg": 94.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-29",
+      "kg": 94.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-30",
+      "kg": 94.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-07-31",
+      "kg": 94.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-01",
+      "kg": 95.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-02",
+      "kg": 95.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-03",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-04",
+      "kg": 94.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-05",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-06",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-07",
+      "kg": 94.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-08",
+      "kg": 96.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-09",
+      "kg": 95.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-10",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-11",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-12",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-13",
+      "kg": 93.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-14",
+      "kg": 93.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-15",
+      "kg": 93.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-16",
+      "kg": 94.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-17",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-21",
+      "kg": 95.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-22",
+      "kg": 94.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-23",
+      "kg": 94.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-24",
+      "kg": 94.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-25",
+      "kg": 93.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-26",
+      "kg": 93.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-27",
+      "kg": 93.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-28",
+      "kg": 93.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-29",
+      "kg": 94.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-30",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-08-31",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-01",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-02",
+      "kg": 93.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-03",
+      "kg": 93.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-04",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-05",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-06",
+      "kg": 95.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-07",
+      "kg": 94.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-08",
+      "kg": 94.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-09",
+      "kg": 93.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-10",
+      "kg": 93.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-12",
+      "kg": 93.9,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-13",
+      "kg": 94.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-14",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-15",
+      "kg": 93.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-16",
+      "kg": 93.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-17",
+      "kg": 93.3,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-18",
+      "kg": 94,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-19",
+      "kg": 93.5,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-20",
+      "kg": 93.7,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-21",
+      "kg": 93.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-22",
+      "kg": 93.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-23",
+      "kg": 93.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-24",
+      "kg": 93.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-25",
+      "kg": 92.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-26",
+      "kg": 92,
+      "kind": "bmi-crossing"
+    },
+    {
+      "date": "2026-09-27",
+      "kg": 92.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-28",
+      "kg": 93.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-29",
+      "kg": 93.1,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-09-30",
+      "kg": 93.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-01",
+      "kg": 92.8,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-03",
+      "kg": 92.2,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-04",
+      "kg": 92.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-05",
+      "kg": 93,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-06",
+      "kg": 92.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-07",
+      "kg": 92.4,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-08",
+      "kg": 91.6,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-10",
+      "kg": 92,
+      "kind": "measurement"
+    },
+    {
+      "date": "2026-10-11",
+      "kg": 92.5,
+      "kind": "measurement"
+    },
+    { "date": "2026-10-12", "kg": 92.7, "kind": "measurement" },
+    { "date": "2026-10-14", "kg": 92, "kind": "measurement" },
+    { "date": "2026-10-16", "kg": 92.2, "kind": "measurement" },
+    { "date": "2026-10-17", "kg": 91.5, "kind": "measurement" },
+    { "date": "2026-10-18", "kg": 92, "kind": "measurement" },
+    { "date": "2026-10-19", "kg": 91.9, "kind": "measurement" },
+    { "date": "2026-10-20", "kg": 91.5, "kind": "measurement" },
+    { "date": "2026-10-21", "kg": 91.6, "kind": "measurement" },
+    { "date": "2026-10-22", "kg": 91.5, "kind": "measurement" },
+    { "date": "2026-10-24", "kg": 92, "kind": "measurement" },
+    { "date": "2026-10-25", "kg": 91.4, "kind": "measurement" },
+    { "date": "2026-10-26", "kg": 91.3, "kind": "measurement" },
+    { "date": "2026-10-27", "kg": 91.4, "kind": "measurement" },
+    { "date": "2026-10-28", "kg": 91.7, "kind": "measurement" },
+    { "date": "2026-10-29", "kg": 91.3, "kind": "measurement" },
+    { "date": "2026-11-03", "kg": 92.7, "kind": "measurement" },
+    { "date": "2026-11-04", "kg": 92.6, "kind": "measurement" },
+    { "date": "2026-11-05", "kg": 92.2, "kind": "measurement" },
+    { "date": "2026-11-07", "kg": 91.9, "kind": "measurement" },
+    { "date": "2026-11-08", "kg": 92.8, "kind": "measurement" },
+    { "date": "2026-11-09", "kg": 92.1, "kind": "measurement" },
+    { "date": "2026-11-10", "kg": 91.6, "kind": "measurement" },
+    { "date": "2026-11-11", "kg": 92.4, "kind": "measurement" },
+    { "date": "2026-11-14", "kg": 92, "kind": "measurement" },
+    { "date": "2026-11-15", "kg": 92.6, "kind": "measurement" },
+    { "date": "2026-11-16", "kg": 93.8, "kind": "measurement" },
+    { "date": "2026-11-17", "kg": 92.7, "kind": "measurement" },
+    { "date": "2026-11-18", "kg": 92.3, "kind": "measurement" },
+    { "date": "2026-11-20", "kg": 91.1, "kind": "measurement" },
+    { "date": "2026-11-21", "kg": 90.6, "kind": "measurement" },
+    { "date": "2026-11-22", "kg": 90.9, "kind": "measurement" },
+    { "date": "2026-11-23", "kg": 90.1, "kind": "measurement" },
+    { "date": "2026-11-24", "kg": 89.5, "kind": "minimum" },
+    { "date": "2026-11-25", "kg": 89.9, "kind": "measurement" },
+    { "date": "2026-11-26", "kg": 89.5, "kind": "current" }
   ],
   "stageTwo": {
-    "date": "2026-09-26",
-    "weightKg": 92.0,
-    "waistCm": 99,
-    "bodyFatPct": 25.6,
+    "date": "2026-11-26",
+    "weightKg": 89.5,
+    "waistCm": 97,
+    "waistDate": "2026-11-23",
+    "bodyFatPct": 24.5,
+    "bodyFatDate": "2026-11-26",
+    "waist": [
+      { "date": "2026-09-19", "cm": 100 }, { "date": "2026-09-22", "cm": 101 },
+      { "date": "2026-09-26", "cm": 99 }, { "date": "2026-10-01", "cm": 100 },
+      { "date": "2026-10-04", "cm": 99.5 }, { "date": "2026-10-29", "cm": 99 },
+      { "date": "2026-11-09", "cm": 98.5 }, { "date": "2026-11-14", "cm": 98.5 },
+      { "date": "2026-11-23", "cm": 97 }
+    ],
+    "bodyFat": [
+      { "date": "2026-09-19", "pct": 26.1 }, { "date": "2026-09-20", "pct": 26.1 }, { "date": "2026-09-21", "pct": 26.1 }, { "date": "2026-09-22", "pct": 26.1 }, { "date": "2026-09-24", "pct": 26.1 }, { "date": "2026-09-25", "pct": 25.9 }, { "date": "2026-09-26", "pct": 25.6 }, { "date": "2026-09-27", "pct": 26 }, { "date": "2026-09-28", "pct": 26.3 }, { "date": "2026-09-29", "pct": 26 }, { "date": "2026-09-30", "pct": 26 },
+      { "date": "2026-10-01", "pct": 26 }, { "date": "2026-10-03", "pct": 25.7 }, { "date": "2026-10-04", "pct": 25.7 }, { "date": "2026-10-05", "pct": 26 }, { "date": "2026-10-06", "pct": 25.7 }, { "date": "2026-10-07", "pct": 25.8 }, { "date": "2026-10-08", "pct": 25.5 }, { "date": "2026-10-10", "pct": 25.5 }, { "date": "2026-10-11", "pct": 25.8 }, { "date": "2026-10-12", "pct": 25.6 }, { "date": "2026-10-14", "pct": 25.6 }, { "date": "2026-10-16", "pct": 25.7 }, { "date": "2026-10-17", "pct": 25.3 }, { "date": "2026-10-18", "pct": 25.5 }, { "date": "2026-10-19", "pct": 25.5 }, { "date": "2026-10-20", "pct": 25.4 }, { "date": "2026-10-21", "pct": 25.4 }, { "date": "2026-10-22", "pct": 25.4 }, { "date": "2026-10-24", "pct": 25.4 }, { "date": "2026-10-25", "pct": 25.2 }, { "date": "2026-10-26", "pct": 25.1 }, { "date": "2026-10-27", "pct": 25.4 }, { "date": "2026-10-28", "pct": 25.4 }, { "date": "2026-10-29", "pct": 25.3 },
+      { "date": "2026-11-03", "pct": 25.6 }, { "date": "2026-11-04", "pct": 25.9 }, { "date": "2026-11-05", "pct": 25.6 }, { "date": "2026-11-07", "pct": 25.5 }, { "date": "2026-11-08", "pct": 26 }, { "date": "2026-11-09", "pct": 25.7 }, { "date": "2026-11-10", "pct": 25.4 }, { "date": "2026-11-11", "pct": 25.7 }, { "date": "2026-11-14", "pct": 25.6 }, { "date": "2026-11-15", "pct": 25.6 }, { "date": "2026-11-16", "pct": 26 }, { "date": "2026-11-17", "pct": 25.8 }, { "date": "2026-11-18", "pct": 25.8 }, { "date": "2026-11-20", "pct": 25.3 }, { "date": "2026-11-21", "pct": 25.1 }, { "date": "2026-11-23", "pct": 24.8 }, { "date": "2026-11-24", "pct": 24.6 }, { "date": "2026-11-25", "pct": 24.7 }, { "date": "2026-11-26", "pct": 24.5 }
+    ],
     "benchPress": [
-      { "date": "2026-09-05", "loadKg": 52.0, "reps": 6 },
-      { "date": "2026-09-12", "loadKg": 52.0, "reps": 8 },
-      { "date": "2026-09-19", "loadKg": 54.5, "reps": 6 },
-      { "date": "2026-09-26", "loadKg": 54.5, "reps": 8 }
-    ]
+      {
+        "date": "2026-09-18",
+        "kg": 52,
+        "reps": 7
+      },
+      {
+        "date": "2026-09-21",
+        "kg": 52,
+        "reps": 8
+      },
+      {
+        "date": "2026-09-23",
+        "kg": 54.5,
+        "reps": 7
+      },
+      {
+        "date": "2026-09-25",
+        "kg": 54.5,
+        "reps": 8
+      },
+      {
+        "date": "2026-09-28",
+        "kg": 54.5,
+        "reps": 8
+      },
+      {
+        "date": "2026-09-30",
+        "kg": 57,
+        "reps": 7
+      },
+      {
+        "date": "2026-10-02",
+        "kg": 57,
+        "reps": 8
+      },
+      {
+        "date": "2026-10-06",
+        "kg": 57,
+        "reps": 8
+      },
+      {
+        "date": "2026-10-11",
+        "kg": 59.5,
+        "reps": 8
+      },
+      { "date": "2026-10-12", "kg": 59.5, "reps": 8 },
+      { "date": "2026-10-19", "kg": 61, "reps": 6 },
+      { "date": "2026-10-23", "kg": 61, "reps": 8 },
+      { "date": "2026-10-26", "kg": 61, "reps": 8 }
+    ],
+    "latestBenchPress": {
+      "loadKg": 61,
+      "reps": 8,
+      "date": "2026-10-26"
+    }
   }
 }
