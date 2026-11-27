@@ -13,27 +13,41 @@ const width = 1000;
 const plotLeft = 94;
 const plotRight = 962;
 const plotWidth = plotRight - plotLeft;
-const x = (date: string) => plotLeft + ((new Date(`${date}T12:00:00`).getTime() - start) / (end - start)) * plotWidth;
+const range = Math.max(end - start, 1);
+const xTime = (timestamp: number) => plotLeft + ((timestamp - start) / range) * plotWidth;
+const x = (date: string) => xTime(new Date(`${date}T12:00:00`).getTime());
 const scaleY = (value: number, min: number, max: number, top: number, bottom: number) => top + ((max - value) / (max - min)) * (bottom - top);
+const domain = (values: number[], step: number, padding: number) => {
+  const min = Math.floor((Math.min(...values) - padding) / step) * step;
+  const max = Math.ceil((Math.max(...values) + padding) / step) * step;
+  return { min, max: Math.max(max, min + step) };
+};
+const fatDomain = domain(bodyFat.map(({ pct }) => pct), .5, .3);
+const waistDomain = domain(waist.map(({ cm }) => cm), 2, 1);
+const axisTicks = (min: number, max: number, count: number) =>
+  Array.from({ length: count }, (_, index) => min + ((max - min) * index) / (count - 1));
+const fatTicks = axisTicks(fatDomain.min, fatDomain.max, 4);
+const waistTicks = axisTicks(waistDomain.min, waistDomain.max, 4);
 const path = <T,>(entries: T[], getDate: (entry: T) => string, getValue: (entry: T) => number, min: number, max: number, top: number, bottom: number) =>
   entries.map((entry, index) => `${index ? "L" : "M"}${x(getDate(entry)).toFixed(1)},${scaleY(getValue(entry), min, max, top, bottom).toFixed(1)}`).join(" ");
-const fatPath = path(bodyFat, (entry) => entry.date, (entry) => entry.pct, 24, 26.5, 72, 206);
-const waistPath = path(waist, (entry) => entry.date, (entry) => entry.cm, 96, 102, 284, 418);
-const formatDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(new Date(`${date}T12:00:00`));
-const ticks = [
-  { date: "2026-09-19", anchor: "start" },
-  { date: "2026-10-01", anchor: "middle" },
-  { date: "2026-11-01", anchor: "middle" },
-  { date: "2026-11-26", anchor: "end" },
-] as const;
+const fatPath = path(bodyFat, (entry) => entry.date, (entry) => entry.pct, fatDomain.min, fatDomain.max, 72, 206);
+const waistPath = path(waist, (entry) => entry.date, (entry) => entry.cm, waistDomain.min, waistDomain.max, 284, 418);
+const formatDate = (date: string | number) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(typeof date === "number" ? new Date(date) : new Date(`${date}T12:00:00`));
+const formatDecimal = (value: number) => new Intl.NumberFormat(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(value);
+const formatWhole = (value: number) => new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(value);
+const ticks = axisTicks(start, end, 4).map((timestamp, index, entries) => ({
+  timestamp,
+  anchor: index === 0 ? "start" : index === entries.length - 1 ? "end" : "middle",
+}));
 const copy = lang === "pl" ? {
   eyebrow: "Etap 2 · każdy zapis",
   title: "Skład ciała, pomiar po pomiarze",
   desc: "Wszystkie zapisane pomiary na rzeczywistej osi czasu. Bez dopisywania brakujących dni i bez wygładzania wahań.",
   fat: "Tkanka tłuszczowa",
   waist: "Obwód pasa",
-  fatChange: "26,1 → 24,5%",
-  waistChange: "100 → 97 cm",
+  fatChange: `${formatDecimal(bodyFat[0].pct)} → ${formatDecimal(bodyFat.at(-1)!.pct)}%`,
+  waistChange: `${formatWhole(waist[0].cm)} → ${formatWhole(waist.at(-1)!.cm)} cm`,
+  scroll: "Przewijany wykres składu ciała. Użyj strzałek lub gestu przesunięcia, aby zobaczyć całą oś czasu.",
   note: `${bodyFat.length} zapisów tłuszczu i ${waist.length} pomiarów pasa. Pomiary nie zawsze wypadały tego samego dnia; przerwy na osi są prawdziwe.`,
 } : {
   eyebrow: "Stage 2 · every entry",
@@ -41,8 +55,9 @@ const copy = lang === "pl" ? {
   desc: "Every recorded measurement on its true date. Missing days are not invented and short-term fluctuations remain visible.",
   fat: "Body fat",
   waist: "Waist",
-  fatChange: "26.1 → 24.5%",
-  waistChange: "100 → 97 cm",
+  fatChange: `${formatDecimal(bodyFat[0].pct)} → ${formatDecimal(bodyFat.at(-1)!.pct)}%`,
+  waistChange: `${formatWhole(waist[0].cm)} → ${formatWhole(waist.at(-1)!.cm)} cm`,
+  scroll: "Scrollable body-composition chart. Use arrow keys or swipe to explore the full timeline.",
   note: `${bodyFat.length} body-fat readings and ${waist.length} waist measurements. They were not always taken on the same day; the gaps on the axis are real.`,
 };
 ---
@@ -59,30 +74,30 @@ const copy = lang === "pl" ? {
       <div><span>{copy.waist}</span><strong>{copy.waistChange}</strong></div>
     </div>
   </figcaption>
-  <div class="composition-stage">
+  <div class="composition-stage" tabindex="0" aria-label={copy.scroll}>
     <svg viewBox={`0 0 ${width} 475`} role="img" aria-labelledby="composition-title composition-desc">
       <title id="composition-title">{copy.title}</title>
       <desc id="composition-desc">{copy.desc}</desc>
       <g class="composition-grid" aria-hidden="true">
-        {[24, 25, 26].map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, 24, 26.5, 72, 206)} y2={scaleY(value, 24, 26.5, 72, 206)} /><text x={plotLeft - 18} y={scaleY(value, 24, 26.5, 72, 206) + 5} text-anchor="end">{value}%</text></>)}
-        {[96, 98, 100, 102].map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, 96, 102, 284, 418)} y2={scaleY(value, 96, 102, 284, 418)} /><text x={plotLeft - 18} y={scaleY(value, 96, 102, 284, 418) + 5} text-anchor="end">{value}</text></>)}
+        {fatTicks.map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, fatDomain.min, fatDomain.max, 72, 206)} y2={scaleY(value, fatDomain.min, fatDomain.max, 72, 206)} /><text x={plotLeft - 18} y={scaleY(value, fatDomain.min, fatDomain.max, 72, 206) + 5} text-anchor="end">{formatDecimal(value)}%</text></>)}
+        {waistTicks.map((value) => <><line x1={plotLeft} x2={plotRight} y1={scaleY(value, waistDomain.min, waistDomain.max, 284, 418)} y2={scaleY(value, waistDomain.min, waistDomain.max, 284, 418)} /><text x={plotLeft - 18} y={scaleY(value, waistDomain.min, waistDomain.max, 284, 418) + 5} text-anchor="end">{formatWhole(value)}</text></>)}
       </g>
       <text class="composition-panel-label" x={plotLeft} y="45">{copy.fat}</text>
       <text class="composition-panel-label" x={plotLeft} y="257">{copy.waist}</text>
       <path class="composition-path composition-path--fat" d={fatPath} />
       <path class="composition-path composition-path--waist" d={waistPath} />
       <g class="composition-dots composition-dots--fat">
-        {bodyFat.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.pct, 24, 26.5, 72, 206)} r="3.2"><title>{formatDate(entry.date)} · {entry.pct.toFixed(1)}%</title></circle>)}
+        {bodyFat.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.pct, fatDomain.min, fatDomain.max, 72, 206)} r="3.2"><title>{formatDate(entry.date)} · {formatDecimal(entry.pct)}%</title></circle>)}
       </g>
       <g class="composition-dots composition-dots--waist">
-        {waist.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.cm, 96, 102, 284, 418)} r="4.6"><title>{formatDate(entry.date)} · {entry.cm.toFixed(1)} cm</title></circle>)}
+        {waist.map((entry) => <circle cx={x(entry.date)} cy={scaleY(entry.cm, waistDomain.min, waistDomain.max, 284, 418)} r="4.6"><title>{formatDate(entry.date)} · {formatDecimal(entry.cm)} cm</title></circle>)}
       </g>
       <g class="composition-end-labels" aria-hidden="true">
-        <text x={plotRight} y={scaleY(bodyFat.at(-1)!.pct, 24, 26.5, 72, 206) - 13} text-anchor="end">{bodyFat.at(-1)!.pct.toFixed(1)}%</text>
-        <text x={plotRight} y={scaleY(waist.at(-1)!.cm, 96, 102, 284, 418) - 13} text-anchor="end">{waist.at(-1)!.cm.toFixed(0)} cm</text>
+        <text x={plotRight} y={scaleY(bodyFat.at(-1)!.pct, fatDomain.min, fatDomain.max, 72, 206) - 13} text-anchor="end">{formatDecimal(bodyFat.at(-1)!.pct)}%</text>
+        <text x={plotRight} y={scaleY(waist.at(-1)!.cm, waistDomain.min, waistDomain.max, 284, 418) - 13} text-anchor="end">{formatWhole(waist.at(-1)!.cm)} cm</text>
       </g>
       <g class="composition-dates" aria-hidden="true">
-        {ticks.map((tick) => <text x={x(tick.date)} y="462" text-anchor={tick.anchor}>{formatDate(tick.date)}</text>)}
+        {ticks.map((tick) => <text x={xTime(tick.timestamp)} y="462" text-anchor={tick.anchor}>{formatDate(tick.timestamp)}</text>)}
       </g>
     </svg>
   </div>

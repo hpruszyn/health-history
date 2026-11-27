@@ -42,7 +42,7 @@ components:
   score-card:
     backgroundColor: "{colors.white}"
     border: "1px solid {colors.ink}"
-    shadow: "13px 13px 0 {colors.red}"
+    shadow: "10px 14px 30px rgba(63, 35, 30, .16)"
 ---
 
 ## Overview
@@ -79,9 +79,9 @@ On narrower screens, two-column story, score, detail, and stage layouts become a
 
 ## Elevation & Depth
 
-The document is mostly flat. Borders, tonal paper shifts, and full-bleed color blocks create structure. Offset red shadows appear only on the competitive score and the chart tooltip, where a moment of data interaction benefits from a physical interruption.
+The document is mostly flat. Borders, tonal paper shifts, and full-bleed color blocks create structure. A single soft editorial shadow lifts the competitive score; the chart tooltip uses a smaller neutral shadow so it stays legible without becoming decorative.
 
-**The Flat Page Rule.** Keep surfaces flat and use the single red offset shadow only where a competitive score needs a tactile interruption.
+**The Flat Page Rule.** Keep surfaces flat and reserve soft elevation for temporary data overlays and the one competitive score insert.
 
 ## Shapes
 
@@ -95,7 +95,7 @@ The header is an editorial masthead: a compact circular mark, spaced wordmark, m
 
 ### Competitive score card
 
-The score card is the one deliberately tactile panel. A ruled white surface, compact metadata rows, and an offset red shadow make the private competition feel like an inserted score slip rather than a dashboard widget.
+The score card is the one deliberately tactile panel. A ruled white surface, compact metadata rows, and a soft paper-like shadow make the private competition feel like an inserted score slip rather than a dashboard widget.
 
 ### Weight chart
 
