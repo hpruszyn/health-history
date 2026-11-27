@@ -20,26 +20,9 @@ const otherHref = stageHref(base, isPL ? "en" : "pl", stage);
     <a class="language-switch" href={otherHref} lang={isPL ? "en" : "pl"} hreflang={isPL ? "en" : "pl"}>
       <span class={isPL ? "active" : ""}>PL</span><i>/</i><span class={!isPL ? "active" : ""}>EN</span>
     </a>
-    <span class="reading-progress" aria-hidden="true"><span data-reading-progress></span></span>
   </header>
 
   <script>
-    const header = document.querySelector<HTMLElement>("[data-header]");
-    const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
-    let lastY = 0;
-    const updatePageState = () => {
-      const y = window.scrollY;
-      header?.classList.toggle("is-compact", y > 60);
-      header?.classList.toggle("is-hidden", y > lastY && y > 480);
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = scrollable > 0 ? Math.min(y / scrollable, 1) : 0;
-      progress?.style.setProperty("--reading-progress", ratio.toString());
-      lastY = y;
-    };
-    updatePageState();
-    window.addEventListener("scroll", updatePageState, { passive: true });
-    window.addEventListener("resize", updatePageState, { passive: true });
-
     const navLinks = [...document.querySelectorAll("[data-nav-section]")];
     const sections = navLinks
       .map((link) => document.getElementById(link.getAttribute("data-nav-section") || ""))

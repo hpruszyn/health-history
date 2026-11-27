@@ -60,7 +60,7 @@ Editorial blocks are mostly square and calm. Links and tooltips use a 4px radius
 
 ## Components
 
-- **Masthead:** bilingual title and sparse navigation on the night surface, with light text and a restrained rule.
+- **Masthead:** fixed, full-width night surface with light text and a restrained rule. Navigation stays visible while reading. Below 700px, section links occupy a second row with 44px touch targets; the title and language switch stay in the first row. Anchor offsets keep headings below the masthead. The current section uses a coral underline.
 - **Hero landscape:** night surface with the 318-point weight line, a light-blue evidence stroke, explicit axes, and coral summer rebound markers.
 - **Chart shell:** heading, key, full time axis, and concise note; never turn the chart into a decorative card.
 - **Summer chapter:** dark tonal interruption that explains the coral regression in plain language.
