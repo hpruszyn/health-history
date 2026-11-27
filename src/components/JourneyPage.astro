@@ -208,12 +208,10 @@ const checkpoints = [
           </>
         )}
       </div>
-      <div class="game-score" aria-label={isPL ? "Przykładowa tablica wyników" : "Example scoreboard"}>
-        <div class="score-top"><span>{isPL ? "kwartał 03" : "quarter 03"}</span><span>2026</span></div>
-        <div class="score-row score-row--winner"><span>01</span><strong>Hubert</strong><b>−6.9%</b></div>
-        <div class="score-row"><span>02</span><strong>{isPL ? "kolega" : "friend"}</strong><b>−1.8%</b></div>
-        <div class="score-foot">{isPL ? "przewaga wystarczająco satysfakcjonująca" : "a sufficiently satisfying lead"}</div>
-      </div>
+      <blockquote class="game-score">
+        <p>{isPL ? "Lubię wygrywać." : "I like winning."}</p>
+        <p>{isPL ? "Nie Excel. Excel byłby zdecydowanie zbyt nudny." : "Not a spreadsheet. A spreadsheet would have been far too boring."}</p>
+      </blockquote>
     </section>
 
     <section class="rules-section">
