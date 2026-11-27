@@ -2,18 +2,20 @@
 import "@fontsource-variable/instrument-sans";
 import "@fontsource-variable/newsreader";
 import "../styles/global.css";
+import { stageHref, type Stage } from "../lib/stages";
 
 interface Props {
   lang: "pl" | "en";
+  stage?: Stage;
   title: string;
   description: string;
 }
 
-const { lang, title, description } = Astro.props;
+const { lang, stage = 1, title, description } = Astro.props;
 const base = import.meta.env.BASE_URL;
-const canonical = new URL(`${base}${lang}/`, Astro.site);
+const canonical = new URL(stageHref(base, lang, stage), Astro.site);
 const otherLang = lang === "pl" ? "en" : "pl";
-const alternate = new URL(`${base}${otherLang}/`, Astro.site);
+const alternate = new URL(stageHref(base, otherLang, stage), Astro.site);
 ---
 
 <!doctype html>

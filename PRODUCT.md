@@ -16,10 +16,11 @@ Pokazać prawdziwą, nieliniową drogę: setki wystarczająco dobrych decyzji z�
 
 ## Content model
 
-- Jedna długa historia w dwóch równorzędnych wersjach: `/pl/` i `/en/`.
+- Dwa osobne roczne rozdziały w dwóch równorzędnych językach. Etap 1: `/pl/` i `/en/`; etap 2: `/pl/etap-2/` i `/en/stage-2/`. Przełącznik języka zachowuje etap.
 - Aktualny snapshot obejmuje okres 1.12.2025–26.11.2026; późniejsze pomiary mogą wejść do kolejnych świadomych aktualizacji.
 - Próg prawidłowego BMI został po raz pierwszy osiągnięty 26.09.2026, ale utrzymanie wyniku pozostaje częścią etapu 1.
-- Etap 2 jest trwającym eksperymentem dotyczącym pasa, tkanki tłuszczowej i siły — bez przedwczesnych wniosków.
+- Etap 1 trwa od 1.12.2025 do 30.11.2026 i dotyczy wagi, BMI oraz utrzymania wyniku. Osiągnięcie prawidłowego BMI nie kończy roku.
+- Etap 2 trwa od 1.12.2026 do 30.11.2027 i dotyczy pasa, tkanki tłuszczowej oraz siły. W obecnym raporcie pozostaje zapowiedzią. Zapisane wcześniej pomiary pokazujemy z rzeczywistymi datami jako punkt odniesienia przed startem, nie wyniki etapu 2.
 - Dane publiczne są wersjonowanymi, statycznymi snapshotami w repozytorium.
 - Prywatna aplikacja „Bitwa o wagę” pozostaje tylko elementem historii.
 
@@ -31,8 +32,8 @@ Dane jako krajobraz: ciemne otwarcie z rzeczywistą linią 318 pomiarów, jasna 
 
 - **THESIS:** małe decyzje, powtarzane wystarczająco długo, składają się na dużą zmianę; prawdziwa droga zawiera również regresy.
 - **OWN-WORLD:** krajobraz utworzony z prawdziwych danych — nocny granat, jasny błękit linii i koralowy regres przechodzą w jasny osobisty dziennik.
-- **STORY:** aktualny wynik i obietnica → zdrowotny kontekst i narodziny Stasia → punkt startowy i własna gra → reguły oraz codzienny feedback → pełny wykres z wakacyjnym odbiciem → małe wygrane i codzienne dowody → osiągnięcie progu BMI oraz dalsza stabilizacja → trwające metryki etapu 2 → puenta o procencie składanym, disclaimer i dyskretna kawa.
-- **FIRST VIEWPORT:** minimalna nawigacja, osobisty nagłówek, aktualny wynik −18,5 kg w 360 dni i prawdziwy krajobraz 108 → 89,5 kg z widocznym wakacyjnym odbiciem.
+- **STORY:** aktualny wynik i obietnica → zdrowotny kontekst i narodziny Stasia → punkt startowy i własna gra → reguły oraz codzienny feedback → pełny wykres z wakacyjnym odbiciem → małe wygrane i codzienne dowody → osiągnięcie progu BMI oraz dalsza stabilizacja → przejście do osobnego rocznego rozdziału etapu 2 → puenta o procencie składanym, disclaimer i dyskretna kawa.
+- **FIRST VIEWPORT:** minimalna nawigacja, wyraźny zakres dat i przełącznik rocznych etapów, osobisty nagłówek, aktualny wynik −18,5 kg w 360 dni i prawdziwy krajobraz 108 → 89,5 kg z widocznym wakacyjnym odbiciem.
 - **FORM:** krajobraz danych połączony z osobistym magazynem — jednorazowe odsłonięcie linii w 2,2 sekundy, redakcyjne kolumny oraz wykresy jako dowody. Główny wykres obsługuje dotyk, mysz i klawiaturę; ograniczenie ruchu jest respektowane. Kierunek wskazany przez użytkownika; bez losowania concept-seed.
 
 - **FINISH:** unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

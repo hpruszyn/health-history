@@ -2,32 +2,22 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroLandscape from "./HeroLandscape.astro";
 import WeightChart from "./WeightChart.astro";
-import StrengthChart from "./StrengthChart.astro";
-import BodyCompositionChart from "./BodyCompositionChart.astro";
+import JourneyHeader from "./JourneyHeader.astro";
+import JourneyClosing from "./JourneyClosing.astro";
+import JourneyFooter from "./JourneyFooter.astro";
+import StageNavigation from "./StageNavigation.astro";
+import { stageHref, stagePeriod } from "../lib/stages";
 import journey from "../../public/data/journey-2025-2026.json";
 
 interface Props { lang: "pl" | "en"; }
 const { lang } = Astro.props;
 const isPL = lang === "pl";
 const base = import.meta.env.BASE_URL;
-const coffeeUrl = import.meta.env.PUBLIC_BUY_ME_A_COFFEE_URL;
-const otherHref = `${base}${isPL ? "en" : "pl"}/`;
 const locale = isPL ? "pl-PL" : "en-GB";
 const metric = (value: number) => value.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const currentWeight = metric(journey.summary.currentWeightKg);
 const currentChange = metric(Math.abs(journey.summary.changeKg));
-const currentWaist = metric(journey.stageTwo.waistCm);
-const currentBodyFat = metric(journey.stageTwo.bodyFatPct);
-const currentBench = metric(journey.stageTwo.latestBenchPress.loadKg);
 const durationDays = journey.summary.durationDays;
-const formatLongDate = (date: string) => new Intl.DateTimeFormat(locale, {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-}).format(new Date(`${date}T12:00:00`));
-const snapshotDate = formatLongDate(journey.summary.currentDate);
-const waistDate = formatLongDate(journey.stageTwo.waistDate);
-const benchDate = formatLongDate(journey.stageTwo.latestBenchPress.date);
 
 const meta = isPL ? {
   title: "Jak zmieniłem swoje nawyki i zrzuciłem ponad 18 kg — osobista historia",
@@ -60,30 +50,16 @@ const checkpoints = [
 ---
 
 <BaseLayout lang={lang} title={meta.title} description={meta.description}>
-  <header class="site-header" data-header>
-    <a class="wordmark" href={`#top`} aria-label={isPL ? "Początek strony" : "Top of page"}>
-      <span class="wordmark-mark">H</span>
-      <span>Hubert <i>/</i> {isPL ? "droga do formy" : "a road back to fitness"}</span>
-    </a>
-    <nav aria-label={isPL ? "Główna nawigacja" : "Main navigation"}>
-      <a href="#story" data-nav-section="story">{isPL ? "Historia" : "Story"}</a>
-      <a href="#data" data-nav-section="data">{isPL ? "Dane" : "Data"}</a>
-      <a href="#stage-two" data-nav-section="stage-two">{isPL ? "Etap 2" : "Stage 2"}</a>
-      <a href="#about" data-nav-section="about">{isPL ? "O mnie" : "About"}</a>
-    </nav>
-    <a class="language-switch" href={otherHref} lang={isPL ? "en" : "pl"} hreflang={isPL ? "en" : "pl"}>
-      <span class={isPL ? "active" : ""}>PL</span><i>/</i><span class={!isPL ? "active" : ""}>EN</span>
-    </a>
-    <span class="reading-progress" aria-hidden="true"><span data-reading-progress></span></span>
-  </header>
-
+  <JourneyHeader lang={lang} stage={1} />
   <main id="main">
     <section class="hero" id="top">
       <div class="hero-story">
         <div class="hero-copy">
+          <p class="stage-kicker">{isPL ? "Etap 1 · Waga i BMI" : "Stage 1 · Weight & BMI"}<span>{stagePeriod(lang, 1)}</span></p>
           <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
         </div>
       </div>
+      <StageNavigation lang={lang} stage={1} />
       <HeroLandscape lang={lang} />
       <a class="scroll-cue" href="#story">
         <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
@@ -318,6 +294,7 @@ const checkpoints = [
     </section>
 
     <section class="stage-one-result">
+      <span class="eyebrow">{isPL ? "Etap 1 · stan na 26.11.2026 · w toku" : "Stage 1 · November 26, 2026 snapshot · ongoing"}</span>
       <h2>{isPL ? "Próg osiągnięty. Praca trwa." : "Threshold reached. Work ongoing."}</h2>
       <div class="result-grid">
         <div><span>{isPL ? "Start" : "Start"}</span><strong>108 kg</strong></div>
@@ -332,48 +309,14 @@ const checkpoints = [
         <p>{isPL ? "Nie bez wysiłku. Nie bez gorszych tygodni. Nie bez cofania się." : "Not without effort. Not without bad weeks. Not without moving backwards occasionally."}</p>
         <p class="result-final">{isPL ? "Ale konsekwentnie do przodu." : "But forward over time."}</p>
       </div>
-      <p class="result-context">{isPL ? `26 września po raz pierwszy zobaczyłem 92,0 kg — BMI poniżej 25. Dwa miesiące później ważę ${currentWeight} kg, a BMI wynosi ${metric(journey.summary.currentBmi)}. Próg został utrzymany, ale projekt się nie skończył: zmieniły się wskaźniki, które śledzę. To opis mojego przebiegu, nie ocena innych sposobów leczenia ani decyzji medycznych.` : `On September 26th I first saw 92.0 kg — a BMI below 25. Two months later I weigh ${currentWeight} kg and my BMI is ${metric(journey.summary.currentBmi)}. The threshold has held, but the project is not over: the metrics I follow have changed. This describes my own route; it is not a judgement of other treatments or medical decisions.`}</p>
+      <p class="result-context">{isPL ? `26 września po raz pierwszy zobaczyłem 92,0 kg — BMI poniżej 25. Dwa miesiące później ważę ${currentWeight} kg, a BMI wynosi ${metric(journey.summary.currentBmi)}. Etap pierwszy trwa do 30 listopada 2026. Osiągnięcie prawidłowego BMI było ważnym progiem, ale pozostała część tego roku nadal należy do pracy nad wagą i utrzymaniem wyniku. To opis mojego przebiegu, nie ocena innych sposobów leczenia ani decyzji medycznych.` : `On September 26th I first saw 92.0 kg — a BMI below 25. Two months later I weigh ${currentWeight} kg and my BMI is ${metric(journey.summary.currentBmi)}. Stage one continues until November 30th, 2026. Reaching a normal BMI was an important milestone, but the rest of this year is still about weight and maintaining the result. This describes my own route; it is not a judgement of other treatments or medical decisions.`}</p>
     </section>
 
-    <section class="stage-two" id="stage-two">
-      <div class="stage-two-intro">
-        <h2>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h2>
-        <div class="prose">
-          <p>{isPL ? "Próg prawidłowego BMI został osiągnięty, ale jego utrzymanie nadal jest częścią pracy. Równolegle moja waga od początku pokazuje jeszcze jedną liczbę: procent tkanki tłuszczowej. To on wyznacza kierunek na dalej." : "I reached the normal-BMI threshold, but maintaining it is still part of the work. At the same time, my scale has shown one more number from the beginning: body-fat percentage. That is what sets the direction ahead."}</p>
-          <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Etap drugi jest planem, nie kolejnym podsumowaniem: zejść z poziomem tkanki tłuszczowej do normy i odbudować siłę." : "I used to be not only lighter, but strong. Stage two is a plan, not another summary: bring body fat into the normal range and rebuild strength."}</p>
-        </div>
-      </div>
-      <div class="stage-two-snapshot">
-        <div><span>{isPL ? "waga" : "weight"}</span><strong>{currentWeight}<small> kg</small></strong></div>
-        <div><span>{isPL ? "pas" : "waist"}</span><strong>{currentWaist}<small> cm</small></strong></div>
-        <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>{currentBodyFat}<small>%</small></strong></div>
-        <div><span>bench press</span><strong>{currentBench}<small> kg × {journey.stageTwo.latestBenchPress.reps}</small></strong></div>
-        <p class="snapshot-note">{isPL ? `Aktualny snapshot: masa i tłuszcz z ${snapshotDate}; pas z ${waistDate}; siła z ${benchDate}.` : `Current snapshot: weight and body fat from ${snapshotDate}; waist from ${waistDate}; strength from ${benchDate}.`}</p>
-      </div>
-      <BodyCompositionChart lang={lang} />
-      <div class="new-goals">
-        <article><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
-        <article><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
-        <article><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
-      </div>
-      <div class="training-approach">
-        <div>
-          <h2>{isPL ? "Jedno ćwiczenie na początek" : "One exercise to begin"}</h2>
-          <p>{isPL ? "Nie zaczynam od ambitnego planu sześciu ćwiczeń i czterech treningów tygodniowo. Zaczynam od wyciskania leżąc. Chcę zobaczyć progres. Dopiero potem będę dodawał kolejne rzeczy." : "I’m not starting with an ambitious plan of six exercises and four workouts a week. I’m starting with the bench press. I want to see progress. Only then will I add more."}</p>
-          <p class="training-motto">{isPL ? "Mniej, ale lepiej." : "Less, but better."}</p>
-          <p>{isPL ? "To właściwie ta sama metoda, która zadziałała przy wadze." : "It is essentially the same method that worked with weight."}</p>
-        </div>
-        <StrengthChart lang={lang} />
-      </div>
-      <div class="next-report">
-        <h2>{isPL ? "Plan, nie obietnica" : "A plan, not a promise"}</h2>
-        {isPL ? (
-          <p>To nadal otwarty zapis. Pierwszy próg został osiągnięty 26 września, ale utrzymanie masy trwa, a równolegle zbieram już dane o pasie, tkance tłuszczowej i sile. Cele etapu drugiego są planem, nie wynikiem, który już osiągnąłem.</p>
-        ) : (
-          <p>This remains an open record. The first threshold was reached on September 26th, but maintaining the weight continues, while I am already collecting waist, body-fat and strength data. Stage-two goals are a plan, not a result I have already achieved.</p>
-        )}
-        <time>{isPL ? "01.12.2025 — nadal" : "Dec 1, 2025 — ongoing"}</time>
-      </div>
+    <section class="next-stage-preview" id="stage-two">
+      <div><span class="eyebrow">{isPL ? "Następny rozdział · od 1.12.2026" : "Next chapter · from Dec 1, 2026"}</span>
+      <h2>{isPL ? <>Waga to dopiero<br/><em>pierwszy etap.</em></> : <>Weight is only<br/><em>stage one.</em></>}</h2></div>
+      <div><p>{isPL ? "Pierwszy rok poświęcam wadze i BMI. Drugi potrwa od 1 grudnia 2026 do 30 listopada 2027: wtedy skupię się na pasie, tkance tłuszczowej i sile. Mam już pierwsze pomiary, które posłużą za punkt odniesienia." : "The first year is about weight and BMI. The second runs from December 1st, 2026 to November 30th, 2027: I’ll focus on waist, body fat and strength. I already have measurements to use as a reference."}</p>
+      <a class="editorial-link" href={stageHref(base, lang, 2)}>{isPL ? "Zobacz zapowiedź etapu 2" : "Explore the stage-two preview"} <span aria-hidden="true">↗</span></a></div>
     </section>
 
     <section class="compound-section" id="about">
@@ -397,62 +340,7 @@ const checkpoints = [
       </div>
     </section>
 
-    <section class="disclaimer">
-      <div>
-        <h2>{isPL ? "Ważny kontekst" : "Important context"}</h2>
-        <p>{isPL ? "To jest opis mojego własnego doświadczenia, a nie plan odchudzania ani porada medyczna. Mam własną historię zdrowotną, charakter, motywacje i sposób reagowania na różne reguły. To, co działało u mnie, nie musi działać u Ciebie." : "This is a description of my own experience, not a weight-loss programme or medical advice. I have my own medical history, personality, motivations and way of responding to different rules. What worked for me may not work for you."}</p>
-        <p>{isPL ? "Jeżeli chcesz znacząco zmienić masę ciała, sposób żywienia albo aktywność fizyczną — szczególnie jeśli masz choroby przewlekłe lub jesteś w trakcie leczenia — warto skonsultować to z lekarzem lub odpowiednim specjalistą." : "If you’re planning a significant change in body weight, diet or physical activity — particularly if you have a chronic condition or are undergoing treatment — consider discussing it with an appropriate healthcare professional."}</p>
-      </div>
-    </section>
-
-    {coffeeUrl && <section class="coffee-section">
-      <div>
-        <h2>{isPL ? "Przydała Ci się moja historia?" : "Did something in my story help you?"}</h2>
-        <p>{isPL ? "Piszę to przede wszystkim dla siebie — żeby za kilka lat móc zobaczyć nie tylko wynik, ale również drogę, która do niego doprowadziła." : "I’m writing this mainly for myself — so that a few years from now I can remember not only the result, but also the road that led to it."}</p>
-        <p>{isPL ? "Jeśli jednak coś z moich doświadczeń pomogło również Tobie zrobić własny pierwszy krok, możesz postawić mi kawę." : "But if something here helped you take your own first step, you can buy me a coffee."}</p>
-      </div>
-      <a href={coffeeUrl} rel="me noopener" target="_blank">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12v8a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V6Zm12 2h2a3 3 0 0 1 0 6h-2M7 2v2m4-2v2" /></svg>
-        <span>{isPL ? "Postaw mi kawę" : "Buy me a coffee"}</span>
-      </a>
-    </section>}
+    <JourneyClosing lang={lang} />
   </main>
-
-  <footer>
-    <span>© 2026 Hubert</span>
-    <span>{isPL ? "Osobista historia. Prawdziwe dane." : "A personal story. Real data."}</span>
-    <a href="#top">{isPL ? "Do góry ↑" : "Back to top ↑"}</a>
-  </footer>
-
-  <script>
-    const header = document.querySelector<HTMLElement>("[data-header]");
-    const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
-    let lastY = 0;
-    const updatePageState = () => {
-      const y = window.scrollY;
-      header?.classList.toggle("is-compact", y > 60);
-      header?.classList.toggle("is-hidden", y > lastY && y > 480);
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const ratio = scrollable > 0 ? Math.min(y / scrollable, 1) : 0;
-      progress?.style.setProperty("--reading-progress", ratio.toString());
-      lastY = y;
-    };
-    updatePageState();
-    window.addEventListener("scroll", updatePageState, { passive: true });
-    window.addEventListener("resize", updatePageState, { passive: true });
-
-    const navLinks = [...document.querySelectorAll("[data-nav-section]")];
-    const sections = navLinks
-      .map((link) => document.getElementById(link.getAttribute("data-nav-section") || ""))
-      .filter((section): section is HTMLElement => section !== null);
-    const sectionObserver = new IntersectionObserver((entries) => {
-      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-      if (!visible) return;
-      navLinks.forEach((link) => {
-        if (link.getAttribute("data-nav-section") === visible.target.id) link.setAttribute("aria-current", "location");
-        else link.removeAttribute("aria-current");
-      });
-    }, { rootMargin: "-18% 0px -64%", threshold: [0, .15, .35] });
-    sections.forEach((section) => sectionObserver.observe(section));
-  </script>
+  <JourneyFooter lang={lang} />
 </BaseLayout>

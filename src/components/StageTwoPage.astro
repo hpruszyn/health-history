@@ -1,0 +1,90 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import JourneyHeader from "./JourneyHeader.astro";
+import JourneyClosing from "./JourneyClosing.astro";
+import JourneyFooter from "./JourneyFooter.astro";
+import StageNavigation from "./StageNavigation.astro";
+import BodyCompositionChart from "./BodyCompositionChart.astro";
+import StrengthChart from "./StrengthChart.astro";
+import { stageHref, stagePeriod } from "../lib/stages";
+import journey from "../../public/data/journey-2025-2026.json";
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const isPL = lang === "pl";
+const base = import.meta.env.BASE_URL;
+const locale = isPL ? "pl-PL" : "en-GB";
+const metric = (value: number) => value.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+const currentWeight = metric(journey.summary.currentWeightKg);
+const currentWaist = metric(journey.stageTwo.waistCm);
+const currentBodyFat = metric(journey.stageTwo.bodyFatPct);
+const currentBench = metric(journey.stageTwo.latestBenchPress.loadKg);
+const formatLongDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00`));
+const snapshotDate = formatLongDate(journey.summary.currentDate);
+const waistDate = formatLongDate(journey.stageTwo.waistDate);
+const benchDate = formatLongDate(journey.stageTwo.latestBenchPress.date);
+const title = isPL ? "Etap 2: pas, tłuszcz i siła — zapowiedź kolejnego roku" : "Stage 2: waist, body fat and strength — a preview of the next year";
+const description = isPL ? "Kolejny rok mojej drogi do formy: od 1 grudnia 2026 do 30 listopada 2027. Cele i pomiary zebrane przed startem." : "The next year of my fitness journey: December 1st, 2026 to November 30th, 2027. Goals and measurements recorded before the start.";
+---
+<BaseLayout lang={lang} stage={2} title={title} description={description}>
+  <JourneyHeader lang={lang} stage={2} />
+  <main id="main">
+    <section class="hero stage-two-hero" id="top">
+      <div class="hero-story"><div class="hero-copy">
+        <p class="stage-kicker">{isPL ? "Etap 2 · Zapowiedź" : "Stage 2 · Preview"}<span>{stagePeriod(lang, 2)}</span></p>
+        <h1>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h1>
+      </div></div>
+      <div class="stage-two-lead"><span class="chapter-numeral" aria-hidden="true">02</span><div>
+        <p>{isPL ? "Kiedyś byłem nie tylko lżejszy. Byłem też silny. Po roku skupionym na wadze i BMI chcę popracować nad tym, czego sama waga nie opowiada." : "I used to be not only lighter, but strong. After a year focused on weight and BMI, I want to work on what the scale alone doesn’t tell me."}</p>
+        <p>{isPL ? "Ten etap jeszcze się nie zaczął. Poniżej są cele oraz prawdziwe pomiary zebrane przed startem. Następny rok dopiero pokaże, co z tego wyjdzie." : "This stage hasn’t started yet. Below are the goals and real measurements recorded before the start. The next year will show what comes of it."}</p>
+      </div></div>
+      <StageNavigation lang={lang} stage={2} />
+      <a class="scroll-cue" href="#baseline"><span>{isPL ? "Zobacz punkt wyjścia" : "See the baseline"}</span><span aria-hidden="true">↓</span></a>
+    </section>
+    <section class="stage-two stage-two-page">
+      <div class="baseline-heading" id="baseline">
+        <span class="eyebrow">{isPL ? "Przed startem · zapisane pomiary" : "Before the start · recorded measurements"}</span>
+        <h2>{isPL ? "Nie zaczynam od pustej kartki." : "I’m not starting with a blank page."}</h2>
+        <p>{isPL ? "Te dane zebrałem jeszcze w pierwszym etapie. Pokazuję je jako punkt odniesienia przed kolejnym rokiem, nie jako wyniki etapu drugiego. Właściwy pomiar startowy uzupełnię po 1 grudnia 2026." : "I collected these data during stage one. They are a reference ahead of the next year, not stage-two results. I’ll add the actual starting measurements after December 1st, 2026."}</p>
+      </div>
+      <div class="stage-two-snapshot">
+        <div><span>{isPL ? "waga" : "weight"}</span><strong>{currentWeight}<small> kg</small></strong></div>
+        <div><span>{isPL ? "pas" : "waist"}</span><strong>{currentWaist}<small> cm</small></strong></div>
+        <div><span>{isPL ? "tłuszcz" : "body fat"}</span><strong>{currentBodyFat}<small>%</small></strong></div>
+        <div><span>bench press</span><strong>{currentBench}<small> kg × {journey.stageTwo.latestBenchPress.reps}</small></strong></div>
+        <p class="snapshot-note">{isPL ? `Ostatnie zapisane pomiary przed startem: masa i tłuszcz z ${snapshotDate}; pas z ${waistDate}; siła z ${benchDate}.` : `Latest recorded measurements before the start: weight and body fat from ${snapshotDate}; waist from ${waistDate}; strength from ${benchDate}.`}</p>
+      </div>
+      <div id="data"><BodyCompositionChart lang={lang} /></div>
+      <div class="goals-heading" id="goals"><span class="eyebrow">{isPL ? "Kierunek na drugi rok" : "The direction for year two"}</span><h2>{isPL ? "Trzy cele. Cały rok pracy." : "Three goals. A year of work."}</h2></div>
+      <div class="new-goals">
+        <article><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu według zasad, których używam do śledzenia pomiarów." : "Reach the normal range according to the rules I use to track my measurements."}</p></article>
+        <article><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
+        <article><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
+      </div>
+      <div class="training-approach">
+        <div>
+          <h2>{isPL ? "Jedno ćwiczenie na początek" : "One exercise to begin"}</h2>
+          <p>{isPL ? "Nie zaczynam od ambitnego planu sześciu ćwiczeń i czterech treningów tygodniowo. Zaczynam od wyciskania leżąc. Chcę zobaczyć progres. Dopiero potem będę dodawał kolejne rzeczy." : "I’m not starting with an ambitious plan of six exercises and four workouts a week. I’m starting with the bench press. I want to see progress. Only then will I add more."}</p>
+          <p class="training-motto">{isPL ? "Mniej, ale lepiej." : "Less, but better."}</p>
+          <p>{isPL ? "To właściwie ta sama metoda, która zadziałała przy wadze." : "It is essentially the same method that worked with weight."}</p>
+        </div>
+        <StrengthChart lang={lang} />
+      </div>
+      <div class="next-report">
+        <h2>{isPL ? "Plan, nie obietnica" : "A plan, not a promise"}</h2>
+        {isPL ? (
+          <p>Drugi etap zaczyna się 1 grudnia 2026 i potrwa rok. Nie wiem jeszcze, co uda mi się osiągnąć. Mam cele i zapisany punkt odniesienia. Po tym roku opiszę, co zadziałało, co nie i dlaczego. Jeśli wydarzy się coś wartego wcześniejszej aktualizacji — napiszę wcześniej.</p>
+        ) : (
+          <p>Stage two starts on December 1st, 2026 and lasts a year. I don’t yet know what I’ll achieve. I have goals and a recorded reference point. After that year I’ll describe what worked, what didn’t and why. If something deserves an earlier update, I’ll write sooner.</p>
+        )}
+        <p class="report-period">{stagePeriod(lang, 2)}</p>
+      </div>
+    </section>
+
+    <section class="previous-stage">
+      <p>{isPL ? "Od czego to wszystko się zaczęło?" : "Where did it all begin?"}</p>
+      <a class="editorial-link" href={stageHref(base, lang, 1)}>{isPL ? "Wróć do etapu 1: waga i BMI" : "Back to stage one: weight & BMI"} <span aria-hidden="true">↗</span></a>
+    </section>
+    <JourneyClosing lang={lang} />
+  </main>
+  <JourneyFooter lang={lang} />
+</BaseLayout>

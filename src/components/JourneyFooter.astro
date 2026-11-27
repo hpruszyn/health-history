@@ -1,0 +1,11 @@
+---
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const isPL = lang === "pl";
+---
+  <footer>
+    <span>© 2026 Hubert</span>
+    <span>{isPL ? "Osobista historia. Prawdziwe dane." : "A personal story. Real data."}</span>
+    <a href="#top">{isPL ? "Do góry ↑" : "Back to top ↑"}</a>
+  </footer>
+

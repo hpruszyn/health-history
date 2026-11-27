@@ -60,12 +60,13 @@ Editorial blocks are mostly square and calm. Links and tooltips use a 4px radius
 
 ## Components
 
-- **Masthead:** bilingual title and sparse navigation on paper, with ink text and a restrained rule.
+- **Masthead:** bilingual title and sparse navigation on the night surface, with light text and a restrained rule.
 - **Hero landscape:** night surface with the 318-point weight line, a light-blue evidence stroke, explicit axes, and coral summer rebound markers.
 - **Chart shell:** heading, key, full time axis, and concise note; never turn the chart into a decorative card.
 - **Summer chapter:** dark tonal interruption that explains the coral regression in plain language.
 - **Checkpoint route:** editorial milestones connected by a thin rule and circular points.
-- **Stage-two charts:** composition and strength evidence using the same chart grammar and true dates.
+- **Annual stage navigation:** two numbered editorial links on the night surface; the current page has a coral rule and `aria-current`. Both full annual ranges remain visible on mobile. Stage 1 runs Dec 1, 2025–Nov 30, 2026; stage 2 runs Dec 1, 2026–Nov 30, 2027. Each has its own page in both languages.
+- **Stage-two opening:** a typographic 02 and an explicit preview status introduce the next year. Existing composition and strength measurements are dated pre-start evidence, not stage-two results. Charts use the same grammar and true dates.
 - **Coffee action:** a quiet bordered link, 4px radius, `14px 22px` padding.
 
 ## Do's and Don'ts
@@ -73,3 +74,7 @@ Editorial blocks are mostly square and calm. Links and tooltips use a 4px radius
 Do make the real record the hero; keep the 108kg → 89.5kg, Dec 1 2025 → Nov 26 2026 story honest; use coral sparingly for the rebound; preserve PL/EN clarity; test reduced motion and mobile charts.
 
 Don't add stock photography, raster decoration, invented metrics, gamified badges, fitness-marketing language, rounded-card dashboards, hidden gaps, or a second visual theme.
+
+## Finish review — November 27, 2026
+
+Verdict: the annual chapters are distinct while preserving the accepted data-landscape identity. Stage 1 keeps the weight record; stage 2 presents a dated pre-start baseline and its own goals. Reviewed the rendered Polish desktop and mobile pages and the English stage-two mobile page. Automated browser checks covered all four language/stage routes at 1440px, 390px, and 320px: no horizontal overflow, broken local anchors, or client errors; language links preserve the stage and canonical URLs match. The weight chart remains keyboard accessible. Reduced motion was enabled during captures. No raster assets are shipped.

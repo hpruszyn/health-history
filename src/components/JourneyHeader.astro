@@ -1,0 +1,56 @@
+---
+import { stageHref, type Lang, type Stage } from "../lib/stages";
+interface Props { lang: Lang; stage: Stage; }
+const { lang, stage } = Astro.props;
+const isPL = lang === "pl";
+const base = import.meta.env.BASE_URL;
+const otherHref = stageHref(base, isPL ? "en" : "pl", stage);
+---
+  <header class="site-header" data-header>
+    <a class="wordmark" href={`#top`} aria-label={isPL ? "Początek strony" : "Top of page"}>
+      <span class="wordmark-mark">H</span>
+      <span>Hubert <i>/</i> {isPL ? "droga do formy" : "a road back to fitness"}</span>
+    </a>
+    <nav aria-label={isPL ? "Główna nawigacja" : "Main navigation"}>
+      <a href={stage === 1 ? "#story" : "#baseline"} data-nav-section={stage === 1 ? "story" : "baseline"}>{isPL ? (stage === 1 ? "Historia" : "Punkt wyjścia") : (stage === 1 ? "Story" : "Baseline")}</a>
+      <a href="#data" data-nav-section="data">{isPL ? "Dane" : "Data"}</a>
+      <a href={stageHref(base, lang, stage === 1 ? 2 : 1)}>{isPL ? (stage === 1 ? "Etap 2" : "Etap 1") : (stage === 1 ? "Stage 2" : "Stage 1")}</a>
+      <a href={stage === 1 ? "#about" : "#goals"} data-nav-section={stage === 1 ? "about" : "goals"}>{isPL ? (stage === 1 ? "O mnie" : "Cele") : (stage === 1 ? "About" : "Goals")}</a>
+    </nav>
+    <a class="language-switch" href={otherHref} lang={isPL ? "en" : "pl"} hreflang={isPL ? "en" : "pl"}>
+      <span class={isPL ? "active" : ""}>PL</span><i>/</i><span class={!isPL ? "active" : ""}>EN</span>
+    </a>
+    <span class="reading-progress" aria-hidden="true"><span data-reading-progress></span></span>
+  </header>
+
+  <script>
+    const header = document.querySelector<HTMLElement>("[data-header]");
+    const progress = document.querySelector<HTMLElement>("[data-reading-progress]");
+    let lastY = 0;
+    const updatePageState = () => {
+      const y = window.scrollY;
+      header?.classList.toggle("is-compact", y > 60);
+      header?.classList.toggle("is-hidden", y > lastY && y > 480);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = scrollable > 0 ? Math.min(y / scrollable, 1) : 0;
+      progress?.style.setProperty("--reading-progress", ratio.toString());
+      lastY = y;
+    };
+    updatePageState();
+    window.addEventListener("scroll", updatePageState, { passive: true });
+    window.addEventListener("resize", updatePageState, { passive: true });
+
+    const navLinks = [...document.querySelectorAll("[data-nav-section]")];
+    const sections = navLinks
+      .map((link) => document.getElementById(link.getAttribute("data-nav-section") || ""))
+      .filter((section): section is HTMLElement => section !== null);
+    const sectionObserver = new IntersectionObserver((entries) => {
+      const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (!visible) return;
+      navLinks.forEach((link) => {
+        if (link.getAttribute("data-nav-section") === visible.target.id) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      });
+    }, { rootMargin: "-18% 0px -64%", threshold: [0, .15, .35] });
+    sections.forEach((section) => sectionObserver.observe(section));
+  </script>

@@ -1,0 +1,25 @@
+---
+interface Props { lang: "pl" | "en"; }
+const { lang } = Astro.props;
+const isPL = lang === "pl";
+const coffeeUrl = import.meta.env.PUBLIC_BUY_ME_A_COFFEE_URL;
+---
+    <section class="disclaimer">
+      <div>
+        <h2>{isPL ? "Ważny kontekst" : "Important context"}</h2>
+        <p>{isPL ? "To jest opis mojego własnego doświadczenia, a nie plan odchudzania ani porada medyczna. Mam własną historię zdrowotną, charakter, motywacje i sposób reagowania na różne reguły. To, co działało u mnie, nie musi działać u Ciebie." : "This is a description of my own experience, not a weight-loss programme or medical advice. I have my own medical history, personality, motivations and way of responding to different rules. What worked for me may not work for you."}</p>
+        <p>{isPL ? "Jeżeli chcesz znacząco zmienić masę ciała, sposób żywienia albo aktywność fizyczną — szczególnie jeśli masz choroby przewlekłe lub jesteś w trakcie leczenia — warto skonsultować to z lekarzem lub odpowiednim specjalistą." : "If you’re planning a significant change in body weight, diet or physical activity — particularly if you have a chronic condition or are undergoing treatment — consider discussing it with an appropriate healthcare professional."}</p>
+      </div>
+    </section>
+
+    {coffeeUrl && <section class="coffee-section">
+      <div>
+        <h2>{isPL ? "Przydała Ci się moja historia?" : "Did something in my story help you?"}</h2>
+        <p>{isPL ? "Piszę to przede wszystkim dla siebie — żeby za kilka lat móc zobaczyć nie tylko wynik, ale również drogę, która do niego doprowadziła." : "I’m writing this mainly for myself — so that a few years from now I can remember not only the result, but also the road that led to it."}</p>
+        <p>{isPL ? "Jeśli jednak coś z moich doświadczeń pomogło również Tobie zrobić własny pierwszy krok, możesz postawić mi kawę." : "But if something here helped you take your own first step, you can buy me a coffee."}</p>
+      </div>
+      <a href={coffeeUrl} rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h12v8a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5V6Zm12 2h2a3 3 0 0 1 0 6h-2M7 2v2m4-2v2" /></svg>
+        <span>{isPL ? "Postaw mi kawę" : "Buy me a coffee"}</span>
+      </a>
+    </section>}

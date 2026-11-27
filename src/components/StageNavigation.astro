@@ -1,0 +1,18 @@
+---
+import { stageHref, stagePeriod, type Lang, type Stage } from "../lib/stages";
+interface Props { lang: Lang; stage: Stage; }
+const { lang, stage } = Astro.props;
+const isPL = lang === "pl";
+const base = import.meta.env.BASE_URL;
+const stages = [1, 2] as const;
+---
+<nav class="stage-navigation" aria-label={isPL ? "Etapy drogi" : "Stages of the journey"}>
+  {stages.map((item) => <a href={stageHref(base, lang, item)} aria-current={stage === item ? "page" : undefined}>
+    <span class="stage-number" aria-hidden="true">0{item}</span>
+    <span class="stage-nav-copy">
+      <span class="stage-nav-label">{isPL ? `Etap ${item}` : `Stage ${item}`} <span aria-hidden="true">{stage === item ? "·" : "↗"}</span></span>
+      <strong>{isPL ? (item === 1 ? "Waga i BMI" : "Pas, tłuszcz i siła") : (item === 1 ? "Weight & BMI" : "Waist, body fat & strength")}</strong>
+      <span class="stage-nav-period">{stagePeriod(lang, item)}</span>
+    </span>
+  </a>)}
+</nav>
