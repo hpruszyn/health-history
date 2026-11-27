@@ -1,130 +1,75 @@
 ---
-name: "Historia wagi"
-description: "A bilingual editorial data journal for a personal health and fitness report."
+name: Historia wagi
+description: A bilingual personal record of change, where real measurements become a readable landscape.
 colors:
-  paper: "#f3efe6"
-  paper-deep: "#e7dfd0"
-  ink: "#18334c"
-  ink-soft: "#587083"
-  line: "#c9c0b1"
-  red: "#bb503b"
-  red-dark: "#8f392b"
-  blue: "#2d657f"
-  white: "#fffdf8"
+  paper: "#f7f8f6"
+  ink: "#172631"
+  muted: "#52616a"
+  line: "#d4dcdd"
+  night: "#101b24"
+  light: "#f1f5f5"
+  accent: "#fa9b7d"
+  blue: "#225b70"
+  orange: "#a64525"
 typography:
-  display:
-    fontFamily: '"Newsreader Variable", Georgia, serif'
-    fontWeight: 470
-    lineHeight: 0.98
-    letterSpacing: "-0.042em"
-  sans:
-    fontFamily: '"Instrument Sans Variable", system-ui, sans-serif'
-    fontSize: "17px"
-  label:
-    fontFamily: '"Instrument Sans Variable", system-ui, sans-serif'
-    fontWeight: 700
-    fontSize: "0.72rem"
-    letterSpacing: "0.08em"
-rounded:
-  none: "0"
-  circle: "50%"
-  scrollbar: "999px"
-spacing:
-  page: "min(1180px, calc(100vw - 48px))"
-  prose: "68ch"
-  section: "desktop: clamp(72px, 5vw, 104px); mobile: clamp(90px, 13vw, 180px)"
+  display: {fontFamily: "Instrument Sans Variable", fontSize: "clamp(3rem, 5.7vw, 5.75rem)", fontWeight: 500, lineHeight: 1.04, letterSpacing: "-0.04em"}
+  headline: {fontFamily: "Instrument Sans Variable", fontSize: "clamp(2rem, 3.8vw, 3.6rem)", fontWeight: 550, lineHeight: 1.12, letterSpacing: "-0.035em"}
+  body: {fontFamily: "Instrument Sans Variable", fontSize: "18px", fontWeight: 400, lineHeight: 1.65}
+  editorial: {fontFamily: "Newsreader Variable", fontSize: "clamp(2rem, 4vw, 3.4rem)", fontWeight: 400, lineHeight: 1.15}
+rounded: {sm: "4px", pill: "100%"}
+spacing: {page: "min(1280px, calc(100% - 112px))", section: "110px", mobileSection: "60px"}
 components:
-  coffee-action:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.white}"
-    border: "1px solid {colors.ink}"
-    padding: "14px 20px"
-  score-card:
-    backgroundColor: "{colors.white}"
-    border: "1px solid {colors.ink}"
-    shadow: "10px 14px 30px rgba(63, 35, 30, .16)"
+  primary-link: {backgroundColor: "transparent", textColor: "{colors.ink}", rounded: "{rounded.sm}", padding: "14px 22px"}
+  dark-surface: {backgroundColor: "{colors.night}", textColor: "{colors.light}"}
 ---
 
-## Overview
+# Overview
 
-Historia wagi is a bilingual, single-page editorial data journal for Hubert’s personal account of returning to health and fitness. It pairs a warm, quiet reading surface with observable evidence: milestones, small-rule lists, a raw weight line, and a deliberate summer regression.
+## North Star
 
-Editorial rather than promotional, the interface gives the first-person story and its data equal weight. It remains mobile-first and legible without the JavaScript enhancements that refine the chart and header behavior.
+**Dane jako krajobraz.** A bilingual personal journal in which the actual 318-measurement record is the visual subject: a dark opening, a light editorial reading surface, and one coral mark for the summer setback. It documents an ongoing personal journey, not fitness marketing or medical advice.
 
-**Key characteristics:**
-
-- Warm paper with navy ink and a small, disciplined red accent.
-- Newsreader’s editorial voice for narrative and numbers; Instrument Sans for labels and interface.
-- Thin rules, modular grids, and full-bleed data chapters rather than decorative cards.
-- Regressions remain visible and brick red; data is evidence, not a success funnel.
-- The story uses typography, charts and restrained geometric motifs; it deliberately contains no photography.
+The visual language is measured and durable: real lines, dates, axes, whitespace, and short annotations do the storytelling. There are no photos or raster images. Instrument Sans carries the interface and data; Newsreader gives reflective passages a slower voice.
 
 ## Colors
 
-The palette treats the page as paper and the information as ink. `paper` and `paper-deep` form the reading surface; `ink`, `ink-soft`, and `line` establish hierarchy without a separate UI chrome. `blue` belongs to measured data, while `red` and `red-dark` reserve their force for change, warning, correction, and the visible rebound. `white` lifts key data against dark chapters.
+Paper `#f7f8f6` is the reading surface; ink `#172631` is primary text; muted `#52616a` supports secondary copy; line `#d4dcdd` draws quiet rules. Night `#101b24` opens the journey; light `#f1f5f5` sits on dark surfaces. Blue `#225b70` is the evidence/trend accent; light-blue chart strokes use `#87a9b5`; accent coral `#fa9b7d` and rust `#a64525` identify the summer rebound and action emphasis.
 
-**The Evidence Rule.** Use muted blue for measurement and brick red only for change, correction, or regression; keep paper and navy as the default reading environment.
+Named rules:
+
+- **The Evidence Is the Image Rule:** prefer the measurement line, axis, and annotation to decorative imagery.
+- **The Regression Must Read Rule:** setbacks use coral/rust and remain visible; do not smooth away the record.
 
 ## Typography
 
-Newsreader is the editorial voice for headings, narrative emphasis, quotes, and oversized measurements. Instrument Sans keeps navigation, paragraphs, captions, chart labels, and all-caps metadata practical and compact. The contrast should feel like a printed annual report with carefully set marginal data.
-
-**The Reportage Rule.** Let Newsreader carry the personal narrative and large figures; Instrument Sans carries labels, navigation, and operational data.
+Instrument Sans Variable is the working voice: navigation, labels, prose, and chart annotations. Newsreader Variable is editorial emphasis: quotes, mottos, and reflective stops. Display headings are 500 weight, tight (`-0.04em`); headlines are 550 with `-0.035em`; body is 18px/1.65. Labels remain compact and legible, generally 13–16px.
 
 ## Layout
 
-The page alternates a constrained editorial column with full-bleed evidence chapters. The shared `page` measure anchors header, text, and data; `prose` prevents the long story from becoming too wide. Large vertical intervals make each chapter feel like a report entry, while lines and grid divisions separate facts without turning them into cards.
+The page measure is `min(1280px, calc(100% - 112px))`. Sections breathe at 110px, reducing to 60px on phones. At 1000px the page gutter becomes 64px; at 700px it becomes 40px, body copy becomes 17px, grids stack, and chart annotations simplify. Charts reflow their SVG geometry for mobile while retaining the complete date range and data sequence.
 
-On narrower screens, two-column story, score, detail, and stage layouts become a single reading sequence. The checkpoints change from a horizontal route into a vertical route, and the chart retains its own protected minimum height.
+**The True Timeline Rule:** preserve dates, gaps, and the full time axis at every viewport. Responsive geometry may change; the record may not.
 
 ## Elevation & Depth
 
-The document is mostly flat. Borders, tonal paper shifts, and full-bleed color blocks create structure. A single soft editorial shadow lifts the competitive score; the chart tooltip uses a smaller neutral shadow so it stays legible without becoming decorative.
-
-**The Flat Page Rule.** Keep surfaces flat and reserve soft elevation for temporary data overlays and the one competitive score insert.
+Depth comes from tonal transitions—night evidence surfaces into paper chapters—not from card stacks. Rules are 1px and quiet. The only purposeful shadow is the chart tooltip: `0 5px 20px #101b2420`, with a 5px radius. The landscape reveal uses `2.2s cubic-bezier(.2,.7,.25,1)`; reduced motion removes animation and transitions.
 
 ## Shapes
 
-Rectangles remain square and ruled. Circles identify the wordmark, checkpoint markers and chart dots; the only pill is the quiet scrollbar. Avoid soft card radii, badges, and progress-lozenge language.
+Editorial blocks are mostly square and calm. Links and tooltips use a 4px radius; measurement points are circular (`100%`); chart strokes are rounded. Avoid pills except where a compact status or point marker genuinely needs one.
 
 ## Components
 
-### Header and language switch
-
-The header is an editorial masthead: a compact circular mark, spaced wordmark, minimal section links, and an explicit PL/EN switch. It stays visually light over the hero and collapses its non-language links at the tablet layout.
-
-### Competitive score card
-
-The score card is the one deliberately tactile panel. A ruled white surface, compact metadata rows, and a soft paper-like shadow make the private competition feel like an inserted score slip rather than a dashboard widget.
-
-### Weight chart
-
-The chart is an evidence panel on dark ink. It preserves the raw line, a clearer rebound segment, milestone labels, and a keyboard-accessible point tooltip. The trend may clarify; it must not erase volatility.
-
-### Summer regression panel
-
-This full-bleed red chapter makes the setback legible as part of the report. The oversized delta is paired with reflective copy instead of an alarm or recovery CTA.
-
-### Checkpoint route
-
-Four simple circular markers turn milestones into a route. The desktop line becomes vertical on mobile, preserving sequence without pretending that progress was linear.
-
-### Coffee action
-
-The coffee link arrives only after the report, disclaimer, and next-step narrative. It is a restrained inverted text action with a small lift on hover, never a sticky conversion device.
+- **Masthead:** bilingual title and sparse navigation on paper, with ink text and a restrained rule.
+- **Hero landscape:** night surface with the 318-point weight line, a light-blue evidence stroke, explicit axes, and coral summer rebound markers.
+- **Chart shell:** heading, key, full time axis, and concise note; never turn the chart into a decorative card.
+- **Summer chapter:** dark tonal interruption that explains the coral regression in plain language.
+- **Checkpoint route:** editorial milestones connected by a thin rule and circular points.
+- **Stage-two charts:** composition and strength evidence using the same chart grammar and true dates.
+- **Coffee action:** a quiet bordered link, 4px radius, `14px 22px` padding.
 
 ## Do's and Don'ts
 
-### Do
+Do make the real record the hero; keep the 108kg → 89.5kg, Dec 1 2025 → Nov 26 2026 story honest; use coral sparingly for the rebound; preserve PL/EN clarity; test reduced motion and mobile charts.
 
-- Keep the raw line and the rebound visible.
-- Use thin rules and open space to structure reading.
-- Use red to call out a correction, warning, or competitive result.
-- Let large numbers appear as evidence, not calls to action.
-
-### Don't
-
-- Do not turn the page into a fitness landing page or before-and-after gallery.
-- Do not add gradients, rounded card grids, neon green or photography.
-- Do not smooth away difficult periods in the data.
-- Do not use the coffee link as a sticky or primary call to action.
+Don't add stock photography, raster decoration, invented metrics, gamified badges, fitness-marketing language, rounded-card dashboards, hidden gaps, or a second visual theme.

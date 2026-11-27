@@ -1,0 +1,32 @@
+---
+import journey from '../../public/data/journey-2025-2026.json';
+interface Props { lang: 'pl' | 'en' }
+const { lang } = Astro.props;
+const pl = lang === 'pl';
+const locale = pl ? 'pl-PL' : 'en-GB';
+const number = (n: number) => n.toLocaleString(locale, { maximumFractionDigits: 1 });
+const points = journey.weights.map(p => ({ ...p, t: Date.parse(p.date + 'T12:00:00Z') }));
+const first = points[0], last = points.at(-1)!;
+const x = (t: number) => 32 + (t - first.t) / (last.t - first.t) * 1336;
+const y = (kg: number) => 70 + (109 - kg) / 22 * 290;
+const line = (items: typeof points) => items.map((p, i) => `${i ? 'L' : 'M'}${x(p.t).toFixed(2)},${y(p.kg).toFixed(2)}`).join(' ');
+const low = points.find(p => p.kind === 'summer-low')!;
+const high = points.find(p => p.kind === 'summer-high')!;
+const summer = points.filter(p => p.t >= low.t && p.t <= high.t);
+const date = new Intl.DateTimeFormat(locale, {day:'numeric', month:'long', year:'numeric'}).format(new Date(last.t));
+---
+<figure class="landscape" aria-label={pl ? 'Prawdziwa droga od 108 do 89,5 kg, ze wzrostami po drodze.' : 'The real journey from 108 to 89.5 kg, including the setbacks.'}>
+  <div class="landscape-summary"><p><strong>−{number(Math.abs(journey.summary.changeKg))}<span> kg</span></strong><span>{pl ? `w ${journey.summary.durationDays} dni` : `in ${journey.summary.durationDays} days`}</span></p><p class="landscape-status"><span class="status-dot" aria-hidden="true"></span>{pl ? 'Historia nadal się pisze' : 'The story is still unfolding'}<time datetime={last.date}>{date}</time></p></div>
+  <div class="landscape-mobile-values" aria-hidden="true"><span>108 kg</span><span>+{number(high.kg-low.kg)} kg · {pl ? 'wakacje' : 'summer'}</span><span>{number(last.kg)} kg</span></div>
+  <div class="landscape-plot">
+    <svg preserveAspectRatio="none" viewBox="0 0 1400 430" role="img" aria-label={pl ? '318 rzeczywistych pomiarów masy ciała' : '318 actual body-weight measurements'}>
+      <defs><clipPath id="landscape-reveal"><rect class="landscape-reveal" x="0" y="0" width="1400" height="430" /></clipPath></defs>
+      <g class="landscape-guides"><line x1="32" y1={y(100)} x2="1368" y2={y(100)} /><line x1="32" y1={y(90)} x2="1368" y2={y(90)} /></g>
+      <g clip-path="url(#landscape-reveal)"><path class="landscape-fill" d={`${line(points)} L1368,400 L32,400 Z`} /><path class="landscape-line" d={line(points)} /><path class="landscape-summer" d={line(summer)} /></g>
+      <circle class="landscape-endpoint" cx={x(last.t)} cy={y(last.kg)} r="5" />
+      <g class="landscape-labels"><text x="32" y={y(first.kg)-22}>108 kg</text><text x="1368" y={y(last.kg)-22} text-anchor="end">{number(last.kg)} kg</text><text x={x(high.t)} y={y(high.kg)-28} text-anchor="middle" class="landscape-rebound">+{number(high.kg-low.kg)} kg · {pl ? 'wakacje' : 'summer'}</text><text x="32" y="425">01.12.2025</text><text x="1368" y="425" text-anchor="end">26.11.2026</text></g>
+    </svg>
+  </div>
+  <div class="landscape-mobile-dates" aria-hidden="true"><span>01.12.2025</span><span>26.11.2026</span></div>
+  <figcaption>{pl ? 'Każdy zakręt tej linii to mój pomiar. Także te w złą stronę.' : 'Every turn in this line is one of my measurements. Even the ones going the wrong way.'}<a href="#data">{pl ? 'Zobacz wszystkie dane' : 'Explore all the data'} <svg class="inline-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14" /></svg></a></figcaption>
+</figure>

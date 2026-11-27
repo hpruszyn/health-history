@@ -6,6 +6,7 @@ const entries = journey.stageTwo.benchPress;
 const bodyWeight = journey.summary.currentWeightKg;
 const locale = lang === "pl" ? "pl-PL" : "en-GB";
 const formatDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "short" }).format(new Date(`${date}T12:00:00`));
+const number = (n: number) => n.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
 const sessions = entries.map((entry) => {
   const estimatedOneRepMax = entry.kg * (1 + entry.reps / 30);
   return {
@@ -19,14 +20,14 @@ const sessions = entries.map((entry) => {
 <figure class="strength-chart">
   <figcaption>
     <span>{lang === "pl" ? "Wrzesień — październik 2026" : "September — October 2026"}</span>
-    <strong>{lang === "pl" ? `Wszystkie ${entries.length} sesji · szacowany 1RM względem celu ${bodyWeight.toFixed(1)} kg` : `All ${entries.length} sessions · estimated 1RM toward the ${bodyWeight.toFixed(1)} kg goal`}</strong>
+    <strong>{lang === "pl" ? `Wszystkie ${entries.length} sesji · szacowany 1RM względem celu ${number(bodyWeight)} kg` : `All ${entries.length} sessions · estimated 1RM toward the ${number(bodyWeight)} kg goal`}</strong>
   </figcaption>
   <div class="strength-bars" aria-label={lang === "pl" ? "Postęp w wyciskaniu leżąc" : "Bench press progress"}>
     {sessions.map((entry) => (
       <div class="strength-entry">
         <div class="strength-entry-label">
-          <span>{entry.kg.toFixed(1)} kg × {entry.reps}</span>
-          <small>{formatDate(entry.date)} · e1RM {entry.estimatedOneRepMax.toFixed(1)} kg</small>
+          <span>{number(entry.kg)} kg × {entry.reps}</span>
+          <small>{formatDate(entry.date)} · e1RM {number(entry.estimatedOneRepMax)} kg</small>
         </div>
         <div class="strength-track" aria-hidden="true">
           <div class="strength-bar" style={`--bar-scale:${entry.goalProgress}`}></div>

@@ -25,15 +25,17 @@ Pokazać prawdziwą, nieliniową drogę: setki wystarczająco dobrych decyzji z�
 
 ## Visual direction
 
-Editorial data journal: ciepłe tło papieru, ciemny atrament, stonowany błękit danych i czerwony akcent regresu. Duża typografia redakcyjna, rytm osi czasu, cienkie reguły, duże liczby i oszczędne motywy geometryczne.
+Dane jako krajobraz: ciemne otwarcie z rzeczywistą linią 318 pomiarów, jasna redakcyjna opowieść i koralowy akcent wakacyjnego regresu. Instrument Sans i Newsreader, duży oddech oraz pełne osie czasu także na telefonie.
 
 ## Direction contract
 
 - **THESIS:** małe decyzje, powtarzane wystarczająco długo, składają się na dużą zmianę; prawdziwa droga zawiera również regresy.
-- **OWN-WORLD:** papierowy rocznik i osobisty raport danych — ciepły papier, atrament, granat/kobalt danych, ceglasty czerwony regresów, cienkie reguły i oszczędne motywy geometryczne.
+- **OWN-WORLD:** krajobraz utworzony z prawdziwych danych — nocny granat, jasny błękit linii i koralowy regres przechodzą w jasny osobisty dziennik.
 - **STORY:** aktualny wynik i obietnica → zdrowotny kontekst i narodziny Stasia → punkt startowy i własna gra → reguły oraz codzienny feedback → pełny wykres z wakacyjnym odbiciem → małe wygrane i codzienne dowody → osiągnięcie progu BMI oraz dalsza stabilizacja → trwające metryki etapu 2 → puenta o procencie składanym, disclaimer i dyskretna kawa.
-- **FIRST VIEWPORT:** minimalna nawigacja, datowany kicker, osobisty headline, krótki kontekst oraz widoczny od razu aktualny wynik 108 → 92,5 kg; celem jest jasne zakomunikowanie historii, skali zmiany i braku marketingowego tonu.
-- **FORM:** seed key „roczny raport terenowy złożony z notatnika laboratoryjnego i magazynu literackiego” — jedna redakcyjna kolumna z marginaliami, kontrastujące plansze danych i wykresy traktowane jako dowody, nie dekoracyjne karty.
+- **FIRST VIEWPORT:** minimalna nawigacja, osobisty nagłówek, aktualny wynik −18,5 kg w 360 dni i prawdziwy krajobraz 108 → 89,5 kg z widocznym wakacyjnym odbiciem.
+- **FORM:** krajobraz danych połączony z osobistym magazynem — jednorazowe odsłonięcie linii w 2,2 sekundy, redakcyjne kolumny oraz wykresy jako dowody. Główny wykres obsługuje dotyk, mysz i klawiaturę; ograniczenie ruchu jest respektowane. Kierunek wskazany przez użytkownika; bez losowania concept-seed.
+
+- **FINISH:** unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance
 
 ## Non-goals
 

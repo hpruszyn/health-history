@@ -65,7 +65,7 @@ const copy = lang === "pl" ? {
 <figure class="composition-chart">
   <figcaption class="composition-heading">
     <div>
-      <span>{copy.eyebrow}</span>
+
       <h3>{copy.title}</h3>
       <p>{copy.desc}</p>
     </div>
@@ -74,7 +74,7 @@ const copy = lang === "pl" ? {
       <div><span>{copy.waist}</span><strong>{copy.waistChange}</strong></div>
     </div>
   </figcaption>
-  <div class="composition-stage" tabindex="0" aria-label={copy.scroll}>
+  <div class="composition-stage">
     <svg viewBox={`0 0 ${width} 475`} role="img" aria-labelledby="composition-title composition-desc">
       <title id="composition-title">{copy.title}</title>
       <desc id="composition-desc">{copy.desc}</desc>
@@ -103,3 +103,8 @@ const copy = lang === "pl" ? {
   </div>
   <p class="composition-note">{copy.note}</p>
 </figure>
+
+<script>
+  import { responsiveChart } from "../lib/responsive-chart";
+  document.querySelectorAll<SVGSVGElement>(".composition-stage svg").forEach(svg => responsiveChart(svg, 94, 962, 70));
+</script>

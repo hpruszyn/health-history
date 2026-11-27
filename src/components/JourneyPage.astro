@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import HeroLandscape from "./HeroLandscape.astro";
 import WeightChart from "./WeightChart.astro";
 import StrengthChart from "./StrengthChart.astro";
 import BodyCompositionChart from "./BodyCompositionChart.astro";
@@ -43,7 +44,7 @@ const rules = isPL ? [
   ["04", "Patrzenie na skład", "Częściej czytam etykiety: mniej cukru, mniej przetworzenia, prostszy skład i lokalne produkty, kiedy mam wybór."],
   ["05", "Wieczorem nie jem", "U mnie najwięcej niepotrzebnego jedzenia pojawiało się wieczorem. Zakończenie jedzenia około 17–18 okazało się najskuteczniejszą regułą — nie magiczną godziną dla każdego."]
 ] : [
-  ["01", "Less sugar", "Chocolate used to be normal every other day. I still eat it — just closer to once a week."],
+  ["01", "Less sugar", "Chocolate used to be normal every other day. I still eat it — just closer to once a week. I also choose water more often instead of juices and drinks in plastic bottles."],
   ["02", "Smaller portions", "I didn’t completely change what I eat. Often I simply eat less: one sandwich instead of two, half a pizza instead of a whole one."],
   ["03", "More vegetables", "Vegetables became a regular part of breakfast too. Since 2026, some of them have come from my own greenhouse."],
   ["04", "Reading the label", "I check ingredients more often: less sugar, less processing, simpler recipes and local products when I have the choice."],
@@ -79,20 +80,17 @@ const checkpoints = [
   <main id="main">
     <section class="hero" id="top">
       <div class="hero-story">
-        <div class="hero-index" aria-hidden="true">01 — 12 — 2025</div>
         <div class="hero-copy">
           <h1>{isPL ? <>Nie zrobiłem diety. Zmieniłem <em>kilkanaście małych rzeczy.</em></> : <>I didn’t go on a diet. I changed <em>a handful of small things.</em></>}</h1>
         </div>
       </div>
-      <aside class="hero-result" aria-label={isPL ? `Aktualny wynik: 108 kilogramów do ${currentWeight} kilograma w ${durationDays} dni` : `Current result: 108 kilograms to ${currentWeight} kilograms in ${durationDays} days`}>
-        <div class="hero-result-route">
-          <div><span>{isPL ? "start" : "start"}</span><strong>108<small>kg</small></strong></div>
-          <span class="hero-result-arrow" aria-hidden="true">→</span>
-          <div><span>{isPL ? "teraz" : "now"}</span><strong>{currentWeight}<small>kg</small></strong></div>
-        </div>
-        <div class="hero-result-details"><span>−{currentChange} {isPL ? "kilograma" : "kilograms"}</span><span>{durationDays} {isPL ? "dni" : "days"}</span></div>
-        <p>{isPL ? `Stan na ${snapshotDate}. Walka nadal trwa.` : `Snapshot as of ${snapshotDate}. The work continues.`}</p>
-      </aside>
+      <HeroLandscape lang={lang} />
+      <a class="scroll-cue" href="#story">
+        <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13m-5-5 5 5 5-5" /></svg>
+      </a>
+    </section>
+
       <div class="hero-deck">
         <div class="hero-intro">
           {isPL ? (
@@ -116,14 +114,9 @@ const checkpoints = [
         </div>
       <p class="hero-closing">{isPL ? "26 września po raz pierwszy zobaczyłem BMI w normie. To historia tego, co zadziałało u mnie — i dlaczego przekroczenie progu nie kończy pracy." : "On September 26th, I saw a normal-range BMI for the first time. This is the story of what worked for me — and why crossing a threshold does not end the work."}</p>
       </div>
-      <a class="scroll-cue" href="#story">
-        <span>{isPL ? "Czytaj dalej" : "Keep reading"}</span>
-        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v13m-5-5 5 5 5-5" /></svg>
-      </a>
-    </section>
+
 
     <section class="chapter chapter--history" id="story">
-      <div class="chapter-number">01</div>
       <div class="chapter-title">
         <h2>{isPL ? "Zanim zacząłem" : "Before I started"}</h2>
         <p>{isPL ? "Pamięć dawnej formy nie pomagała. Była miarą wszystkiego, czego już nie potrafiłem." : "The memory of my old fitness didn’t help. It measured everything I could no longer do."}</p>
@@ -220,9 +213,9 @@ const checkpoints = [
         <p>{isPL ? "Nie uniwersalna dieta. Pięć prostych ograniczeń, które pasowały do mojego życia." : "Not a universal diet. Five simple constraints that happened to fit my life."}</p>
       </div>
       <div class="rule-list">
-        {rules.map(([number, title, body]) => (
+        {rules.map(([, title, body]) => (
           <article class="rule-item">
-            <span>{number}</span>
+
             <h3>{title}</h3>
             <p>{body}</p>
           </article>
@@ -262,7 +255,7 @@ const checkpoints = [
     </section>
 
     <section class="summer-section">
-      <div class="summer-stat"><strong>+4.2</strong><span>kg</span></div>
+      <div class="summer-stat"><strong>{isPL ? "+4,2" : "+4.2"}</strong><span>kg</span></div>
       <div class="summer-copy">
         <h2>{isPL ? "I nic się nie stało." : "And nothing terrible happened."}</h2>
         {isPL ? (
@@ -325,7 +318,6 @@ const checkpoints = [
     </section>
 
     <section class="stage-one-result">
-      <div class="result-label">{isPL ? "Etap 1" : "Stage 1"}</div>
       <h2>{isPL ? "Próg osiągnięty. Praca trwa." : "Threshold reached. Work ongoing."}</h2>
       <div class="result-grid">
         <div><span>{isPL ? "Start" : "Start"}</span><strong>108 kg</strong></div>
@@ -344,10 +336,6 @@ const checkpoints = [
     </section>
 
     <section class="stage-two" id="stage-two">
-      <div class="chapter-number chapter-number--stage-two">
-        <span>02</span>
-        <strong>{isPL ? "Etap drugi · plan" : "Stage two · plan"}</strong>
-      </div>
       <div class="stage-two-intro">
         <h2>{isPL ? <>Mniej tłuszczu.<br/><em>Więcej siły.</em></> : <>Less fat.<br/><em>More strength.</em></>}</h2>
         <div class="prose">
@@ -364,9 +352,9 @@ const checkpoints = [
       </div>
       <BodyCompositionChart lang={lang} />
       <div class="new-goals">
-        <article><span>01</span><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
-        <article><span>02</span><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
-        <article><span>03</span><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
+        <article><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do wartości prawidłowej według reguł używanych w aplikacji. Próg zostanie pobrany z jej logiki, nie wpisany arbitralnie." : "Reach the normal value according to the rules used in the app. The threshold will come from its logic, not an arbitrary number."}</p></article>
+        <article><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
+        <article><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
       </div>
       <div class="training-approach">
         <div>
@@ -410,7 +398,6 @@ const checkpoints = [
     </section>
 
     <section class="disclaimer">
-      <span>i</span>
       <div>
         <h2>{isPL ? "Ważny kontekst" : "Important context"}</h2>
         <p>{isPL ? "To jest opis mojego własnego doświadczenia, a nie plan odchudzania ani porada medyczna. Mam własną historię zdrowotną, charakter, motywacje i sposób reagowania na różne reguły. To, co działało u mnie, nie musi działać u Ciebie." : "This is a description of my own experience, not a weight-loss programme or medical advice. I have my own medical history, personality, motivations and way of responding to different rules. What worked for me may not work for you."}</p>
@@ -453,20 +440,6 @@ const checkpoints = [
     updatePageState();
     window.addEventListener("scroll", updatePageState, { passive: true });
     window.addEventListener("resize", updatePageState, { passive: true });
-
-    const revealTargets = document.querySelectorAll(".hero-result, .start-marker, .game-score, .feedback-number, .chart-shell, .summer-stat, .result-grid, .stage-two-snapshot, .composition-chart, .strength-chart");
-    const reveal = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          reveal.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.08, rootMargin: "0px 0px -8%" });
-    revealTargets.forEach((target) => {
-      target.setAttribute("data-reveal", "");
-      reveal.observe(target);
-    });
 
     const navLinks = [...document.querySelectorAll("[data-nav-section]")];
     const sections = navLinks

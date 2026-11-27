@@ -32,14 +32,13 @@ const maxW = Math.ceil(Math.max(...data.map(point => point.kg))) + 1;
 const x = (t: number) => 68 + (t - data[0].t) / (data.at(-1)!.t - data[0].t) * 898;
 const y = (kg: number) => 32 + (maxW - kg) / (maxW - minW) * 420;
 const path = (items: typeof data, key: 'kg' | 'trend') => items.map((point, index) => `${index ? 'L' : 'M'}${x(point.t).toFixed(2)},${y(point[key]).toFixed(2)}`).join(' ');
-const ticks = Array.from({ length: Math.floor((maxW-minW)/5)+1 }, (_, i) => minW+i*5);
-if (ticks.at(-1) !== maxW) ticks.push(maxW);
+const ticks = [90, 95, 100, 105];
 const goalWeight = 25 * (journey.person.heightCm / 100) ** 2;
 const low = data.find(point => point.kind === 'summer-low')!;
 const high = data.find(point => point.kind === 'summer-high')!;
 const rebound = data.filter(point => point.t >= low.t && point.t <= high.t);
 const number = (value: number) => value.toLocaleString(locale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01','2026-10-01'].map(date => data.reduce((best, point) => Math.abs(point.t-Date.parse(date)) < Math.abs(best.t-Date.parse(date)) ? point : best)), data.at(-1)!];
+const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01','2026-10-01'].map(date => ({t: Date.parse(`${date}T12:00:00Z`)})), data.at(-1)!];
 
 ---
 
@@ -52,7 +51,7 @@ const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01',
       <span><i class="key-line key-line--rebound"></i>{lang === "pl" ? "regres" : "rebound"}</span>
     </div>
   </figcaption>
-  <div class="chart-stage">
+  <div class="chart-scroll"><div class="chart-stage">
     <svg viewBox="0 0 1000 520" role="application" tabindex="0" aria-label={labels.explore}>
       <title>{labels.title}</title><desc>{labels.desc}</desc>
       <g class="chart-grid">{ticks.map(value => <line x1="68" x2="966" y1={y(value)} y2={y(value)} />)}</g>
@@ -62,18 +61,20 @@ const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01',
       <g class="chart-cursor" aria-hidden="true" visibility="hidden"></g>
       <g class="chart-axis">
         {ticks.map(value => <text x="50" y={y(value)+5} text-anchor="end">{value}</text>)}
-        <text x={(x(low.t)+x(high.t))/2} y={y(high.kg)-25} text-anchor="middle" class="rebound-label">+{number(high.kg-low.kg)} kg · {labels.summer}</text>
-        {['start','milestone-105','milestone-100','milestone-95','current'].map((kind, index) => { const point = data.find(item => item.kind === kind); return point && <text x={x(point.t)} y={y(point.kg)+(index%2 ? 30 : -18)} text-anchor={index === 0 ? 'start' : index === 4 ? 'end' : 'middle'} class="point-label">{number(point.kg)} kg</text>; })}
-        {dates.map((point,index) => <text x={x(point.t)} y="505" text-anchor={index === 0 ? 'start' : index === dates.length-1 ? 'end' : 'middle'} class="date-label">{new Intl.DateTimeFormat(locale, {month:'short', year:'2-digit'}).format(new Date(point.t))}</text>)}
+        <text x={(x(low.t)+x(high.t))/2} y={y(high.kg)-25} text-anchor="middle" class="rebound-label">+{number(high.kg-low.kg)} kg · <tspan class="rebound-detail">{labels.summer}</tspan></text>
+        {['start','milestone-105','milestone-100','milestone-95','current'].map((kind, index) => { const point = data.find(item => item.kind === kind); return point && <text x={x(point.t)} y={y(point.kg)+(index%2 ? 30 : -18)} text-anchor={index === 0 ? 'start' : index === 4 ? 'end' : 'middle'} class={`point-label point-label--${kind}`}>{number(point.kg)} kg</text>; })}
+        {dates.map((point,index) => <text x={x(point.t)} y="505" text-anchor={index === 0 ? 'start' : index === dates.length-1 ? 'end' : 'middle'} class={`date-label date-label--${index}`}>{new Intl.DateTimeFormat(locale, {month:'short', year:'2-digit'}).format(new Date(point.t))}</text>)}
       </g>
     </svg>
     <div class="chart-tooltip" role="status" aria-live="polite"></div>
+  </div>
   </div>
   <p class="chart-note">{labels.note}</p>
   <script type="application/json" class="chart-data" set:html={JSON.stringify({ points, labels })}></script>
 </figure>
 
 <script>
+  import { responsiveChart } from "../lib/responsive-chart";
   const NS = "http://www.w3.org/2000/svg";
   const DAY = 86_400_000;
   type WeightPoint = { date: string; kg: number; kind: string; t: number; trend: number };
@@ -98,14 +99,14 @@ const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01',
     if (!data.length) return;
     const { labels } = raw;
     const heightCm = Number(root.dataset.height);
+    const geometry = responsiveChart(svg, 68, 966, 44);
     const margin = { top: 32, right: 34, bottom: 68, left: 68 };
-    const width = 1000 - margin.left - margin.right;
     const height = 520 - margin.top - margin.bottom;
     const minT = data[0].t;
     const maxT = data.at(-1)!.t;
     const minW = Math.floor(Math.min(...data.map(({ kg }) => kg))) - 1;
     const maxW = Math.ceil(Math.max(...data.map(({ kg }) => kg))) + 1;
-    const x = (t: number) => margin.left + ((t - minT) / (maxT - minT)) * width;
+    const x = (t: number) => geometry().left + ((t - minT) / (maxT - minT)) * (geometry().right - geometry().left);
     const y = (weight: number) => margin.top + ((maxW - weight) / (maxW - minW)) * height;
     const cursor = svg.querySelector<SVGGElement>(".chart-cursor");
     if (!cursor) return;
@@ -124,14 +125,17 @@ const dates = [data[0], ...['2026-02-01','2026-04-01','2026-06-01','2026-08-01',
       const bmi = point.kg / Math.pow(heightCm / 100, 2);
       cursor.setAttribute("visibility", "visible");
       tooltip.innerHTML = `<strong>${formatDate(point)}</strong><span>${labels.weight}: ${number(point.kg)} kg</span><span>${labels.bmi}: ${number(bmi)}</span>`;
-      tooltip.style.left = `${Math.min(84, Math.max(16, (px / 1000) * 100))}%`;
+      const boxWidth = svg.getBoundingClientRect().width;
+      const half = tooltip.offsetWidth / 2 + 6;
+      tooltip.style.left = `${Math.min(boxWidth - half, Math.max(half, px / geometry().width * boxWidth))}px`;
       tooltip.style.top = `${Math.max(10, (py / 520) * 100 - 2)}%`;
       tooltip.classList.add("is-visible");
     };
     const indexFromClientX = (clientX: number) => {
-      const box = svg.getBoundingClientRect(); const svgX = ((clientX - box.left) / box.width) * 1000;
+      const box = svg.getBoundingClientRect(); const svgX = ((clientX - box.left) / box.width) * geometry().width;
       return data.reduce((best, point, index) => Math.abs(x(point.t) - svgX) < Math.abs(x(data[best].t) - svgX) ? index : best, 0);
     };
+    svg.addEventListener("chartresize", () => { if (tooltip.classList.contains("is-visible")) showPoint(activeIndex); });
     svg.addEventListener("pointermove", (event) => showPoint(indexFromClientX(event.clientX)));
     svg.addEventListener("pointerdown", (event) => showPoint(indexFromClientX(event.clientX)));
     svg.addEventListener("focus", () => showPoint(activeIndex));

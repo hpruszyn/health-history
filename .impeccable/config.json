@@ -4,5 +4,5 @@
   "buildPath": "code-first",
   "deployment": "github-pages",
   "languages": ["pl", "en"],
-  "visualDirection": "editorial-data-journal"
+  "visualDirection": "data-as-landscape"
 }
