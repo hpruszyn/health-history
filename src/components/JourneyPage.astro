@@ -41,11 +41,16 @@ const rules = isPL ? [
   ["05", "No evening eating", "Most of my unnecessary eating happened at night. Finishing around 5–6 p.m. became my most effective rule — not a magic hour for everyone."]
 ];
 
+const firstBelow90 = [...journey.weights]
+  .sort((a, b) => a.date.localeCompare(b.date))
+  .find(({ kg }) => kg < 90);
+
 const checkpoints = [
   ["105", isPL ? "Pierwszy mały próg" : "The first small threshold", "16.12.2025"],
   ["100", isPL ? "Pierwsze zejście poniżej" : "The first time below", "29.01.2026"],
   ["95", isPL ? "Kolejna granica" : "The next boundary", "09.05.2026"],
-  ["BMI", isPL ? "Pierwszy pomiar w normie" : "First reading in range", "26.09.2026"]
+  ["BMI", isPL ? "Pierwszy pomiar w normie" : "First reading in range", "26.09.2026"],
+  ...(firstBelow90 ? [["90", isPL ? "Pierwszy pomiar poniżej" : "First reading below", firstBelow90.date.split("-").reverse().join(".")]] : [])
 ];
 ---
 
