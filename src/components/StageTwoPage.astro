@@ -17,6 +17,9 @@ const metric = (value: number) => value.toLocaleString(locale, { minimumFraction
 const currentWeight = metric(journey.summary.currentWeightKg);
 const currentWaist = metric(journey.stageTwo.waistCm);
 const currentBodyFat = metric(journey.stageTwo.bodyFatPct);
+const goalRules = journey.stageTwo.goalRules;
+const waistThreshold = journey.person.heightCm * goalRules.waistToHeight.targetRatioExclusive;
+const bodyFatRange = `${goalRules.bodyFat.minPctInclusive}–${goalRules.bodyFat.maxPctInclusive}%`;
 const currentBench = metric(journey.stageTwo.latestBenchPress.loadKg);
 const formatLongDate = (date: string) => new Intl.DateTimeFormat(locale, { day: "numeric", month: "long", year: "numeric" }).format(new Date(`${date}T12:00:00`));
 const snapshotDate = formatLongDate(journey.summary.currentDate);
@@ -56,10 +59,11 @@ const description = isPL ? "Kolejny rok mojej drogi do formy: od 1 grudnia 2026 
       <div id="data"><BodyCompositionChart lang={lang} /></div>
       <div class="goals-heading" id="goals"><span class="eyebrow">{isPL ? "Kierunek na drugi rok" : "The direction for year two"}</span><h2>{isPL ? "Trzy cele. Cały rok pracy." : "Three goals. A year of work."}</h2></div>
       <div class="new-goals">
-        <article><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu według zasad, których używam do śledzenia pomiarów." : "Reach the normal range according to the rules I use to track my measurements."}</p></article>
-        <article><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? "Zejść do prawidłowego zakresu dla wieku i płci według przyjętych reguł." : "Reach the normal range for age and sex according to the adopted rules."}</p></article>
+        <article><h3>{isPL ? "Pas" : "Waist"}</h3><p>{isPL ? `Poniżej ${waistThreshold} cm. W aplikacji próg to obwód pasa mniejszy niż połowa mojego wzrostu: 192 cm.` : `Below ${waistThreshold} cm. The app’s threshold is a waist measurement below half my height: 192 cm.`}</p></article>
+        <article><h3>{isPL ? "Tkanka tłuszczowa" : "Body fat"}</h3><p>{isPL ? `Zakres ${bodyFatRange} według reguł aplikacji dla mężczyzn w mojej obecnej grupie wieku: ${goalRules.bodyFat.ageBand.join("–")} lat.` : `A range of ${bodyFatRange} under the app’s rules for men in my current age group: ${goalRules.bodyFat.ageBand.join("–")}.`}</p></article>
         <article><h3>{isPL ? "Siła" : "Strength"}</h3><p>{isPL ? "Wycisnąć leżąc własną masę ciała: jedno powtórzenie, jeden uczciwy 1RM." : "Bench press my own body weight: one repetition, one honest 1RM."}</p></article>
       </div>
+      <p class="snapshot-note goal-rules-note">{isPL ? `Progi według reguł aplikacji i mojego profilu z ${formatLongDate(goalRules.profileAsOf)}. Zakres tłuszczu zależy od wieku — sprawdzę go ponownie na starcie etapu. To moje cele w tym projekcie.` : `Thresholds follow the app’s rules and my profile as of ${formatLongDate(goalRules.profileAsOf)}. The body-fat range depends on age — I’ll check it again at the start of this stage. These are my goals for this project.`}</p>
       <div class="training-approach">
         <div>
           <h2>{isPL ? "Jedno ćwiczenie na początek" : "One exercise to begin"}</h2>

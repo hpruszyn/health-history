@@ -55,3 +55,5 @@ Dane jako krajobraz: ciemne otwarcie z rzeczywistą linią 318 pomiarów, jasna 
 ## Aktualizowanie raportu
 
 Publiczna strona nie pobiera danych na żywo. Przy większej aktualizacji wybrane pomiary są eksportowane z prywatnego Supabase do pliku JSON, a narracja otrzymuje nową datę odniesienia. Dzięki temu każdy opublikowany stan jest trwały, ale historia może uczciwie rozwijać się dalej.
+
+Stage-two goal provenance: the public snapshot records the application rule source (`lib/healthy-ranges.ts`, commit `d14ae3da770c38a9fbcf50abdd4af9972c2187f5`) and profile reference date November 26, 2026. Waist is strictly below half of 192cm (96cm); the current male 20–39 age band gives 8–20% body fat. The age-dependent range must be rechecked when stage two starts. Earlier composition readings are explicitly labelled as pre-stage-two baseline in both languages, including the SVG description.

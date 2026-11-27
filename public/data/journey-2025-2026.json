@@ -1474,6 +1474,17 @@
     { "date": "2026-11-26", "kg": 89.5, "kind": "current" }
   ],
   "stageTwo": {
+    "goalRules": {
+      "profileAsOf": "2026-11-26",
+      "checkedAt": "2026-11-27",
+      "source": {
+        "application": "Bitwa o wagę",
+        "file": "lib/healthy-ranges.ts",
+        "commit": "d14ae3da770c38a9fbcf50abdd4af9972c2187f5"
+      },
+      "waistToHeight": { "targetRatioExclusive": 0.5, "maximumApplicableBmiExclusive": 35 },
+      "bodyFat": { "sex": "male", "ageBand": [20, 39], "minPctInclusive": 8, "maxPctInclusive": 20 }
+    },
     "date": "2026-11-26",
     "weightKg": 89.5,
     "waistCm": 97,

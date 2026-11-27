@@ -56,6 +56,7 @@
 .baseline-heading p{max-width:720px;color:var(--muted)}
 .stage-two-page .stage-two-snapshot{margin-top:48px}
 .goals-heading{margin-top:100px}
+.goal-rules-note{margin-bottom:60px}
 .report-period{color:var(--muted);font-size:14px;font-variant-numeric:tabular-nums}
 .next-stage-preview,.previous-stage{width:var(--page);margin:0 auto;padding:70px 0;border-top:1px solid var(--line)}
 .next-stage-preview h2{max-width:780px;margin:20px 0}

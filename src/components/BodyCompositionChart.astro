@@ -40,9 +40,9 @@ const ticks = axisTicks(start, end, 4).map((timestamp, index, entries) => ({
   anchor: index === 0 ? "start" : index === entries.length - 1 ? "end" : "middle",
 }));
 const copy = lang === "pl" ? {
-  eyebrow: "Etap 2 · każdy zapis",
+  eyebrow: "Punkt odniesienia przed etapem 2 · 2026",
   title: "Skład ciała, pomiar po pomiarze",
-  desc: "Wszystkie zapisane pomiary na rzeczywistej osi czasu. Bez dopisywania brakujących dni i bez wygładzania wahań.",
+  desc: "Pomiary od września do listopada 2026, zebrane jeszcze w etapie 1. To punkt odniesienia przed 1 grudnia, nie wyniki drugiego etapu. Każdy zapis ma swoją rzeczywistą datę.",
   fat: "Tkanka tłuszczowa",
   waist: "Obwód pasa",
   fatChange: `${formatDecimal(bodyFat[0].pct)} → ${formatDecimal(bodyFat.at(-1)!.pct)}%`,
@@ -50,9 +50,9 @@ const copy = lang === "pl" ? {
   scroll: "Przewijany wykres składu ciała. Użyj strzałek lub gestu przesunięcia, aby zobaczyć całą oś czasu.",
   note: `${bodyFat.length} zapisów tłuszczu i ${waist.length} pomiarów pasa. Pomiary nie zawsze wypadały tego samego dnia; przerwy na osi są prawdziwe.`,
 } : {
-  eyebrow: "Stage 2 · every entry",
+  eyebrow: "Pre-stage-two baseline · 2026",
   title: "Body composition, reading by reading",
-  desc: "Every recorded measurement on its true date. Missing days are not invented and short-term fluctuations remain visible.",
+  desc: "Readings from September to November 2026, collected during stage one. A reference before December 1st, not stage-two results. Every entry appears on its actual date.",
   fat: "Body fat",
   waist: "Waist",
   fatChange: `${formatDecimal(bodyFat[0].pct)} → ${formatDecimal(bodyFat.at(-1)!.pct)}%`,
@@ -65,7 +65,7 @@ const copy = lang === "pl" ? {
 <figure class="composition-chart">
   <figcaption class="composition-heading">
     <div>
-
+      <span class="eyebrow">{copy.eyebrow}</span>
       <h3>{copy.title}</h3>
       <p>{copy.desc}</p>
     </div>
